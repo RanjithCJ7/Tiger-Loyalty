@@ -1,0 +1,12 @@
+com.example.tiger_loyalty.app-jetified-window-1.0.0-beta04-0 C:\Users\Dell\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
+com.example.tiger_loyalty.app-jetified-annotation-experimental-1.1.0-1 C:\Users\Dell\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.tiger_loyalty.app-core-1.6.0-2 C:\Users\Dell\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
+com.example.tiger_loyalty.app-jetified-window-java-1.0.0-beta04-3 C:\Users\Dell\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.tiger_loyalty.app-debug-4 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\android\app\src\debug\res
+com.example.tiger_loyalty.app-main-5 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\android\app\src\main\res
+com.example.tiger_loyalty.app-pngs-6 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\generated\res\pngs\debug
+com.example.tiger_loyalty.app-resValues-7 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\generated\res\resValues\debug
+com.example.tiger_loyalty.app-rs-8 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\generated\res\rs\debug
+com.example.tiger_loyalty.app-mergeDebugResources-9 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.tiger_loyalty.app-mergeDebugResources-10 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.tiger_loyalty.app-merged_res-11 C:\Users\Dell\Desktop\RanjithCJ\Main_TL_Merchant_31Oct_2023\build\app\intermediates\merged_res\debug
