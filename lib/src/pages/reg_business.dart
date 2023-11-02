@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:tiger_loyalty/src/pages/authentication.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'styles.dart';
@@ -15,11 +16,39 @@ class RegisterBusiness extends StatefulWidget {
 class _RegisterBusinessState extends State<RegisterBusiness> {
   List<String> businessCategories = [
     '',
-    'Restaurant 1',
-    'Restaurant 2',
+    'Bakery',
+    'Bar',
+    'Beauty',
+    'Bookstore',
+    'Butcheries',
+    'Coffee Shops',
+    'Cosmetics',
+    'Decor',
+    'Electronics',
+    'Fashion',
+    'Fast Food',
+    'Florists',
+    'Groceries',
+    'Gym',
+    'Hotel',
+    'Laundry',
+    'Liquor Stores',
+    'Pets',
+    'Pharmacies',
+    'Resort',
+    'Restaurant',
+    'Saloon',
+    'Shopping',
+    'Spa',
+    'Supermarkets',
+    'Travel',
+    'Yoga'
   ];
 
   String selectedCategory = '';
+
+  final TextEditingController _tinNumberController = TextEditingController();
+  final _tinFormatter = CustomTextInputFormatter();
 
   // TextEditingController businessNameController = TextEditingController();
   // TextEditingController tinNumberController = TextEditingController();
@@ -97,6 +126,12 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
   // }
 
   @override
+  void dispose() {
+    _tinNumberController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -144,9 +179,13 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: TextField(
+                        controller: _tinNumberController,
                         keyboardType: TextInputType.number,
-                        // controller: _tinNumberController,
-                        // inputFormatters: [_tinFormatter],
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(9),
+                          _tinFormatter,
+                        ],
                         decoration: InputDecoration(
                           hintText: 'TIN number',
                           hintStyle: TextStyle(color: Color(0xFF808080)),
@@ -194,8 +233,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                   value: selectedCategory,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      selectedCategory =
-                                          newValue ?? '';
+                                      selectedCategory = newValue ?? '';
                                       // businessCategoryController.text =
                                       //     newValue ?? '';
                                     });
@@ -322,6 +360,31 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+
+    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
+
+    final StringBuffer newText = StringBuffer();
+    for (int i = 0; i < text.length; i++) {
+      if (i > 0 && i % 3 == 0) {
+        newText.write('-');
+      }
+      newText.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: newText.toString(),
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

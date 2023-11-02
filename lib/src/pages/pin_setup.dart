@@ -1,10 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:tiger_loyalty/src/pages/create_account.dart';
 import 'styles.dart';
 
 class PinSetup extends StatelessWidget {
+  final _oldPinFormatter = CustomTextInputFormatter();
+  final _newPinFormatter = CustomTextInputFormatter();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +63,15 @@ class PinSetup extends StatelessWidget {
                                       Expanded(
                                         child: TextField(
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(4),
+                                            _oldPinFormatter,
+                                          ],
+                                          obscureText: true,
                                           decoration: InputDecoration(
-                                            hintText: '****',
+                                            hintText: '* * * *',
                                             hintStyle: TextStyle(
                                                 color: Color(0xFF808080)),
                                             border: InputBorder.none,
@@ -97,8 +108,15 @@ class PinSetup extends StatelessWidget {
                                       Expanded(
                                         child: TextField(
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(4),
+                                            _newPinFormatter,
+                                          ],
+                                          obscureText: true,
                                           decoration: InputDecoration(
-                                            hintText: '****',
+                                            hintText: '* * * *',
                                             hintStyle: TextStyle(
                                                 color: Color(0xFF808080)),
                                             border: InputBorder.none,
@@ -148,6 +166,31 @@ class PinSetup extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+
+    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
+
+    final StringBuffer newText = StringBuffer();
+    for (int i = 0; i < text.length; i++) {
+      if (i > 0 && i % 3 == 0) {
+        newText.write('-');
+      }
+      newText.write(text[i]);
+    }
+
+    return TextEditingValue(
+      text: newText.toString(),
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

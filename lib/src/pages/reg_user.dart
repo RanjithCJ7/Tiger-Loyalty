@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tiger_loyalty/src/pages/reg_business.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'styles.dart';
@@ -228,6 +229,10 @@ class _RegisterUserState extends State<RegisterUser> {
                     ),
                     child: TextField(
                       // controller: phoneNumberController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         hintText: 'Phone number',
                         hintStyle: TextStyle(color: Color(0xFF808080)),

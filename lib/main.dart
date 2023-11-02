@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiger_loyalty/src/pages/choose_photo.dart';
 import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
+import 'package:tiger_loyalty/src/pages/create_reward.dart';
 import 'package:tiger_loyalty/src/pages/customers.dart';
 import 'package:tiger_loyalty/src/pages/customers_summary.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';

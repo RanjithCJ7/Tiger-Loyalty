@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tiger_loyalty/src/pages/reg_user.dart';
 import 'styles.dart';
 
@@ -285,6 +286,10 @@ class _SignInState extends State<SignIn> {
                                 Expanded(
                                   child: TextField(
                                     controller: passwordController,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       hintText: 'PIN',
@@ -301,7 +306,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // login(nameController.text, passwordController.text);
+                            // login(emailController.text, passwordController.text);
                           },
                           style: btnGold,
                           child: Padding(
