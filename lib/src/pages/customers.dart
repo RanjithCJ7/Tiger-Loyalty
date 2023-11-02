@@ -27,7 +27,7 @@ class PointsData {
 
 class _CustomersState extends State<Customers> {
   String selectedToday = 'Date';
-  List<String> selectDay = ['Date', '', ''];
+  List<String> selectDay = ['Date', 'Date1', 'Date2'];
 
   List<PointsData> pointsData = [
     PointsData(points: '4,000', name: 'Juma hamza', image: 'assets/cust_1.png'),
@@ -99,77 +99,164 @@ class _CustomersState extends State<Customers> {
                       Container(
                         padding: EdgeInsets.all(15.0),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30.0),
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text('Summary', style: imgLabel),
-                                  Spacer(),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                    height: 20,
-                                    child: DropdownButton<String>(
-                                      value: selectedToday,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          selectedToday = newValue ?? '';
-                                        });
-                                      },
-                                      items: selectDay.map((today) {
-                                        return DropdownMenuItem<String>(
-                                          value: today,
-                                          child: Text(today, style: dateText),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 15.0),
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('219', style: imgNum),
-                                      SizedBox(height: 5.0),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Customers_Summary(),
+                              // Row(
+                              //   children: [
+                              //     Text('Summary', style: imgLabel),
+                              //     Spacer(),
+                              //     Container(
+                              //       decoration: BoxDecoration(
+                              //         border: Border.all(
+                              //           color: Colors.white,
+                              //           width: 1.0,
+                              //         ),
+                              //         borderRadius: BorderRadius.circular(25.0),
+                              //       ),
+                              //       height: 20,
+                              //       child: DropdownButton<String>(
+                              //         value: selectedToday,
+                              //         onChanged: (newValue) {
+                              //           setState(() {
+                              //             selectedToday = newValue ?? '';
+                              //           });
+                              //         },
+                              //         items: selectDay.map((today) {
+                              //           return DropdownMenuItem<String>(
+                              //             value: today,
+                              //             child: Text(today, style: dateText),
+                              //           );
+                              //         }).toList(),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 15.0),
+                              // Row(
+                              //   children: [
+                              //     Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.start,
+                              //       children: [
+                              //         Text('219', style: imgNum),
+                              //         SizedBox(height: 5.0),
+                              //         TextButton(
+                              //           onPressed: () {
+                              //             Navigator.of(context).push(
+                              //               MaterialPageRoute(
+                              //                 builder: (context) =>
+                              //                     Customers_Summary(),
+                              //               ),
+                              //             );
+                              //           },
+                              //           child:
+                              //               Text('Customers', style: imgDesc),
+                              //         )
+                              //       ],
+                              //     ),
+                              //     Spacer(),
+                              //     Image.asset('assets/line.png'),
+                              //     Spacer(),
+                              //     Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.start,
+                              //       children: [
+                              //         Text('3,478,300', style: imgNum),
+                              //         SizedBox(height: 5.0),
+                              //         Text('Total issued points',
+                              //             style: imgDescDark)
+                              //       ],
+                              //     ),
+                              //   ],
+                              // ),
+                              Container(
+                                padding: EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text('Summary', style: imgLabel),
+                                        Spacer(),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 1.0,
                                             ),
-                                          );
-                                        },
-                                        child:
-                                            Text('Customers', style: imgDesc),
-                                      )
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Image.asset('assets/line.png'),
-                                  Spacer(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('3,478,300', style: imgNum),
-                                      SizedBox(height: 5.0),
-                                      Text('Total issued points',
-                                          style: imgDescDark)
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                            borderRadius:
+                                                BorderRadius.circular(25.0),
+                                          ),
+                                          height: 20,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              value: selectedToday,
+                                              iconSize: 18,
+                                              dropdownColor: Color(0XFFCFAF4E),
+                                              icon: const Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.white,
+                                              ),
+                                              onChanged: (newValue) {
+                                                setState(() {
+                                                  selectedToday = newValue!;
+                                                });
+                                              },
+                                              items: selectDay.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child:
+                                                      Text(e, style: dateText),
+                                                );
+                                              }).toList(),
+                                              // selectedItemBuilder:
+                                              //     (BuildContext context) {
+                                              //   return <DropdownMenuItem<
+                                              //       String>>[
+                                              //     DropdownMenuItem<String>(
+                                              //       value: selectedToday,
+                                              //       child: Text(selectedToday,
+                                              //           style: dateText),
+                                              //     ),
+                                              //   ];
+                                              // },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 15.0),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('219', style: imgNum),
+                                            SizedBox(height: 5.0),
+                                            Text('Customers', style: imgDesc)
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Image.asset('assets/line.png'),
+                                        Spacer(),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text('3,478,300', style: imgNum),
+                                            SizedBox(height: 5.0),
+                                            Text('Total issued points',
+                                                style: imgDescDark)
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -205,32 +292,51 @@ class _CustomersState extends State<Customers> {
                     padding: EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 5, bottom: 5.0),
-                          child: Image.asset('assets/search.png'),
-                        ),
-                        Container(
+                        Image.asset('assets/search.png'),
+                        const SizedBox(width: 10),
+                        SizedBox(
                           width: 95,
                           height: 24,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFD9D9D9),
-                          ),
                           child: TextField(
                             decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 11),
                               hintText: 'Search customer',
                               border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                             ),
                             style: dialogTextSm,
                           ),
-                        ),
+                        )
+                        // Padding(
+                        //   padding: EdgeInsets.only(right: 5, bottom: 5.0),
+                        //   child: Image.asset('assets/search.png'),
+                        // ),
+                        // Container(
+                        //   width: 95,
+                        //   height: 24,
+                        //   decoration: BoxDecoration(
+                        //     color: Color(0xFFD9D9D9),
+                        //   ),
+                        //   child: TextField(
+                        //     decoration: InputDecoration(
+                        //       hintText: 'Search customer',
+                        //       border: InputBorder.none,
+                        //     ),
+                        //     style: dialogTextSm,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 10.0),
+                // SizedBox(height: 10.0),
                 Container(
                   child: SingleChildScrollView(
                     child: DataTable(
+                      dataRowMinHeight: 50,
+                      dataRowMaxHeight: 50,
+                      headingRowHeight: 10,
                       columns: [
                         DataColumn(label: Text('')),
                         DataColumn(label: Text('')),

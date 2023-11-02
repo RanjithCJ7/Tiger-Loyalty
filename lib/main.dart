@@ -43,8 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SignIn()),
-          // MaterialPageRoute(builder: (context) => ChooseSubscription()),
+          // MaterialPageRoute(builder: (context) => SignIn()),
+          MaterialPageRoute(builder: (context) => ChooseSubscription()),
         );
       });
     });

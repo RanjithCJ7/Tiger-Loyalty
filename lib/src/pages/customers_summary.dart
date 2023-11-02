@@ -123,10 +123,20 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                                       onPressed: () {
                                         showModalBottomSheet(
                                           context: context,
+                                          isScrollControlled: true,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(15.0),
+                                            ),
+                                          ),
                                           builder: (BuildContext context) {
                                             return Padding(
                                               padding: EdgeInsets.all(10),
-                                              child: Container(
+                                              child: SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.75,
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.min,
@@ -134,15 +144,23 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                                                       CrossAxisAlignment.end,
                                                   children: <Widget>[
                                                     Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: <Widget>[
-                                                        Spacer(),
+                                                        // Spacer(),
                                                         Expanded(
                                                           child: Text('Filter',
                                                               style:
                                                                   filterText),
                                                         ),
-                                                        Image.asset(
-                                                            'assets/close.png'),
+                                                        GestureDetector(
+                                                          onTap: () =>
+                                                              Navigator.pop(
+                                                                  context),
+                                                          child: Image.asset(
+                                                              'assets/close.png'),
+                                                        ),
                                                       ],
                                                     ),
                                                     SizedBox(height: 10),
@@ -303,38 +321,50 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                                                                 selectDateText),
                                                       ),
                                                     ),
-                                                    Container(
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 20),
-                                                      child: TableCalendar(
-                                                        firstDay: DateTime(
-                                                            DateTime.now()
-                                                                    .year -
-                                                                1),
-                                                        lastDay: DateTime(
-                                                            DateTime.now()
-                                                                    .year +
-                                                                1),
-                                                        focusedDay: _focusedDay,
-                                                        calendarFormat:
-                                                            _calendarFormat,
-                                                        onFormatChanged:
-                                                            (format) {
-                                                          setState(() {
-                                                            _calendarFormat =
-                                                                format;
-                                                          });
-                                                        },
-                                                        onPageChanged:
-                                                            (focusedDay) {
-                                                          setState(() {
-                                                            _focusedDay =
-                                                                focusedDay;
-                                                          });
-                                                        },
-                                                      ),
+                                                    TableCalendar(
+                                                      firstDay: DateTime(
+                                                          DateTime.now().year -
+                                                              1),
+                                                      lastDay: DateTime(
+                                                          DateTime.now().year +
+                                                              1),
+                                                      focusedDay: _focusedDay,
+                                                      calendarFormat:
+                                                          _calendarFormat,
                                                     ),
+                                                    // Container(
+                                                    //   // margin:
+                                                    //   //     EdgeInsets.symmetric(
+                                                    //   //         horizontal: 20),
+                                                    //   child: TableCalendar(
+
+                                                    //     firstDay: DateTime(
+                                                    //         DateTime.now()
+                                                    //                 .year -
+                                                    //             1),
+                                                    //     lastDay: DateTime(
+                                                    //         DateTime.now()
+                                                    //                 .year +
+                                                    //             1),
+                                                    //     focusedDay: _focusedDay,
+                                                    //     calendarFormat:
+                                                    //         _calendarFormat,
+                                                    //     onFormatChanged:
+                                                    //         (format) {
+                                                    //       setState(() {
+                                                    //         _calendarFormat =
+                                                    //             format;
+                                                    //       });
+                                                    //     },
+                                                    //     onPageChanged:
+                                                    //         (focusedDay) {
+                                                    //       setState(() {
+                                                    //         _focusedDay =
+                                                    //             focusedDay;
+                                                    //       });
+                                                    //     },
+                                                    //   ),
+                                                    // ),
                                                     SizedBox(height: 10),
                                                     Container(
                                                       margin:
@@ -495,6 +525,9 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                 Container(
                   child: SingleChildScrollView(
                     child: DataTable(
+                      dataRowMaxHeight: 50,
+                      dataRowMinHeight: 45,
+                      headingRowHeight: 10,
                       columns: [
                         DataColumn(label: Text('')),
                         DataColumn(label: Text('')),

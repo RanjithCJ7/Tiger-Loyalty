@@ -306,7 +306,8 @@ class _SignInState extends State<SignIn> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // login(emailController.text, passwordController.text);
+                            login(
+                                emailController.text, passwordController.text);
                           },
                           style: btnGold,
                           child: Padding(

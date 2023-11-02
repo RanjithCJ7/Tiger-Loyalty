@@ -1,4 +1,4 @@
-#Thu Nov 02 11:15:34 IST 2023
-base.0=C\:\\Users\\Dell\\Desktop\\RanjithCJ\\Flutter\\github_repo\\tiger-loyalty-merchant\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Thu Nov 02 18:58:18 IST 2023
+base.0=E\:\\Projects\\Tiger-Loyalty\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

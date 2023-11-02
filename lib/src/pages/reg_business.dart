@@ -15,7 +15,7 @@ class RegisterBusiness extends StatefulWidget {
 
 class _RegisterBusinessState extends State<RegisterBusiness> {
   List<String> businessCategories = [
-    '',
+    'Business category',
     'Bakery',
     'Bar',
     'Beauty',
@@ -45,7 +45,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
     'Yoga'
   ];
 
-  String selectedCategory = '';
+  String selectedCategory = 'Business category';
 
   final TextEditingController _tinNumberController = TextEditingController();
   final _tinFormatter = CustomTextInputFormatter();
@@ -229,21 +229,27 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                               Expanded(
                                 // child: Container(
                                 // margin: EdgeInsets.only(right: 50.0),
-                                child: DropdownButton<String>(
-                                  value: selectedCategory,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedCategory = newValue ?? '';
-                                      // businessCategoryController.text =
-                                      //     newValue ?? '';
-                                    });
-                                  },
-                                  items: businessCategories.map((category) {
-                                    return DropdownMenuItem<String>(
-                                      value: category,
-                                      child: Text(category),
-                                    );
-                                  }).toList(),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: selectedCategory,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedCategory = newValue ?? '';
+                                        // businessCategoryController.text =
+                                        //     newValue ?? '';
+                                      });
+                                    },
+                                    items: businessCategories.map((category) {
+                                      return DropdownMenuItem<String>(
+                                        value: category,
+                                        child: Text(
+                                          category,
+                                          style: const TextStyle(
+                                              color: Color(0XFF808080)),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
                                 // ),
                               ),

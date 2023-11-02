@@ -139,8 +139,8 @@ final TextStyle numBig = TextStyle(
 );
 final TextStyle labelSm = TextStyle(
   fontFamily: 'Inter',
-  fontSize: 16,
-  fontWeight: FontWeight.w700,
+  fontSize: 18,
+  fontWeight: FontWeight.w900,
 );
 
 final TextStyle labelWhite = TextStyle(

@@ -1,11 +1,19 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
 import 'styles.dart';
+
+class RewardTableModel {
+  String min, max, percentage;
+  RewardTableModel(
+      {required this.min, required this.max, required this.percentage});
+}
 
 class CreateReward extends StatefulWidget {
   @override
@@ -13,8 +21,10 @@ class CreateReward extends StatefulWidget {
 }
 
 class _CreateRewardState extends State<CreateReward> {
-  TextEditingController _minController = TextEditingController();
-  TextEditingController _maxController = TextEditingController();
+  TextEditingController minController = TextEditingController();
+  TextEditingController maxController = TextEditingController();
+  TextEditingController percentageController = TextEditingController();
+  List<RewardTableModel> rewardData = [];
 
   List<DataRow> generateRows(List<List<String>> data) {
     return data.asMap().entries.map((entry) {
@@ -59,8 +69,8 @@ class _CreateRewardState extends State<CreateReward> {
 
   @override
   void dispose() {
-    _minController.dispose();
-    _maxController.dispose();
+    minController.dispose();
+    maxController.dispose();
     super.dispose();
   }
 
@@ -71,6 +81,13 @@ class _CreateRewardState extends State<CreateReward> {
       ['100,001', '1,000,000', '2%', ''],
       ['1,000,001', '5,000,000', '3%', ''],
       ['5,000,001', '10,000,000', '4%', ''],
+    ];
+
+    List data = [
+      {'min': '10,000', 'max': "100,000"},
+      {'min': '100,001', 'max': "100,000"},
+      {'min': '1,000,001', 'max': "5,000,000"},
+      {'min': '5,000,001', 'max': "10,000,000"},
     ];
 
     return Scaffold(
@@ -122,16 +139,21 @@ class _CreateRewardState extends State<CreateReward> {
                                   ),
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
-                                        controller: _minController,
+                                        controller: minController,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
@@ -160,7 +182,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
-                                        controller: _maxController,
+                                        controller: maxController,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
@@ -181,10 +203,15 @@ class _CreateRewardState extends State<CreateReward> {
                                   height: 15.0,
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
@@ -192,12 +219,13 @@ class _CreateRewardState extends State<CreateReward> {
                                       child: Container(
                                         margin: EdgeInsets.only(left: 20),
                                         child: TextField(
+                                          controller: percentageController,
                                           keyboardType: TextInputType.number,
                                           inputFormatters: <TextInputFormatter>[
                                             FilteringTextInputFormatter
                                                 .digitsOnly
                                           ],
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             hintText: '%',
                                             hintStyle: TextStyle(
                                                 color: Color(0xFF000000)),
@@ -207,12 +235,12 @@ class _CreateRewardState extends State<CreateReward> {
                                         ),
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
                                       width: 144,
                                       height: 53,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextButton(
@@ -253,22 +281,128 @@ class _CreateRewardState extends State<CreateReward> {
                                 SizedBox(
                                   height: 35.0,
                                 ),
-                                Text(
-                                  'Reward table',
-                                  style: labelSm,
-                                  textAlign: TextAlign.center,
-                                ),
-                                SingleChildScrollView(
-                                  child: DataTable(
-                                    columns: [
-                                      DataColumn(label: Text('Min')),
-                                      DataColumn(label: Text('Max')),
-                                      DataColumn(label: Text('Reward%')),
-                                    ],
-                                    rows: generateRows(tableData),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Reward table',
+                                    style: labelSm,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.29,
+                                          child: const Text(
+                                            "Min",
+                                            style: TextStyle(
+                                              fontFamily: 'Inter',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          )),
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.25,
+                                          child: const Text(
+                                            "Max",
+                                            style: TextStyle(
+                                              fontFamily: 'Inter',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          )),
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.19,
+                                          child: const Text(
+                                            "Reward%",
+                                            style: TextStyle(
+                                              fontFamily: 'Inter',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                                ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  itemCount: data.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.055,
+                                      decoration: BoxDecoration(
+                                          color: index.isEven
+                                              ? const Color(0XFFD9D9D9)
+                                              : Colors.white),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.25,
+                                              child: Text(data[index]["min"])),
+                                          SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.25,
+                                              child: Text(data[index]["max"])),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.15,
+                                            child: Row(
+                                              children: [
+                                                Text("${index + 1}%"),
+                                                const SizedBox(width: 5),
+                                                Image.asset(
+                                                    'assets/remove.png'),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                                // SingleChildScrollView(
+                                //   child: DataTable(
+                                //     horizontalMargin: 5,
+                                //     columns: [
+                                //       DataColumn(label: Text('Min')),
+                                //       DataColumn(label: Text('Max')),
+                                //       DataColumn(label: Text('Reward%')),
+                                //     ],
+                                //     rows: generateRows(tableData),
+                                //   ),
+                                // ),
+                                const SizedBox(
                                   height: 20.0,
                                 ),
                                 Container(
@@ -280,15 +414,21 @@ class _CreateRewardState extends State<CreateReward> {
                                   ),
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
+                                        controller: minController,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
@@ -303,20 +443,24 @@ class _CreateRewardState extends State<CreateReward> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    Spacer(),
+                                    // Spacer(),
                                     Text(
                                       '-',
                                       style: label,
                                     ),
-                                    Spacer(),
+                                    // Spacer(),
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
+                                        controller: maxController,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
@@ -337,10 +481,15 @@ class _CreateRewardState extends State<CreateReward> {
                                   height: 15.0,
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
@@ -348,6 +497,7 @@ class _CreateRewardState extends State<CreateReward> {
                                       child: Container(
                                         margin: EdgeInsets.only(left: 20),
                                         child: TextField(
+                                          controller: percentageController,
                                           keyboardType: TextInputType.number,
                                           inputFormatters: <TextInputFormatter>[
                                             FilteringTextInputFormatter
@@ -365,14 +515,19 @@ class _CreateRewardState extends State<CreateReward> {
                                     ),
                                     Spacer(),
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextButton(
-                                        onPressed: (){},
+                                        onPressed: () {
+                                          addrewardPoints();
+                                        },
                                         style: btnGold2,
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
@@ -436,5 +591,27 @@ class _CreateRewardState extends State<CreateReward> {
         ),
       ),
     );
+  }
+
+  void addrewardPoints() {
+    if (minController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please enter min value");
+    } else if (maxController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please enter max value");
+    } else if (percentageController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please enter percentage value");
+    } else {
+      int min = int.parse(minController.text.trim().toString());
+      int max = int.parse(maxController.text.trim().toString());
+      print("min ==> ${minController.text}");
+      if (min > max) {
+        Fluttertoast.showToast(msg: "Please enter valid max value");
+      } else {
+        rewardData.add(RewardTableModel(
+            min: min.toString(),
+            max: max.toString(),
+            percentage: percentageController.text.trim()));
+      }
+    }
   }
 }
