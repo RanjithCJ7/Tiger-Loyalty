@@ -206,11 +206,11 @@ class GiveReward extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Profile(),
-                      //   ),
-                      // );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Profile(),
+                        ),
+                      );
                     },
                     child: Column(
                       children: [

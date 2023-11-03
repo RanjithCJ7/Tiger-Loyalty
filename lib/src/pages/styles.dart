@@ -348,6 +348,12 @@ final TextStyle deleteText = TextStyle(
   fontWeight: FontWeight.w400,
   color: Color(0xFFCA1818),
 );
+final TextStyle settingLabel = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: Color(0xFF0E2ED4),
+);
 
 final ButtonStyle btnGold = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(

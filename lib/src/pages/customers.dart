@@ -179,7 +179,7 @@ class _CustomersState extends State<Customers> {
                                         Text('Summary', style: imgLabel),
                                         Spacer(),
                                         Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           decoration: BoxDecoration(
                                             border: Border.all(
@@ -194,7 +194,8 @@ class _CustomersState extends State<Customers> {
                                             child: DropdownButton<String>(
                                               value: selectedToday,
                                               iconSize: 18,
-                                              dropdownColor: Color(0XFFCFAF4E),
+                                              dropdownColor:
+                                                  Colors.grey.shade500,
                                               icon: const Icon(
                                                 Icons.arrow_drop_down,
                                                 color: Colors.white,
@@ -282,14 +283,14 @@ class _CustomersState extends State<Customers> {
                 ),
                 SizedBox(height: 15.0),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 20.0),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Color(0xFFD9D9D9),
+                    color: const Color(0xFFD9D9D9),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
                         Image.asset('assets/search.png'),
@@ -298,7 +299,7 @@ class _CustomersState extends State<Customers> {
                           width: 95,
                           height: 24,
                           child: TextField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding:
                                   EdgeInsets.symmetric(vertical: 11),
                               hintText: 'Search customer',

@@ -42,6 +42,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         child: Column(
@@ -127,6 +128,12 @@ class _HomeState extends State<Home> {
                                               child: DropdownButton<String>(
                                                 value: selectedToday,
                                                 iconSize: 18,
+                                                dropdownColor:
+                                                    Colors.grey.shade500,
+                                                icon: const Icon(
+                                                  Icons.arrow_drop_down,
+                                                  color: Colors.white,
+                                                ),
                                                 onChanged: (newValue) {
                                                   setState(() {
                                                     selectedToday =
@@ -138,7 +145,10 @@ class _HomeState extends State<Home> {
                                                       String>(
                                                     value: today,
                                                     child: Text(today,
-                                                        style: todayText),
+                                                        style:
+                                                            todayText.copyWith(
+                                                                color: Colors
+                                                                    .white)),
                                                   );
                                                 }).toList(),
                                               ),
@@ -194,9 +204,9 @@ class _HomeState extends State<Home> {
                                       Row(
                                         children: [
                                           Text('Redemption', style: imgLabel),
-                                          Spacer(),
+                                          const Spacer(),
                                           Container(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 5),
                                             decoration: BoxDecoration(
                                               border: Border.all(
@@ -207,42 +217,50 @@ class _HomeState extends State<Home> {
                                                   BorderRadius.circular(25.0),
                                             ),
                                             height: 20,
-                                            child: DropdownButton<String>(
-                                              value: selectedToday,
-                                              iconSize: 18,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down,
-                                                color: Colors.white,
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton<String>(
+                                                value: selectedToday,
+                                                iconSize: 18,
+                                                icon: const Icon(
+                                                  Icons.arrow_drop_down,
+                                                  color: Colors.white,
+                                                ),
+                                                onChanged: (newValue) {
+                                                  setState(() {
+                                                    selectedToday =
+                                                        newValue ?? '';
+                                                  });
+                                                },
+                                                // selectedItemBuilder:
+                                                //     (BuildContext context) {
+                                                //   return <DropdownMenuItem<
+                                                //       String>>[
+                                                //     DropdownMenuItem<String>(
+                                                //       value: selectedToday,
+                                                //       child: Text(selectedToday,
+                                                //           style: dateText),
+                                                //     ),
+                                                //   ];
+                                                // },
+                                                dropdownColor:
+                                                    Colors.grey.shade500,
+                                                items: selectDay.map((today) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: today,
+                                                    child: Text(today,
+                                                        style:
+                                                            todayText.copyWith(
+                                                                color: Colors
+                                                                    .white)),
+                                                  );
+                                                }).toList(),
                                               ),
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  selectedToday =
-                                                      newValue ?? '';
-                                                });
-                                              },
-                                              selectedItemBuilder:
-                                                  (BuildContext context) {
-                                                return <DropdownMenuItem<
-                                                    String>>[
-                                                  DropdownMenuItem<String>(
-                                                    value: selectedToday,
-                                                    child: Text(selectedToday,
-                                                        style: dateText),
-                                                  ),
-                                                ];
-                                              },
-                                              items: selectDay.map((today) {
-                                                return DropdownMenuItem<String>(
-                                                  value: today,
-                                                  child: Text(today,
-                                                      style: todayText),
-                                                );
-                                              }).toList(),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 15.0),
+                                      const SizedBox(height: 15.0),
                                       Row(
                                         children: [
                                           Column(
@@ -275,7 +293,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     Container(
                       child: points
                           ? Row(
@@ -305,7 +323,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                     ),
-                    SizedBox(height: 15.0),
+                    const SizedBox(height: 15.0),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -328,7 +346,7 @@ class _HomeState extends State<Home> {
                                     width: 95,
                                     height: 24,
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         contentPadding:
                                             EdgeInsets.symmetric(vertical: 11),
                                         hintText: 'Search customer',
@@ -364,20 +382,20 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     Container(
                       height: 32,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border:
-                            Border.all(color: Color(0xFF000000), width: 0.5),
+                        border: Border.all(
+                            color: const Color(0xFF000000), width: 0.5),
                       ),
                       child: Row(
                         children: [
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                color: points ? Color(0xFFD9D9D9) : null,
+                                color: points ? const Color(0xFFD9D9D9) : null,
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: TextButton(
@@ -409,7 +427,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    Container(
+                    /* Container(
                       width: MediaQuery.of(context).size.width,
                       child: Expanded(
                         child: SingleChildScrollView(
@@ -841,6 +859,185 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
+                    ) */
+                    ListView.separated(
+                      padding: const EdgeInsets.only(top: 10),
+                      shrinkWrap: true,
+                      itemCount: pointsData.length,
+                      separatorBuilder: (context, index) =>
+                          const Divider(color: Color(0XFFD9D9D9), thickness: 1),
+                      itemBuilder: (context, index) {
+                        var data = pointsData[index];
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          height: MediaQuery.of(context).size.height * 0.055,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                  width: size.width * 0.14,
+                                  child: Image.asset(data.image)),
+                              SizedBox(
+                                width: size.width * 0.45,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(data.points, style: labelSm),
+                                    const SizedBox(height: 5),
+                                    Text(data.name, style: desc),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {},
+                                    style: approveBtn,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 5.0),
+                                          child:
+                                              Image.asset('assets/approve.png'),
+                                        ),
+                                        Text('Approve', style: approveText),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(15.0),
+                                          ),
+                                        ),
+                                        builder: (BuildContext context) {
+                                          return Stack(
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    bottom: 50, top: 15),
+                                                decoration: BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15,
+                                                              vertical: 10),
+                                                      child: Container(
+                                                        width: double.infinity,
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Container(
+                                                              width: 260,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                'Do you want to cancel ${data.name} rewards point?',
+                                                                style: labelSm,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 15.0),
+                                                            Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 53,
+                                                              child: TextButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                style: btnGrey,
+                                                                child: Text(
+                                                                  'No',
+                                                                  style:
+                                                                      btnGreyText,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height: 5.0),
+                                                            Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 53,
+                                                              child: TextButton(
+                                                                onPressed:
+                                                                    () {},
+                                                                style: btnRed,
+                                                                child: Text(
+                                                                  'Yes',
+                                                                  style:
+                                                                      yesText,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                right: 0,
+                                                child: TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Image.asset(
+                                                      'assets/close.png'),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2.0),
+                                      decoration: const BoxDecoration(
+                                          color: Color(0XFFD9D9D9),
+                                          shape: BoxShape.circle),
+                                      child: const Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     )
                   ],
                 ),
