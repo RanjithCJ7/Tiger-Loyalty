@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:tiger_loyalty/src/pages/pin_setup.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
@@ -14,28 +15,9 @@ class Authentication extends StatelessWidget {
   final _tinFormatter = CustomTextInputFormatter();
 
   Future<void> otpLogin(String pin, BuildContext context) async {
-    print('name: 29 $pin');
-
     if (pin.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            // title: Text('Please enter'),
-            content: Text('Please enter an OTP'),
-            // actions: [
-            //   TextButton(
-            //     onPressed: () {
-            //       Navigator.of(context).pop();
-            //     },
-            //     child: Text('OK'),
-            //   ),
-            // ],
-          );
-        },
-      );
-      return;
-    }
+      Fluttertoast.showToast(msg: "Please enter OTP");
+    } else {}
 
     try {
       final String apiUrl = "https://dummyjson.com/auth/login";
@@ -105,168 +87,165 @@ class Authentication extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15.0),
-                          child: Image.asset('assets/auth.png'),
+                  Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 15.0),
+                        child: Image.asset('assets/auth.png'),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20.0),
+                        child: Text(
+                          'Authentication',
+                          style: label,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 20.0),
-                          child: Text(
-                            'Authentication',
-                            style: label,
-                          ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 30.0),
+                        child: Text(
+                          'Enter OTP sent to your email',
+                          style: desc,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 30.0),
-                          child: Text(
-                            'Enter OTP sent to your email',
-                            style: desc,
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 5.0),
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Color(0xFFF5F5F5)),
-                                    color: Color(0xFFD9D9D9),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: Image.asset('assets/pin.png'),
-                                      ),
-                                      Expanded(
-                                        child: TextField(
-                                          controller: pinController,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            LengthLimitingTextInputFormatter(4),
-                                            _tinFormatter,
-                                          ],
-                                          obscureText: true,
-                                          decoration: InputDecoration(
-                                            hintText: '* * * *',
-                                            hintStyle: TextStyle(
-                                                color: Color(0xFF808080)),
-                                            border: InputBorder.none,
-                                          ),
-                                          style: textFieldStyle,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 5.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: const Color(0xFFF5F5F5)),
+                                color: const Color(0xFFD9D9D9),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  otpLogin(pinController.text, context);
-                                },
-                                style: btnGold,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 13, vertical: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 10.0),
-                                        child: Text(
-                                          'Next',
-                                          style: btnGoldText,
-                                        ),
-                                      ),
-                                      Image.asset('assets/btn_arrow_right.png'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Haven’t received?',
-                              style: forgotLabel,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => PinSetup(),
-                                  ),
-                                );
-                              },
-                              child: Text('Resend'),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 25.0, bottom: 30.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: Color(0xFF808080),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text("OR", style: orText),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: Color(0xFF808080),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 50.0),
-                          width: double.infinity,
-                          height: 50,
-                          child: TextButton(
-                            style: btnGrey,
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => SignIn(),
-                                ),
-                              );
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/btn_arrow_left.png'),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 10.0),
-                                    child: Text(
-                                      'Sign in',
-                                      style: btnGreyText,
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: Image.asset('assets/pin.png'),
+                                  ),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: pinController,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        LengthLimitingTextInputFormatter(4),
+                                        _tinFormatter,
+                                      ],
+                                      obscureText: true,
+                                      decoration: const InputDecoration(
+                                        hintText: '* * * *',
+                                        hintStyle:
+                                            TextStyle(color: Color(0xFF808080)),
+                                        border: InputBorder.none,
+                                      ),
+                                      style: textFieldStyle,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
+                          TextButton(
+                            onPressed: () {
+                              otpLogin(pinController.text, context);
+                            },
+                            style: btnGold,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 13, vertical: 8.0),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Text(
+                                      'Next',
+                                      style: btnGoldText,
+                                    ),
+                                  ),
+                                  Image.asset('assets/btn_arrow_right.png'),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Haven’t received?',
+                            style: forgotLabel,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => PinSetup(),
+                                ),
+                              );
+                            },
+                            child: const Text('Resend'),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 25.0, bottom: 30.0),
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              child: Divider(
+                                color: Color(0xFF808080),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Text("OR", style: orText),
+                            ),
+                            const Expanded(
+                              child: Divider(
+                                color: Color(0xFF808080),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 50.0),
+                        width: double.infinity,
+                        height: 50,
+                        child: TextButton(
+                          style: btnGrey,
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignIn(),
+                                ),
+                                (route) => false);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/btn_arrow_left.png'),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    'Sign in',
+                                    style: btnGreyText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

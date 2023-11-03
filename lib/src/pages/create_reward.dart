@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
 import 'styles.dart';
 
@@ -152,13 +153,14 @@ class _CreateRewardState extends State<CreateReward> {
                                         color: Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
+                                      alignment: Alignment.center,
                                       child: TextField(
                                         controller: minController,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Min. spending',
                                           hintStyle: TextStyle(
                                               color: Color(0xFF808080)),
@@ -175,10 +177,14 @@ class _CreateRewardState extends State<CreateReward> {
                                     ),
                                     Spacer(),
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
@@ -187,7 +193,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Max. Spending',
                                           hintStyle: TextStyle(
                                               color: Color(0xFF808080)),
@@ -199,7 +205,7 @@ class _CreateRewardState extends State<CreateReward> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
                                 Row(
@@ -212,12 +218,13 @@ class _CreateRewardState extends State<CreateReward> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.07,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Container(
-                                        margin: EdgeInsets.only(left: 20),
+                                        margin: const EdgeInsets.only(left: 20),
                                         child: TextField(
                                           controller: percentageController,
                                           keyboardType: TextInputType.number,
@@ -237,8 +244,11 @@ class _CreateRewardState extends State<CreateReward> {
                                     ),
                                     const Spacer(),
                                     Container(
-                                      width: 144,
-                                      height: 53,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.07,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
@@ -299,7 +309,7 @@ class _CreateRewardState extends State<CreateReward> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
+                                      SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -312,7 +322,7 @@ class _CreateRewardState extends State<CreateReward> {
                                               fontWeight: FontWeight.w800,
                                             ),
                                           )),
-                                      Container(
+                                      SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -325,7 +335,7 @@ class _CreateRewardState extends State<CreateReward> {
                                               fontWeight: FontWeight.w800,
                                             ),
                                           )),
-                                      Container(
+                                      SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -423,8 +433,9 @@ class _CreateRewardState extends State<CreateReward> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.07,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
@@ -433,7 +444,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Min. spending',
                                           hintStyle: TextStyle(
                                               color: Color(0xFF808080)),
@@ -455,8 +466,9 @@ class _CreateRewardState extends State<CreateReward> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.07,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextField(
@@ -465,7 +477,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: 'Max. Spending',
                                           hintStyle: TextStyle(
                                               color: Color(0xFF808080)),
@@ -477,7 +489,7 @@ class _CreateRewardState extends State<CreateReward> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
                                 Row(
@@ -490,12 +502,13 @@ class _CreateRewardState extends State<CreateReward> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.07,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Container(
-                                        margin: EdgeInsets.only(left: 20),
+                                        margin: const EdgeInsets.only(left: 20),
                                         child: TextField(
                                           controller: percentageController,
                                           keyboardType: TextInputType.number,
@@ -503,7 +516,7 @@ class _CreateRewardState extends State<CreateReward> {
                                             FilteringTextInputFormatter
                                                 .digitsOnly
                                           ],
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             hintText: '%',
                                             hintStyle: TextStyle(
                                                 color: Color(0xFF000000)),
@@ -513,7 +526,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         ),
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.35,
@@ -521,7 +534,7 @@ class _CreateRewardState extends State<CreateReward> {
                                           MediaQuery.of(context).size.height *
                                               0.07,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
+                                        color: const Color(0xFFD9D9D9),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: TextButton(
@@ -530,7 +543,7 @@ class _CreateRewardState extends State<CreateReward> {
                                         },
                                         style: btnGold2,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 8.0),
                                           child: Text(
                                             'Save',
@@ -543,10 +556,10 @@ class _CreateRewardState extends State<CreateReward> {
                                 ),
                               ],
                             ),
-                          SizedBox(
+                          const SizedBox(
                             height: 80.0,
                           ),
-                          Container(
+                          SizedBox(
                             width: 180,
                             child: Text(
                               'You can change this configurations on setting page',
@@ -554,28 +567,26 @@ class _CreateRewardState extends State<CreateReward> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20.0,
                           ),
-                          Container(
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => Home(),
-                                  ),
-                                );
-                              },
-                              style: btnGold2,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Proceed',
-                                    style: btnGoldText2,
-                                    textAlign: TextAlign.center,
-                                  ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const BottomTab(),
+                                ),
+                              );
+                            },
+                            style: btnGold2,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Text(
+                                  'Proceed',
+                                  style: btnGoldText2,
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),

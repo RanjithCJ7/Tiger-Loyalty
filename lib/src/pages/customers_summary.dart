@@ -12,17 +12,17 @@ import 'package:tiger_loyalty/src/pages/transactions.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'styles.dart';
 
-class Customers_Summary extends StatefulWidget {
-  @override
-  _Customers_SummaryState createState() => _Customers_SummaryState();
-}
-
 class PointsData {
   String points;
   String name;
   String image;
 
   PointsData({required this.points, required this.name, required this.image});
+}
+
+class Customers_Summary extends StatefulWidget {
+  @override
+  _Customers_SummaryState createState() => _Customers_SummaryState();
 }
 
 class _Customers_SummaryState extends State<Customers_Summary> {
@@ -63,14 +63,12 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                       Positioned(
                         top: -1,
                         right: 0,
-                        child: Container(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset('assets/notification_bg.png'),
-                              Text('3', style: notificationText),
-                            ],
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('assets/notification_bg.png'),
+                            Text('3', style: notificationText),
+                          ],
                         ),
                       ),
                     ],

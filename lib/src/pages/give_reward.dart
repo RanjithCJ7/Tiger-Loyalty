@@ -144,7 +144,7 @@ class GiveReward extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          /* Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: Color(0xFFD9D9D9),
@@ -227,6 +227,7 @@ class GiveReward extends StatelessWidget {
               ],
             ),
           ),
+         */
         ],
       ),
     );

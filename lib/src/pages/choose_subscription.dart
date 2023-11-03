@@ -163,8 +163,6 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                             margin: const EdgeInsets.all(10),
                             child: TextButton(
                               onPressed: () {
-                                print(
-                                    "selectedSubscription ==> ${selectedSubscription!.title}");
                                 if (selectedSubscription == null) {
                                   Fluttertoast.showToast(
                                       msg: "Please choose subscription plan");

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,13 +24,18 @@ class _SignInState extends State<SignIn> {
 
   Future<void> login(String name, String password) async {
     if (name.isEmpty) {
-      showAlertDialog("Please enter Username");
+      // showAlertDialog("Please enter Username");
+      Fluttertoast.showToast(msg: "Please enter E-mail");
       return;
-    }
-    if (password.isEmpty) {
-      showAlertDialog("Please enter Password");
+    } else if (password.isEmpty) {
+      // showAlertDialog("Please enter Password");
+      Fluttertoast.showToast(msg: "Please enter PIN");
       return;
-    }
+    } else if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(name)) {
+      Fluttertoast.showToast(msg: "Please enter valid E-mail");
+    } else {}
 
     // if (name.isEmpty) {
     //   showDialog(
@@ -113,46 +119,46 @@ class _SignInState extends State<SignIn> {
     //   return;
     // }
 
-    try {
-      final String apiUrl = "https://dummyjson.com/auth/login";
+    // try {
+    //   final String apiUrl = "https://dummyjson.com/auth/login";
 
-      Map<String, String> formData = {
-        "username": 'kminchelle',
-        "password": '0lelplR',
-      };
+    //   Map<String, String> formData = {
+    //     "username": 'kminchelle',
+    //     "password": '0lelplR',
+    //   };
 
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: formData,
-      );
+    //   final response = await http.post(
+    //     Uri.parse(apiUrl),
+    //     body: formData,
+    //   );
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
+    //   if (response.statusCode == 200) {
+    //     final Map<String, dynamic> data = jsonDecode(response.body);
 
-        String token = data['token'];
-        String username = data['username'];
+    //     String token = data['token'];
+    //     String username = data['username'];
 
-        print('Token: $token');
-        print('Username: $username');
-        print('Login successfully');
+    //     print('Token: $token');
+    //     print('Username: $username');
+    //     print('Login successfully');
 
-        showAlertDialog("Logged in successfully");
-      } else {
-        final Map<String, dynamic> errorData = jsonDecode(response.body);
-        String errorMessage = errorData['message'];
-        print('Login failed. Status code: ${response.statusCode}');
-        print('Error Message: $errorMessage');
-        showAlertDialog("$errorMessage");
+    //     showAlertDialog("Logged in successfully");
+    //   } else {
+    //     final Map<String, dynamic> errorData = jsonDecode(response.body);
+    //     String errorMessage = errorData['message'];
+    //     print('Login failed. Status code: ${response.statusCode}');
+    //     print('Error Message: $errorMessage');
+    //     showAlertDialog("$errorMessage");
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please check username and password'),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e.toString());
-    }
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please check username and password'),
+    //       ),
+    //     );
+    //   }
+    // } catch (e) {
+    //   print(e.toString());
+    // }
   }
 
   void showAlertDialog(String message) {
@@ -177,55 +183,55 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(40.0),
+              padding: const EdgeInsets.all(40.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15.0),
-                          child: Image.asset('assets/signin.png'),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 15.0),
+                        child: Image.asset('assets/signin.png'),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Text(
+                          'Sign in',
+                          style: label,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 20.0),
-                          child: Text(
-                            'Sign in',
-                            style: label,
-                          ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 30.0),
+                        child: Text(
+                          'Login to use Tiger Loyalty for Merchants',
+                          style: desc,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 30.0),
-                          child: Text(
-                            'Login to use Tiger Loyalty for Merchants',
-                            style: desc,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 5.0),
+                    margin: const EdgeInsets.only(bottom: 5.0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFF5F5F5)),
-                      color: Color(0xFFD9D9D9),
+                      border: Border.all(color: const Color(0xFFF5F5F5)),
+                      color: const Color(0xFFD9D9D9),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         children: [
                           Image.asset('assets/ion_keypad.png'),
                           Expanded(
                             child: TextField(
                               controller: emailController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'E-mail',
                                 hintStyle: TextStyle(color: Color(0xFF808080)),
                                 border: InputBorder.none,
@@ -238,97 +244,67 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 5.0),
-                  //   decoration: BoxDecoration(
-                  //     border: Border.all(color: Color(0xFFF5F5F5)),
-                  //     color: Color(0xFFD9D9D9),
-                  //     borderRadius: BorderRadius.circular(5),
-                  //   ),
-                  //   child: Container(
-                  //     margin: EdgeInsets.symmetric(horizontal: 15),
-                  //     child: Row(
-                  //       children: [
-                  //         Image.asset('assets/ion_keypad.png'),
-                  //         Expanded(
-                  //           child: TextField(
-                  //             controller: nameController,
-                  //             decoration: InputDecoration(
-                  //               hintText: 'Username',
-                  //               hintStyle: TextStyle(color: Color(0xFF808080)),
-                  //               border: InputBorder.none,
-                  //               contentPadding: EdgeInsets.all(10),
-                  //             ),
-                  //             style: textFieldStyle,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(right: 5.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFF5F5F5)),
-                              color: Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Image.asset('assets/pin.png'),
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    controller: passwordController,
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      hintText: 'PIN',
-                                      hintStyle:
-                                          TextStyle(color: Color(0xFF808080)),
-                                      border: InputBorder.none,
-                                    ),
-                                    style: textFieldStyle,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 5.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFFF5F5F5)),
+                            color: const Color(0xFFD9D9D9),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Image.asset('assets/pin.png'),
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  controller: passwordController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  obscureText: true,
+                                  decoration: const InputDecoration(
+                                    hintText: 'PIN',
+                                    hintStyle:
+                                        TextStyle(color: Color(0xFF808080)),
+                                    border: InputBorder.none,
                                   ),
+                                  style: textFieldStyle,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            login(
-                                emailController.text, passwordController.text);
-                          },
-                          style: btnGold,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    'Sign in',
-                                    style: btnGoldText,
-                                  ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          login(emailController.text, passwordController.text);
+                        },
+                        style: btnGold,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 8.0),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: Text(
+                                  'Sign in',
+                                  style: btnGoldText,
                                 ),
-                                Image.asset('assets/btn_arrow_right.png'),
-                              ],
-                            ),
+                              ),
+                              Image.asset('assets/btn_arrow_right.png'),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [
@@ -345,42 +321,39 @@ class _SignInState extends State<SignIn> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text('Reset PIN'),
-                                content: Text(
+                                title: const Text('Reset PIN'),
+                                content: const Text(
                                     'Are you sure you want to reset your PIN?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
-                                      // Implement the reset logic here
-                                      // You can call a function or navigate to a reset PIN screen.
-                                      // After resetting, you might want to close the dialog.
                                       Navigator.pop(context);
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'Reset',
-                                      style: resetBtnText,
+                                      // style: resetBtnText,
                                     ),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('Cancel'),
+                                    child: const Text('Cancel'),
                                   ),
                                 ],
                               );
                             },
                           );
                         },
-                        child: Text('Reset'),
+                        child: const Text('Reset'),
                       ),
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 20.0),
+                    margin: const EdgeInsets.only(bottom: 20.0),
                     child: Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Divider(
                             color: Color(0xFF808080),
                           ),
@@ -389,7 +362,7 @@ class _SignInState extends State<SignIn> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Text("OR", style: orText),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Divider(
                             color: Color(0xFF808080),
                           ),
@@ -397,10 +370,8 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 75.0),
-                    width: double.infinity,
-                    height: 50,
+                  SizedBox(
+                    width: size.width,
                     child: TextButton(
                       style: btnGrey,
                       onPressed: () {
@@ -412,6 +383,9 @@ class _SignInState extends State<SignIn> {
                       },
                       child: Text('Register', style: btnGreyText),
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.075,
                   ),
                   Center(
                     child: Row(

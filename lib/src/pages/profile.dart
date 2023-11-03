@@ -234,7 +234,8 @@ class Profile extends StatelessWidget {
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(height: 5.0),
+                                                      const SizedBox(
+                                                          height: 5.0),
                                                       Container(
                                                         width: double.infinity,
                                                         height: 53,
@@ -298,9 +299,9 @@ class Profile extends StatelessWidget {
                   SizedBox(height: 20),
                   _buildSettingItem(
                       'Subscription and pricing', 'assets/setting_1.png'),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   _buildInvoiceItem('Invoice', 'assets/setting_2.png'),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 40),
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(left: 30),
@@ -309,10 +310,11 @@ class Profile extends StatelessWidget {
                       style: settingsTitle,
                     ),
                   ),
+                  const SizedBox(height: 5),
                   _buildSettingItemsList(),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -339,7 +341,8 @@ class Profile extends StatelessWidget {
                               style: deleteText,
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 10.0),
+                              margin:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
                               width: 122,
                               child: TextButton(
                                 style: btnGrey,
@@ -384,7 +387,7 @@ class Profile extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          /* Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: Color(0xFFD9D9D9),
@@ -466,6 +469,7 @@ class Profile extends StatelessWidget {
               ],
             ),
           ),
+         */
         ],
       ),
     );

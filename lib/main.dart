@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tiger_loyalty/src/pages/choose_photo.dart';
+import 'package:tiger_loyalty/Image.dart';
+
 import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
-import 'package:tiger_loyalty/src/pages/create_reward.dart';
-import 'package:tiger_loyalty/src/pages/customers.dart';
-import 'package:tiger_loyalty/src/pages/customers_summary.dart';
-import 'package:tiger_loyalty/src/pages/home.dart';
-import 'package:tiger_loyalty/src/pages/profile.dart';
-import 'package:tiger_loyalty/src/pages/reg_business.dart';
-import 'package:tiger_loyalty/src/pages/reg_user.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
+
 import 'src/pages/styles.dart';
 
 void main() {
@@ -20,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MyHomePage(title: ''),
       debugShowCheckedModeBanner: false,
     );
@@ -39,14 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        Navigator.pushReplacement(
-          context,
-          // MaterialPageRoute(builder: (context) => SignIn()),
-          MaterialPageRoute(builder: (context) => ChooseSubscription()),
-        );
-      });
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        // MaterialPageRoute(builder: (context) => SignIn()),
+        MaterialPageRoute(builder: (context) => ChooseSubscription()),
+      );
     });
   }
 
@@ -54,8 +47,26 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Image.asset(
+          Images.loadingGIF,
+          height: 50,
+        ),
+      ),
       body: Center(
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/splash.png'),
+            const SizedBox(height: 15.0),
+            Text(
+              'Reward for Growth',
+              style: splashText,
+            ),
+          ],
+        )
+        /* Stack(
           children: [
             // if (isLoading)
             // Image.asset(
@@ -80,11 +91,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                Image.asset('assets/tiger.png'),
+                Image.asset(
+                  Images.loadingGIF,
+                  height: 50,
+                ),
               ],
             ),
           ],
-        ),
+        ) */
+        ,
       ),
     );
   }

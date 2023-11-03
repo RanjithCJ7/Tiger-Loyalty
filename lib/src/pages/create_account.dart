@@ -35,6 +35,18 @@ class _CreateAccountState extends State<CreateAccount> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              width: 92,
+              height: 92,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xFF000000),
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(46),
+              ),
+              child: Image.asset('assets/tiger.gif'),
+            ),
+            Container(
               margin: EdgeInsets.only(bottom: 20.0),
               child: Text(
                 'Please wait...',

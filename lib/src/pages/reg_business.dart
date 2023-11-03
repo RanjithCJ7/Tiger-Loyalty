@@ -135,235 +135,237 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 15.0),
-                      child: Image.asset('assets/reg_business.png'),
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: Image.asset('assets/reg_business.png'),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Text(
+                      'Register - Business',
+                      style: label,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      child: Text(
-                        'Register - Business',
-                        style: label,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 5.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFFF5F5F5)),
+                      color: const Color(0xFFD9D9D9),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TextField(
+                      // controller: businessNameController,
+                      decoration: const InputDecoration(
+                        hintText: 'Registered business name',
+                        hintStyle: TextStyle(color: Color(0xFF808080)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(20),
                       ),
+                      style: textFieldStyle,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5.0),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 5.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFFF5F5F5)),
+                      color: const Color(0xFFD9D9D9),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TextField(
+                      controller: _tinNumberController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(9),
+                        _tinFormatter,
+                      ],
+                      decoration: const InputDecoration(
+                        hintText: 'TIN number',
+                        hintStyle: TextStyle(color: Color(0xFF808080)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                      style: textFieldStyle,
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.only(bottom: 5.0),
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF5F5F5)),
-                        color: Color(0xFFD9D9D9),
+                        border: Border.all(color: const Color(0xFFF5F5F5)),
+                        color: const Color(0xFFD9D9D9),
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: TextField(
-                        // controller: businessNameController,
-                        decoration: InputDecoration(
-                          hintText: 'Registered business name',
-                          hintStyle: TextStyle(color: Color(0xFF808080)),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        ),
-                        style: textFieldStyle,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF5F5F5)),
-                        color: Color(0xFFD9D9D9),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: TextField(
-                        controller: _tinNumberController,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(9),
-                          _tinFormatter,
-                        ],
-                        decoration: InputDecoration(
-                          hintText: 'TIN number',
-                          hintStyle: TextStyle(color: Color(0xFF808080)),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        ),
-                        style: textFieldStyle,
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(bottom: 5.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFF5F5F5)),
-                          color: Color(0xFFD9D9D9),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            children: [
-                              // Container(
-                              //   width: 150,
-                              //   child: TextField(
-                              //     // controller: businessCategoryController,
-                              //     decoration: InputDecoration(
-                              //       hintText: 'Business category',
-                              //       hintStyle:
-                              //           TextStyle(color: Color(0xFF808080)),
-                              //     ),
-                              //     onChanged: (text) {
-                              //       setState(() {
-                              //         selectedCategory = text;
-                              //       });
-                              //     },
-                              //   ),
-                              // ),
-                              // Container(
-                              //   // width: double.infinity,
-                              //   margin: EdgeInsets.only(right: 15),
-                              //   child:
-                              Expanded(
-                                // child: Container(
-                                // margin: EdgeInsets.only(right: 50.0),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton<String>(
-                                    value: selectedCategory,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        selectedCategory = newValue ?? '';
-                                        // businessCategoryController.text =
-                                        //     newValue ?? '';
-                                      });
-                                    },
-                                    items: businessCategories.map((category) {
-                                      return DropdownMenuItem<String>(
-                                        value: category,
-                                        child: Text(
-                                          category,
-                                          style: const TextStyle(
-                                              color: Color(0XFF808080)),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                                // ),
-                              ),
-                              // )
-                            ],
-                          ),
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF5F5F5)),
-                        color: Color(0xFFD9D9D9),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: TextField(
-                        // controller: locationController,
-                        decoration: InputDecoration(
-                          hintText: 'Location',
-                          hintStyle: TextStyle(color: Color(0xFF808080)),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        ),
-                        style: textFieldStyle,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        // registerBusiness(
-                        //     businessNameController.text,
-                        //     tinNumberController.text,
-                        //     businessCategoryController.text,
-                        //     locationController.text);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Authentication(),
-                          ),
-                        );
-                      },
-                      style: btnGold2,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          children: [
+                            // Container(
+                            //   width: 150,
+                            //   child: TextField(
+                            //     // controller: businessCategoryController,
+                            //     decoration: InputDecoration(
+                            //       hintText: 'Business category',
+                            //       hintStyle:
+                            //           TextStyle(color: Color(0xFF808080)),
+                            //     ),
+                            //     onChanged: (text) {
+                            //       setState(() {
+                            //         selectedCategory = text;
+                            //       });
+                            //     },
+                            //   ),
+                            // ),
+                            // Container(
+                            //   // width: double.infinity,
+                            //   margin: EdgeInsets.only(right: 15),
+                            //   child:
+                            Expanded(
+                              // child: Container(
+                              // margin: EdgeInsets.only(right: 50.0),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: selectedCategory,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedCategory = newValue ?? '';
+                                      // businessCategoryController.text =
+                                      //     newValue ?? '';
+                                    });
+                                  },
+                                  items: businessCategories.map((category) {
+                                    return DropdownMenuItem<String>(
+                                      value: category,
+                                      child: Text(
+                                        category,
+                                        style: const TextStyle(
+                                            color: Color(0XFF808080)),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                              // ),
+                            ),
+                            // )
+                          ],
+                        ),
+                      )),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFFF5F5F5)),
+                      color: const Color(0xFFD9D9D9),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: TextField(
+                      // controller: locationController,
+                      decoration: const InputDecoration(
+                        hintText: 'Location',
+                        hintStyle: TextStyle(color: Color(0xFF808080)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                      style: textFieldStyle,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // registerBusiness(
+                      //     businessNameController.text,
+                      //     tinNumberController.text,
+                      //     businessCategoryController.text,
+                      //     locationController.text);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Authentication(),
+                        ),
+                      );
+                    },
+                    style: btnGold2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              'Submit',
+                              style: btnGoldText2,
+                            ),
+                          ),
+                          Image.asset('assets/btn_arrow_right.png'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 25.0, bottom: 30.0),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("OR", style: orText),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 50.0),
+                    width: double.infinity,
+                    height: 50,
+                    child: TextButton(
+                      style: btnGrey,
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignIn(),
+                            ),
+                            (route) => false);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Image.asset('assets/btn_arrow_left.png'),
                             Padding(
-                              padding: EdgeInsets.only(right: 10.0),
+                              padding: const EdgeInsets.only(left: 10.0),
                               child: Text(
-                                'Submit',
-                                style: btnGoldText2,
+                                'Sign in',
+                                style: btnGreyText,
                               ),
                             ),
-                            Image.asset('assets/btn_arrow_right.png'),
                           ],
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 25.0, bottom: 30.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text("OR", style: orText),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50.0),
-                      width: double.infinity,
-                      height: 50,
-                      child: TextButton(
-                        style: btnGrey,
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => SignIn(),
-                            ),
-                          );
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/btn_arrow_left.png'),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Sign in',
-                                  style: btnGreyText,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
