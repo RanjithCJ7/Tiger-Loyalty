@@ -242,11 +242,7 @@ class UpdateContact extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 30.0),
                     child: TextButton(
                       onPressed: () {
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => CreateReward(),
-                        //   ),
-                        // );
+                        Navigator.of(context).pop();
                       },
                       style: btnGold2,
                       child: Padding(

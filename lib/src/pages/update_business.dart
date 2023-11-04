@@ -128,39 +128,41 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(
-                            bottom: 20.0, left: 15.0, right: 15.0),
+                        margin: const EdgeInsets.only(
+                            bottom: 20.0, left: 15, right: 15),
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFF5F5F5)),
-                          color: Color(0xFFD9D9D9),
+                          border: Border.all(color: const Color(0xFFF5F5F5)),
+                          color: const Color(0xFFD9D9D9),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Container(
-                            width: double.infinity,
-                            child: Expanded(
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: selectedCategory,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedCategory = newValue ?? '';
-                                    });
-                                  },
-                                  items: businessCategories.map((category) {
-                                    return DropdownMenuItem<String>(
-                                      value: category,
-                                      child: Text(
-                                        category,
-                                        style: const TextStyle(
-                                            color: Color(0XFF808080)),
-                                      ),
-                                    );
-                                  }).toList(),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: selectedCategory,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedCategory = newValue ?? '';
+                                      });
+                                    },
+                                    items: businessCategories.map((category) {
+                                      return DropdownMenuItem<String>(
+                                        value: category,
+                                        child: Text(
+                                          category,
+                                          style: const TextStyle(
+                                              color: Color(0XFF808080)),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -168,11 +170,7 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
                         margin: EdgeInsets.symmetric(horizontal: 15.0),
                         child: TextButton(
                           onPressed: () {
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => CreateReward(),
-                            //   ),
-                            // );
+                            Navigator.of(context).pop();
                           },
                           style: btnGold2,
                           child: Padding(

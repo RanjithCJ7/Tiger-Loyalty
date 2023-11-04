@@ -16,6 +16,7 @@ import 'package:tiger_loyalty/src/pages/home.dart';
 import 'package:tiger_loyalty/src/pages/manage_brand.dart';
 import 'package:tiger_loyalty/src/pages/privacy_policy.dart';
 import 'package:tiger_loyalty/src/pages/profile.dart';
+import 'package:tiger_loyalty/src/pages/setting.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:tiger_loyalty/src/pages/terms_conditions.dart';
@@ -145,11 +146,7 @@ void _navigateToScreen(BuildContext context, String title) {
                                             Container(
                                               child: TextButton(
                                                 onPressed: () {
-                                                  // Navigator.of(context).push(
-                                                  //   MaterialPageRoute(
-                                                  //     builder: (context) => CreateReward(),
-                                                  //   ),
-                                                  // );
+                                                  Navigator.of(context).pop();
                                                 },
                                                 style: btnGold2,
                                                 child: Padding(
@@ -590,7 +587,7 @@ class Profile extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ChooseSubscription(),
+                  builder: (context) => Setting(),
                 ),
               );
             },
@@ -774,11 +771,7 @@ class Profile extends StatelessWidget {
                                     bottom: 10.0, left: 30, right: 30),
                                 child: TextButton(
                                   onPressed: () {
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => CreateReward(),
-                                    //   ),
-                                    // );
+                                    Navigator.of(context).pop();
                                   },
                                   style: btnGold2,
                                   child: Padding(

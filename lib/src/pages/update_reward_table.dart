@@ -318,7 +318,9 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
                   ),
                   Container(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       style: btnGold2,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

@@ -153,11 +153,7 @@ class _SettingState extends State<Setting> {
               margin: EdgeInsets.all(10),
               child: TextButton(
                 onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => CreateReward(),
-                  //   ),
-                  // );
+                  Navigator.of(context).pop();
                 },
                 style: btnGold2,
                 child: Padding(

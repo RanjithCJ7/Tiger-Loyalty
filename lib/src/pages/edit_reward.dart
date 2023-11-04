@@ -90,7 +90,9 @@ void _navigateToScreen(BuildContext context, String title) {
                         width: double.infinity,
                         height: 53,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                           style: btnGrey,
                           child: Text(
                             'SAVE',
@@ -109,12 +111,12 @@ void _navigateToScreen(BuildContext context, String title) {
       );
       break;
     case 'Update reward table':
-          Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UpdateRewardTable()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => UpdateRewardTable()));
       break;
     case 'Update Contacts':
-          Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UpdateContact()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => UpdateContact()));
 
       break;
     default:
@@ -439,13 +441,7 @@ class _EditRewardState extends State<EditReward> {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => GiveReward(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Column(
                       children: [
                         Image.asset('assets/reward.png',
@@ -460,13 +456,7 @@ class _EditRewardState extends State<EditReward> {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Customers(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Column(
                       children: [
                         Image.asset('assets/customer.png',
@@ -481,13 +471,7 @@ class _EditRewardState extends State<EditReward> {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Profile(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Column(
                       children: [
                         Image.asset('assets/profile.png',

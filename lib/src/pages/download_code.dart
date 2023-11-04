@@ -86,9 +86,8 @@ class DownloadCode extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 25.0),
-                      width: size.width * 0.3,
+                    SizedBox(
+                      width: size.width * 0.35,
                       child: TextButton(
                         style: btnGrey,
                         onPressed: () {
@@ -116,6 +115,7 @@ class DownloadCode extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: size.height * 0.03),
                     Row(
                       children: [
                         const Expanded(
