@@ -354,6 +354,17 @@ final TextStyle settingLabel = TextStyle(
   fontWeight: FontWeight.w700,
   color: Color(0xFF0E2ED4),
 );
+final TextStyle invoiceLabel = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+final TextStyle rewardText = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 12,
+  fontWeight: FontWeight.w700,
+  color: Color(0xFF808080),
+);
 
 final ButtonStyle btnGold = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(

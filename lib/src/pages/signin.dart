@@ -284,7 +284,12 @@ class _SignInState extends State<SignIn> {
                       ),
                       TextButton(
                         onPressed: () {
-                          login(emailController.text, passwordController.text);
+                          // login(emailController.text, passwordController.text);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => RegisterUser(),
+                            ),
+                          );
                         },
                         style: btnGold,
                         child: Padding(
@@ -372,6 +377,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   SizedBox(
                     width: size.width,
+                    height: 50,
                     child: TextButton(
                       style: btnGrey,
                       onPressed: () {

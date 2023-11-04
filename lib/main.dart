@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiger_loyalty/const/Image.dart';
 
-import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
-import 'package:tiger_loyalty/src/pages/create_account.dart';
-import 'package:tiger_loyalty/src/pages/create_reward.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
-import 'package:tiger_loyalty/src/pages/give_reward.dart';
-import 'package:tiger_loyalty/src/pages/manage_brand.dart';
-import 'package:tiger_loyalty/src/pages/pin_setup.dart';
-import 'package:tiger_loyalty/src/pages/privacy_policy.dart';
-import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
-import 'package:tiger_loyalty/src/pages/terms_conditions.dart';
 
 import 'src/pages/styles.dart';
 
@@ -46,8 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        // MaterialPageRoute(builder: (context) => SignIn()),
-        MaterialPageRoute(builder: (context) => ChooseSubscription()),
+        MaterialPageRoute(builder: (context) => SignIn()),
       );
     });
   }

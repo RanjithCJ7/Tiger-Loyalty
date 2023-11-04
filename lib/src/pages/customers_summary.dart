@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:tiger_loyalty/src/pages/add_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
+import 'package:tiger_loyalty/src/pages/notification.dart';
 import 'package:tiger_loyalty/src/pages/profile.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -57,22 +58,33 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Customers', style: label),
-                  Stack(
-                    children: [
-                      Image.asset('assets/notification.png'),
-                      Positioned(
-                        top: -1,
-                        right: 0,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset('assets/notification_bg.png'),
-                            Text('3', style: notificationText),
-                          ],
-                        ),
+                  Container(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => NotificationScreen(),
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Image.asset('assets/notification.png'),
+                          Positioned(
+                            top: -1,
+                            right: 0,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset('assets/notification_bg.png'),
+                                Text('3', style: notificationText),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),

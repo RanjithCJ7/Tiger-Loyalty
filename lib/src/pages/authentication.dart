@@ -10,7 +10,7 @@ import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'styles.dart';
 
 class Authentication extends StatelessWidget {
-  TextEditingController pinController = TextEditingController();
+  // TextEditingController pinController = TextEditingController();
 
   final _tinFormatter = CustomTextInputFormatter();
 
@@ -41,14 +41,6 @@ class Authentication extends StatelessWidget {
         print('PIN : $pin');
         print('Login successfully');
 
-        // Now you can navigate to another screen or perform other actions upon successful login.
-        // For example:
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //   builder: (context) {
-        //     // Pass user data to the next screen if needed
-        //     return NextScreen(username, token);
-        //   },
-        // ));
         showDialog(
           context: context,
           builder: (context) {
@@ -128,7 +120,7 @@ class Authentication extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      controller: pinController,
+                                      // controller: pinController,
                                       keyboardType: TextInputType.number,
                                       inputFormatters: <TextInputFormatter>[
                                         FilteringTextInputFormatter.digitsOnly,
@@ -151,7 +143,12 @@ class Authentication extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              otpLogin(pinController.text, context);
+                              // otpLogin(pinController.text, context);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => PinSetup(),
+                                ),
+                              );
                             },
                             style: btnGold,
                             child: Padding(

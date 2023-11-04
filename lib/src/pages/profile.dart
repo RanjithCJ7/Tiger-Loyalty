@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:tiger_loyalty/src/pages/about.dart';
 import 'package:tiger_loyalty/src/pages/add_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/change_login.dart';
 import 'package:tiger_loyalty/src/pages/choose_photo.dart';
+import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
 import 'package:tiger_loyalty/src/pages/customers.dart';
+import 'package:tiger_loyalty/src/pages/edit_reward.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
 import 'package:tiger_loyalty/src/pages/manage_brand.dart';
@@ -37,24 +40,526 @@ List<SettingData> settingData = [
 void _navigateToScreen(BuildContext context, String title) {
   switch (title) {
     case 'Change login details':
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => ChangeLogin()));
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            margin: EdgeInsets.only(bottom: 50.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Image.asset('assets/close.png'),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Text(
+                          'Change login details',
+                          style: changeLabel,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(height: 30.0),
+                      Container(
+                        width: double.infinity,
+                        height: 53,
+                        child: TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: 50.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child:
+                                                Image.asset('assets/close.png'),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 30),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Image.asset('assets/email.png'),
+                                            SizedBox(height: 20),
+                                            Text(
+                                              'Change e-mail',
+                                              style: changeLabel,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 20),
+                                            Text(
+                                              'Change *****ya@**.com as your number',
+                                              style: todayText,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 50.0),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Color(0xFFF5F5F5)),
+                                                color: Color(0xFFD9D9D9),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                  hintText: 'New e-mail',
+                                                  hintStyle: TextStyle(
+                                                      color: Color(0xFF808080)),
+                                                  border: InputBorder.none,
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 20),
+                                                ),
+                                                style: textFieldStyle,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Container(
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  // Navigator.of(context).push(
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (context) => CreateReward(),
+                                                  //   ),
+                                                  // );
+                                                },
+                                                style: btnGold2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                                  child: Container(
+                                                    width: double.infinity,
+                                                    child: Text(
+                                                      'Change',
+                                                      style: btnGoldText2,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 50.0),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          style: btnGrey,
+                          child: Text(
+                            'E-mail',
+                            style: btnGreyText,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Container(
+                        width: double.infinity,
+                        height: 53,
+                        child: TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: 50.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child:
+                                                Image.asset('assets/close.png'),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 30),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Image.asset(
+                                                'assets/authentication.png'),
+                                            SizedBox(height: 20),
+                                            Text(
+                                              'Authentication',
+                                              style: changeLabel,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 20),
+                                            Text(
+                                              'Enter OTP sent to *****ya@**.com ',
+                                              style: todayText,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 50.0),
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5.0),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Color(
+                                                                0xFFF5F5F5)),
+                                                        color:
+                                                            Color(0xFFD9D9D9),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        15),
+                                                            child: Image.asset(
+                                                                'assets/pin.png'),
+                                                          ),
+                                                          Expanded(
+                                                            child: TextField(
+                                                              // controller: pinController,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              inputFormatters: <TextInputFormatter>[
+                                                                FilteringTextInputFormatter
+                                                                    .digitsOnly,
+                                                                LengthLimitingTextInputFormatter(
+                                                                    4),
+                                                                // _tinFormatter,
+                                                              ],
+                                                              obscureText: true,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                hintText:
+                                                                    'Enter OTP',
+                                                                hintStyle: TextStyle(
+                                                                    color: Color(
+                                                                        0xFF808080)),
+                                                                border:
+                                                                    InputBorder
+                                                                        .none,
+                                                              ),
+                                                              style:
+                                                                  textFieldStyle,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EditReward(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    style: btnGold2,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 13,
+                                                              vertical: 8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    right:
+                                                                        10.0),
+                                                            child: Text(
+                                                              'Save',
+                                                              style:
+                                                                  btnGoldText,
+                                                            ),
+                                                          ),
+                                                          Image.asset(
+                                                              'assets/btn_arrow_right.png'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 100.0),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          style: btnGrey,
+                          child: Text(
+                            'PIN',
+                            style: btnGreyText,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
       break;
     case 'Manage Brand':
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => ManageBrand()));
+          .push(MaterialPageRoute(builder: (context) => EditReward()));
       break;
     case 'Terms and conditions':
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => TermsConditions()));
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height - 125.0,
+            alignment: Alignment.bottomCenter,
+            child: Dialog(
+              child: Container(
+                width: 374,
+                height: 802,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 50.0,
+                            ),
+                            child: Text(
+                              'Terms and Conditions',
+                              style: alertTitle,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: 30.0,
+                              ),
+                              child: Image.asset('assets/close.png'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.only(bottom: 30.0),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            'Welcome to TIGER! TIGER LOYALTY COMPANY (Tiger) provides Application and website features and other products and services to you when you visit www.tiger.co.tz (the "website") or download Tiger Mobile Application, use TIGER devices, products, or services, use Tiger applications for mobile, or use software provided by Tiger Loyalty company in connection with any of the foregoing (collectively "TIGER Services"). Please see our privacy notice to understand how we collect and process your personal information. TIGER advertise and sells deals to you subject to the conditions set out on this page.\n\nCONDITIONS OF USE\nPlease read these conditions carefully before using TIGER Services. By using TIGER Services, you signify your agreement to be bound by these conditions.\n\nPRIVACY\nTIGER shall follow the privacy policy posted on its website at www.tiger,co.tz/privacypolicy when collecting and using information from you. TIGER may amend the privacy policy at any time by posting and notifying the amended privacy policy on its website. By using the App, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of Use.\n\nELECTRONIC COMMUNICATIONS\nWhen you use any TIGER Service, you are communicating with us electronically. We will communicate with you electronically in a variety of ways, such as by email, text message, call, in-app push notices or by posting e-mail messages or communications on the App. For contractual purposes, you agree that all agreements, notices, disclosures and other communications that we provide you electronically satisfy any legal requirement that such communications be in writing, unless mandatory applicable laws specifically require a different form of communication.\n\nRECOMMENDATIONS AND PERSONALIZATION\nAs part of the TIGER Services, we may recommend features, products, and services, including third-party ads that might be of interest to you, identify your preferences, and personalize your experience.\n\nCOPYRIGHT, AUTHORS\' RIGHTS AND DATABASE RIGHTS\nAll content included in or made available through any TIGER Service, such as text, graphics, logos, button icons, images, audio clips, digital downloads, and data compilations is the property of TIGER or its content suppliers and is protected by applicable Copyright laws. The compilation of all content included in or made available through any TIGER Service is the exclusive property of TIGER and is protected by Tanzanian Copyright laws.\n\nYou may not extract and/or re-utilize parts of the content of any TIGER Service without our express written consent. In particular, you may not utilize any data mining, robots, or similar data gathering and extraction tools to extract (whether once or many times) for re-utilization of any substantial parts of the content of any TIGER Service, without our express written consent. You may also not create and/or publish your own database that features substantial parts of any TIGER Service (e.g. our prices and product listings) without our express written consent.\n\nTRADEMARK\nIn addition, graphics, logos, page headers, button icons, scripts, and service names included in or made available through any TIGER Service are trademarks or trade dress of TIGER. TIGER\'s trademarks and trade dress may not be used in connection with any product or service that is not TIGER’s, in any manner that is likely to cause confusion among customers or in any manner that disparages or discredits TIGER. All other trademarks not owned by TIGER that appear in any TIGER Service are the property of their respective owners, who may or may not be affiliated with, connected to, or sponsored by TIGER.\n\nNOTICE AND PROCEDURE FOR NOTIFYING TIGER OF DEFAMATORY CONTENT\nBecause millions of products are listed, and many thousands of customer reviews and comments are hosted on TIGER. It is not possible for us to be aware of the contents of each product listed for sale, or each customer review or comment that is displayed. Accordingly, we operate on a "notice and action" basis. If you believe that any content on, or within a product advertised for sale on, the TIGER website or App contains a defamatory statement, please notify TIGER immediately by sending an email to support@tiger.co.tz with the subject line "Defamation Notice [insert your name]"\n\nImportant Warning: giving false, misleading, or inaccurate information in the email to TIGER, or TIGER WhatsApp or any other communication channels of Defamatory Content on TIGER website may result in civil and criminal liability.\n\nTIGER SOFTWARE TERMS\nIn addition to these Conditions of Use, the terms found here apply to any software (including any updates or upgrades to the software and any related documentation) that we make available to you from time to time for your use in connection with TIGER Services (the TIGER Application and Website").\n\nOTHER BUSINESSES\nParties other than TIGER operate stores, provide services, or sell product lines on this App. In addition, we provide links, and location to the sites of affiliated companies and certain other businesses. We are not responsible for examining or evaluating, and we do not warrant the offerings of, any of these businesses or individuals or the content of their websites. TIGER does not assume any responsibility or liability for the actions, product, and content of all of these or any other third parties. You can tell when a third party is involved in your transactions, and we may share your information related to those transactions with that third party. You should carefully review their privacy statements and other conditions of use.\n\nTIGER’S ROLE\nTIGER allows third-party sellers to list and sell their products deals at Tiger App and website www.tiger.co.tz. In each such case, this is indicated on the respective product detail page. While TIGER as a service provider helps facilitate transactions that are carried out on the TIGER App, TIGER is neither the manufacturer, importer, representative, buyer nor the seller of the seller\'s items and services. TIGER provides a service for deal owners/sellers and deal seekers/buyers to complete transactions.\n\nAccordingly, the contract formed at the completion of a sale for these third-party products and services is solely between deal seekers/buyer and deal owners/seller. TIGER is not a party to this contract nor assumes any responsibility arising out of or in connection with it. The seller is responsible for the sale of the products/service and for dealing with any buyer claims or any other issue arising out of or in connection with the contract between the deal seeker/buyer and deal owner/seller.\n\nOUR LIABILITY (DISCLAIMER)\nTIGER will do our utmost to ensure that availability of the TIGER Services will be uninterrupted and that transmissions will be error-free. However, due to the nature of the internet, this cannot be guaranteed. Also, your access to TIGER Services may also be occasionally suspended or restricted to allow for repairs, maintenance, or the introduction of new facilities or services. Upon notification to its client TIGER will attempt to limit the frequency and duration of any such suspension or restriction.\n\nTIGER will not be responsible for (i) losses that were not caused by any breach on our part, or (ii) any business loss (including loss of profits, revenue, contracts, anticipated savings, data, goodwill, or wasted expenditure), or (iii) any loss caused by Fraud or misrepresentation, or (iv) any indirect or consequential losses that were not foreseeable to both you and us when you commenced using the TIGER Services.\n\nEach product and description displayed on the platform is according to information received from the Merchant.\n\nThe sole responsibility of TIGER is to facilitate the contractual process between buyer/deal seekers and deal owners/Merchant. TIGER stands as an agent and therefore does not provide warrant, guarantee, or any kind of assurance on its services provided on the platform.\n\nDISPUTE SETTLEMENT\nAny dispute arising from the formation, validity, binding effect, interpretation of or the performance of the terms and conditions hereunder shall be resolved amicably by mediation. If mediation fails, the said dispute will be referred to Arbitration in the presence of an Arbitrator agreed by both parties and pursuant to the current arbitration rules. For the purpose of avoiding doubt, the place of mediation shall be within the United Republic of Tanzania, and the language for arbitration will be in English or Kiswahili upon the client’s choosing. The arbitration award shall be accepted as final and binding upon the Parties, and in any case where the complainant claims for damages, it should be limited to the value of the customer’s exposure to the transaction on the platform.\n\nAPPLICABLE LAW\nThese conditions are governed by and construed in accordance with the laws of the United Republic of Tanzania. We both agree to submit to the jurisdiction of the courts of Tanzania, which means that you may bring a claim to enforce your rights in connection with these Conditions of Sale in Tanzania.\n\nALTERATIONS TO SERVICE OR AMENDMENTS TO THE CONDITIONS OF USE\nTIGER reserves the right to make changes to any TIGER Services with notification to our client, policies, terms and conditions including these Conditions of Use, and Service Terms at any time. However, we will notify the customers of all the changes that have been made. You will be subject to the terms and conditions, policies and Conditions of Use in force at the time that you use the TIGER Services. If any of these Conditions of Use is deemed invalid, void, or for any reason unenforceable, that condition will be deemed severable and will not affect the validity and enforceability of any remaining condition.\n\nWAIVER\nIf you breach these Conditions of Use and we take no action, TIGER will still be entitled to use our rights and remedies in any other situation where you breach these Conditions of Use.\n\nTIGER’S CONTACT DETAILS\nThis App and website is owned and maintained by TIGER LOYALTY COMPANY.\nOld Bagamoyo Road, Mwanga Hakika Tower, Makumbusho\nDar es salaam, Tanzania\nE-mail: business@tiger.co.tz\nPhone: +255 758 559 000\nWhatsApp: +255 758 559 000',
+                            style: dialogTextSm,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      margin: EdgeInsets.all(30.0),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: btnGold2,
+                        child: Text(
+                          'Proceed',
+                          style: btnGoldText2,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
       break;
     case 'Privacy policy':
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height - 125.0,
+            alignment: Alignment.bottomCenter,
+            child: Dialog(
+              child: Container(
+                width: 374,
+                height: 802,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          Text(
+                            'Privacy Policy',
+                            style: alertTitle,
+                            textAlign: TextAlign.center,
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                right: 15.0,
+                              ),
+                              child: Image.asset('assets/close.png'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.only(bottom: 30.0),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Container(
+                            child: Text(
+                              'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa',
+                              style: dialogTextSm,
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
       break;
     case 'About Tiger Loyalty':
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => About()));
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height - 125.0,
+            alignment: Alignment.bottomCenter,
+            child: Dialog(
+              child: Container(
+                width: 374,
+                height: 802,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          Text(
+                            'About Tiger Loyalty',
+                            style: alertTitle,
+                            textAlign: TextAlign.center,
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                right: 15.0,
+                              ),
+                              child: Image.asset('assets/close.png'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.only(bottom: 30.0),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Container(
+                            child: Text(
+                              'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa',
+                              style: dialogTextSm,
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
       break;
     default:
       break;
@@ -68,6 +573,247 @@ class Profile extends StatelessWidget {
       children: settingData.map((data) {
         return _buildSettingItem(data.text, data.image);
       }).toList(),
+    );
+  }
+
+  Widget _buildSubsItem(String title, String image) {
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 30.0),
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFF5F5F5)),
+            color: Color(0xFFD9D9D9),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ChooseSubscription(),
+                ),
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child:
+                        Image.asset(image, color: Color.fromRGBO(0, 0, 0, 0.3)),
+                  ),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: settingsLabel,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildInvoiceItem(String title, String image) {
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 30.0),
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFF5F5F5)),
+            color: Color(0xFFD9D9D9),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child:
+                      Image.asset(image, color: Color.fromRGBO(0, 0, 0, 0.3)),
+                ),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: settingsLabel,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height - 125.0,
+                          alignment: Alignment.bottomCenter,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin:
+                                    EdgeInsets.only(top: 10.0, bottom: 20.0),
+                                child: Row(
+                                  children: [
+                                    Spacer(),
+                                    Text(
+                                      'Invoice',
+                                      style: alertTitle,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Spacer(),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                          right: 15.0,
+                                        ),
+                                        child: Image.asset('assets/close.png'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                        'Total bill this month (October 1 - 31)',
+                                        style: desc2),
+                                    SizedBox(height: 20),
+                                    Text('Tsh. 150,000', style: filterText),
+                                    SizedBox(height: 5),
+                                    Text('Total invoice', style: desc2),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 15),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('340,600', style: invoiceLabel),
+                                          SizedBox(height: 5),
+                                          Text('Total points issued',
+                                              style: dialogTextSm),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child:
+                                            Image.asset('assets/line_col.png')),
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('1490', style: invoiceLabel),
+                                          SizedBox(height: 5),
+                                          Text('Total  customers',
+                                              style: dialogTextSm),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 15),
+                              Text('Enter phone number make payment',
+                                  style: textFieldStyle),
+                              SizedBox(height: 10),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    bottom: 10.0, left: 30, right: 30),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xFFF5F5F5)),
+                                  color: Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Image.asset(
+                                            'assets/ion_keypad.png')),
+                                    Expanded(
+                                      child: TextField(
+                                        // controller: phoneNumberController,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: <TextInputFormatter>[
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: 'Phone number',
+                                          hintStyle: TextStyle(
+                                              color: Color(0xFF808080)),
+                                          border: InputBorder.none,
+                                        ),
+                                        style: textFieldStyle,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    bottom: 10.0, left: 30, right: 30),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => CreateReward(),
+                                    //   ),
+                                    // );
+                                  },
+                                  style: btnGold2,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Container(
+                                      width: double.infinity,
+                                      child: Text(
+                                        'Pay',
+                                        style: btnGoldText2,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  style: payBtn,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      'Pay now',
+                      style: payBtnText,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -106,46 +852,6 @@ class Profile extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildInvoiceItem(String title, String image) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFF5F5F5)),
-        color: const Color(0xFFD9D9D9),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(right: 10),
-              child:
-                  Image.asset(image, color: const Color.fromRGBO(0, 0, 0, 0.3)),
-            ),
-            Expanded(
-              child: Text(
-                title,
-                style: settingsLabel,
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              style: payBtn,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(
-                  'Pay now',
-                  style: payBtnText,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -213,7 +919,7 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  _buildSettingItem(
+                  _buildSubsItem(
                       'Subscription and pricing', 'assets/setting_1.png'),
                   const SizedBox(height: 5),
                   _buildInvoiceItem('Invoice', 'assets/setting_2.png'),
@@ -252,9 +958,94 @@ class Profile extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              'Delete my account',
-                              style: deleteText,
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      margin: EdgeInsets.only(bottom: 50.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Image.asset(
+                                                    'assets/close.png'),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 30),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  width: 178,
+                                                  child: Text(
+                                                    'Delete account and all personal data?',
+                                                    style: changeLabel,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 30.0),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 53,
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    style: btnGrey,
+                                                    child: Text(
+                                                      'No',
+                                                      style: btnGreyText,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 5.0),
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 53,
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    style: btnRed,
+                                                    child: Text(
+                                                      'Yes',
+                                                      style: yesText,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Text(
+                                'Delete my account',
+                                style: deleteText,
+                              ),
                             ),
                             Container(
                               margin:
