@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiger_loyalty/src/pages/customers.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
+import 'package:tiger_loyalty/src/pages/notification.dart';
 import 'package:tiger_loyalty/src/pages/profile.dart';
 
 class BottomTab extends StatefulWidget {

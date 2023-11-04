@@ -40,6 +40,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -47,12 +48,11 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(40.0),
                 child: Column(
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -60,27 +60,27 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                             'Lipa + Tiger',
                             style: label,
                           ),
-                          SizedBox(height: 50),
+                          SizedBox(height: size.height * 0.05),
                           Text(
                             'Boo Boo Restaurant',
                             style: labelSm,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: size.height * 0.02),
                           Text(
                             'Your Merchant reward number is',
                             style: desc,
                           ),
-                          SizedBox(height: 25),
+                          SizedBox(height: size.height * 0.03),
                           DottedBorder(
                             borderType: BorderType.RRect,
-                            radius: Radius.circular(5),
-                            dashPattern: [6, 7],
+                            radius: const Radius.circular(5),
+                            dashPattern: const [6, 7],
                             color: Colors.black,
                             strokeWidth: 1.5,
                             child: Container(
-                              width: 263,
+                              width: size.width * 0.6,
                               decoration: BoxDecoration(
-                                color: Color(0xFFCFAF4E),
+                                color: const Color(0xFFCFAF4E),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Center(
@@ -93,8 +93,8 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 150,
+                          SizedBox(
+                            width: size.width * 0.5,
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).push(
@@ -123,25 +123,27 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 35.0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * 0.04),
                       child: Text(
                         'By masking Tiger reward number with Lipa namba, your customers will be able to pay you via Lipa namba and receive rewards instantly',
                         style: textDark,
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    SizedBox(height: size.height * 0.04),
                     Container(
-                      margin: EdgeInsets.only(top: 30.0, bottom: 70.0),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF5F5F5)),
-                        color: Color(0xFFD9D9D9),
+                        border: Border.all(color: const Color(0xFFF5F5F5)),
+                        color: const Color(0xFFD9D9D9),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Row(
                         children: [
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
                                 'Lipa Hapa | 987654',
                                 style: textFieldStyle,
@@ -161,34 +163,31 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
+                    SizedBox(height: size.height * 0.08),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child:
-                                Text("Do it Later on Setting", style: orText),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("Do it Later on Setting", style: orText),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
                           ),
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                    SizedBox(height: size.height * 0.04),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.0),
-                        width: 122,
+                      child: SizedBox(
+                        // margin: EdgeInsets.symmetric(vertical: 10.0),
+                        width: size.width * 0.35,
                         child: TextButton(
                           style: btnGrey,
                           onPressed: () {
@@ -199,14 +198,14 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(right: 10.0),
+                                  padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    'Sign in',
+                                    'Proceed',
                                     style: btnGreyText,
                                   ),
                                 ),

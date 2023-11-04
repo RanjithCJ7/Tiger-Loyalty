@@ -16,6 +16,7 @@ import 'package:tiger_loyalty/src/pages/profile.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:tiger_loyalty/src/pages/terms_conditions.dart';
+import 'package:tiger_loyalty/widget/select_image.dart';
 import 'styles.dart';
 
 class SettingData {
@@ -74,10 +75,10 @@ class Profile extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.0),
+          margin: const EdgeInsets.symmetric(horizontal: 30.0),
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFF5F5F5)),
-            color: Color(0xFFD9D9D9),
+            border: Border.all(color: const Color(0xFFF5F5F5)),
+            color: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5),
           ),
           child: TextButton(
@@ -85,13 +86,13 @@ class Profile extends StatelessWidget {
               _navigateToScreen(context, title);
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child:
-                        Image.asset(image, color: Color.fromRGBO(0, 0, 0, 0.3)),
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Image.asset(image,
+                        color: const Color.fromRGBO(0, 0, 0, 0.3)),
                   ),
                   Expanded(
                     child: Text(
@@ -110,19 +111,20 @@ class Profile extends StatelessWidget {
 
   Widget _buildInvoiceItem(String title, String image) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.0),
+      margin: const EdgeInsets.symmetric(horizontal: 30.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFF5F5F5)),
-        color: Color(0xFFD9D9D9),
+        border: Border.all(color: const Color(0xFFF5F5F5)),
+        color: const Color(0xFFD9D9D9),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(right: 10),
-              child: Image.asset(image, color: Color.fromRGBO(0, 0, 0, 0.3)),
+              margin: const EdgeInsets.only(right: 10),
+              child:
+                  Image.asset(image, color: const Color.fromRGBO(0, 0, 0, 0.3)),
             ),
             Expanded(
               child: Text(
@@ -169,116 +171,30 @@ class Profile extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Container(
-                                            margin:
-                                                EdgeInsets.only(bottom: 50.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/close.png'),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 30),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        'Change Profile Picture',
-                                                        style: changeLabel,
-                                                      ),
-                                                      SizedBox(height: 30.0),
-                                                      Container(
-                                                        width: double.infinity,
-                                                        height: 53,
-                                                        child: TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .push(
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        ChoosePhoto(),
-                                                              ),
-                                                            );
-                                                          },
-                                                          style: btnGrey,
-                                                          child: Text(
-                                                            'Choose Photo',
-                                                            style: btnGreyText,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 5.0),
-                                                      Container(
-                                                        width: double.infinity,
-                                                        height: 53,
-                                                        child: TextButton(
-                                                          onPressed: () {
-                                                            // Add functionality for taking a picture
-                                                          },
-                                                          style: btnGrey,
-                                                          child: Text(
-                                                            'Take picture',
-                                                            style: btnGreyText,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Stack(
-                                      children: [
-                                        Image.asset(
-                                            'assets/profile_avatar.png'),
-                                        Positioned(
-                                          bottom: 0,
-                                          right: 0,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Image.asset(
-                                                  'assets/camera_bg.png'),
-                                              Image.asset('assets/camera.png'),
-                                            ],
-                                          ),
+                                TextButton(
+                                  onPressed: () {
+                                    ImageUploadHelper().showCropImagePicker(
+                                        context, true, (p0) {
+                                      if (p0 != null) {
+                                        print("path ==> $p0");
+                                      }
+                                    });
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Image.asset('assets/profile_avatar.png'),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset('assets/camera_bg.png'),
+                                            Image.asset('assets/camera.png'),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Column(

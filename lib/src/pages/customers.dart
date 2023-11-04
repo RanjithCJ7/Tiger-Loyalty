@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tiger_loyalty/const/my_appbar.dart';
 import 'package:tiger_loyalty/src/pages/add_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/customers_summary.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
@@ -54,591 +55,608 @@ class _CustomersState extends State<Customers> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(top: 50.0),
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Customers', style: label),
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                          bottom: 5.0, right: 5.0, top: 5.0),
-                      child: Image.asset('assets/notification.png'),
-                    ),
-                    Positioned(
-                      top: 0,
-                      right: 2,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Image.asset('assets/notification_bg.png'),
-                          Text('3', style: notificationText),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      backgroundColor: Colors.white,
+      appBar: My_AppBar(context,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child:
+                Text('Customers', style: label.copyWith(color: Colors.black)),
+          )),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            // Container(
+            //   margin: const EdgeInsets.only(top: 50.0),
+            //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text('Customers', style: label),
+            //       Stack(
+            //         children: [
+            //           Container(
+            //             margin: const EdgeInsets.only(
+            //                 bottom: 5.0, right: 5.0, top: 5.0),
+            //             child: Image.asset('assets/notification.png'),
+            //           ),
+            //           Positioned(
+            //             top: 0,
+            //             right: 2,
+            //             child: Stack(
+            //               alignment: Alignment.center,
+            //               children: [
+            //                 Image.asset('assets/notification_bg.png'),
+            //                 Text('3', style: notificationText),
+            //               ],
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            SizedBox(
+              height: size.height * 0.01,
             ),
-          ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onPanUpdate: (details) {
-                      if (details.delta.dx > 0) {
-                        setState(() {
-                          points = true;
-                        });
-                      }
-                      if (details.delta.dx < 0) {
-                        setState(() {
-                          points = false;
-                        });
-                      }
-                    },
-                    child: points
-                        ? Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset('assets/rectangle_3.png'),
-                              Positioned(
-                                bottom: 0,
-                                right: 10,
-                                child: Image.asset('assets/rectangle_4.png'),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 30.0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text('Summary', style: imgLabel),
-                                              Spacer(),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  showDatePickerDialog();
-                                                },
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                  ),
-                                                  height: 20,
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "Today",
-                                                        style:
-                                                            todayText.copyWith(
-                                                                color: Colors
-                                                                    .white),
-                                                      ),
-                                                      const Icon(
-                                                        Icons
-                                                            .arrow_drop_down_outlined,
-                                                        color: Colors.white,
-                                                        size: 18,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 15.0),
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('219', style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Customers',
-                                                      style: imgDesc)
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Image.asset('assets/line.png'),
-                                              const Spacer(),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text('3,478,300',
-                                                      style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Total issued points',
-                                                      style: imgDescDark)
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onPanUpdate: (details) {
+                        if (details.delta.dx > 0) {
+                          setState(() {
+                            points = true;
+                          });
+                        }
+                        if (details.delta.dx < 0) {
+                          setState(() {
+                            points = false;
+                          });
+                        }
+                      },
+                      child: points
+                          ? Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset('assets/rectangle_3.png'),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 10,
+                                  child: Image.asset('assets/rectangle_4.png'),
                                 ),
-                              )
-                            ],
-                          )
-                        : Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset('assets/rectangle_5.png'),
-                              Positioned(
-                                bottom: 0,
-                                right: 10,
-                                child: Image.asset('assets/rectangle_4.png'),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Padding(
+                                Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 30.0),
                                   child: Column(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text('Summary', style: imgLabel),
-                                          const Spacer(),
-                                          GestureDetector(
-                                            onTap: () {
-                                              showDatePickerDialog();
-                                            },
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(25.0),
-                                              ),
-                                              height: 20,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Today",
-                                                    style: todayText.copyWith(
-                                                        color: Colors.white),
+                                      Container(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text('Summary',
+                                                    style: imgLabel),
+                                                Spacer(),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    showDatePickerDialog();
+                                                  },
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 5),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        color: Colors.white,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25.0),
+                                                    ),
+                                                    height: 20,
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "Today",
+                                                          style: todayText
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                        const Icon(
+                                                          Icons
+                                                              .arrow_drop_down_outlined,
+                                                          color: Colors.white,
+                                                          size: 18,
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                  const Icon(
-                                                    Icons
-                                                        .arrow_drop_down_outlined,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 15.0),
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text('219', style: imgNum),
+                                                    const SizedBox(height: 5.0),
+                                                    Text('Customers',
+                                                        style: imgDesc)
+                                                  ],
+                                                ),
+                                                const Spacer(),
+                                                Image.asset('assets/line.png'),
+                                                const Spacer(),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text('3,478,300',
+                                                        style: imgNum),
+                                                    const SizedBox(height: 5.0),
+                                                    Text('Total issued points',
+                                                        style: imgDescDark)
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                          : Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset('assets/rectangle_5.png'),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 10,
+                                  child: Image.asset('assets/rectangle_4.png'),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('Summary', style: imgLabel),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDatePickerDialog();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
                                                     color: Colors.white,
-                                                    size: 18,
-                                                  )
-                                                ],
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                ),
+                                                height: 20,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Today",
+                                                      style: todayText.copyWith(
+                                                          color: Colors.white),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .arrow_drop_down_outlined,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15.0),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('59', style: imgNum),
+                                                SizedBox(height: 5.0),
+                                                Text('Customers',
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Image.asset('assets/line.png'),
+                                            Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('1,503,700',
+                                                    style: imgNum),
+                                                SizedBox(height: 5.0),
+                                                Text('Total redeemed points',
+                                                    style: redeemText)
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    // points
+                    //     ? Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Container(
+                    //             margin: const EdgeInsets.only(right: 2.0),
+                    //             child: Image.asset('assets/dot_blue.png'),
+                    //           ),
+                    //           Container(
+                    //             margin: const EdgeInsets.only(left: 1.0),
+                    //             child: Image.asset('assets/dot_grey.png'),
+                    //           ),
+                    //         ],
+                    //       )
+                    //     : Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Container(
+                    //             margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                    //             child: Image.asset('assets/dot_grey.png'),
+                    //           ),
+                    //           Container(
+                    //             margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                    //             child: Image.asset('assets/dot_blue.png'),
+                    //           ),
+                    //         ],
+                    //       ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: indicators(2, points == true ? 0 : 1),
+                    ),
+                    const SizedBox(height: 15.0),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Image.asset('assets/search.png'),
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: size.width * 0.75,
+                              height: 24,
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 11),
+                                  hintText: 'Search customer',
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                                style: dialogTextSm,
+                              ),
+                            )
+                            // Padding(
+                            //   padding: EdgeInsets.only(right: 5, bottom: 5.0),
+                            //   child: Image.asset('assets/search.png'),
+                            // ),
+                            // Container(
+                            //   width: 95,
+                            //   height: 24,
+                            //   decoration: BoxDecoration(
+                            //     color: Color(0xFFD9D9D9),
+                            //   ),
+                            //   child: TextField(
+                            //     decoration: InputDecoration(
+                            //       hintText: 'Search customer',
+                            //       border: InputBorder.none,
+                            //     ),
+                            //     style: dialogTextSm,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // SizedBox(height: 10.0),
+                    Container(
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                          dataRowMinHeight: 50,
+                          dataRowMaxHeight: 50,
+                          headingRowHeight: 10,
+                          columns: [
+                            DataColumn(label: Text('')),
+                            DataColumn(label: Text('')),
+                          ],
+                          rows: pointsData.map((data) {
+                            return DataRow(cells: [
+                              DataCell(
+                                TextButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          margin: EdgeInsets.only(bottom: 50.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Image.asset(
+                                                    'assets/close.png'),
+                                              ),
+                                              Container(
+                                                width: double.infinity,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                        width: 52,
+                                                        height: 52,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors
+                                                              .transparent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(26),
+                                                          border: Border.all(
+                                                            color: const Color(
+                                                                0xFFCFAF4E),
+                                                            width: 1,
+                                                          ),
+                                                        ),
+                                                        child: Image.asset(
+                                                            data.image)),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(data.name,
+                                                        style: custName),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(data.points,
+                                                        style: label),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text('Total points',
+                                                        style: totalText),
+                                                    const SizedBox(
+                                                      height: 50,
+                                                    ),
+                                                    Text('0723 732 770',
+                                                        style: numText),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Phone number',
+                                                      style: numDesc,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 30,
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Transactions(
+                                                              data.image,
+                                                              data.name,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Text(
+                                                          'Transactions',
+                                                          style: transText),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 15.0),
+                                        child: Image.asset(data.image),
                                       ),
-                                      const SizedBox(height: 15.0),
-                                      Row(
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text('59', style: imgNum),
-                                              SizedBox(height: 5.0),
-                                              Text('Customers', style: imgDesc)
-                                            ],
-                                          ),
-                                          Spacer(),
-                                          Image.asset('assets/line.png'),
-                                          Spacer(),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text('1,503,700', style: imgNum),
-                                              SizedBox(height: 5.0),
-                                              Text('Total redeemed points',
-                                                  style: redeemText)
-                                            ],
-                                          ),
+                                          Text(data.name, style: custName),
+                                          Text('Points: ' + data.points,
+                                              style: desc2),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  // points
-                  //     ? Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           Container(
-                  //             margin: const EdgeInsets.only(right: 2.0),
-                  //             child: Image.asset('assets/dot_blue.png'),
-                  //           ),
-                  //           Container(
-                  //             margin: const EdgeInsets.only(left: 1.0),
-                  //             child: Image.asset('assets/dot_grey.png'),
-                  //           ),
-                  //         ],
-                  //       )
-                  //     : Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           Container(
-                  //             margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                  //             child: Image.asset('assets/dot_grey.png'),
-                  //           ),
-                  //           Container(
-                  //             margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                  //             child: Image.asset('assets/dot_blue.png'),
-                  //           ),
-                  //         ],
-                  //       ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: indicators(2, points == true ? 0 : 1),
-                  ),
-                  const SizedBox(height: 15.0),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Image.asset('assets/search.png'),
-                          const SizedBox(width: 10),
-                          SizedBox(
-                            width: size.width * 0.75,
-                            height: 24,
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 11),
-                                hintText: 'Search customer',
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
                               ),
-                              style: dialogTextSm,
-                            ),
-                          )
-                          // Padding(
-                          //   padding: EdgeInsets.only(right: 5, bottom: 5.0),
-                          //   child: Image.asset('assets/search.png'),
-                          // ),
-                          // Container(
-                          //   width: 95,
-                          //   height: 24,
-                          //   decoration: BoxDecoration(
-                          //     color: Color(0xFFD9D9D9),
-                          //   ),
-                          //   child: TextField(
-                          //     decoration: InputDecoration(
-                          //       hintText: 'Search customer',
-                          //       border: InputBorder.none,
-                          //     ),
-                          //     style: dialogTextSm,
-                          //   ),
-                          // ),
+                              DataCell(
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 36,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                      margin: EdgeInsets.only(right: 15),
+                                      child: Center(
+                                        child:
+                                            Image.asset('assets/whatsapp.png'),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 36,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset('assets/call.png'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]);
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            /* Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                color: Color(0xFFD9D9D9),
+              ),
+              child: Row(
+                children: [
+                  // Footer Navigation Buttons
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Home(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/home.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Home',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
                         ],
                       ),
                     ),
                   ),
-                  // SizedBox(height: 10.0),
-                  Container(
-                    child: SingleChildScrollView(
-                      child: DataTable(
-                        dataRowMinHeight: 50,
-                        dataRowMaxHeight: 50,
-                        headingRowHeight: 10,
-                        columns: [
-                          DataColumn(label: Text('')),
-                          DataColumn(label: Text('')),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => GiveReward(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/reward.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Give reward',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
                         ],
-                        rows: pointsData.map((data) {
-                          return DataRow(cells: [
-                            DataCell(
-                              TextButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        margin: EdgeInsets.only(bottom: 50.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Image.asset(
-                                                  'assets/close.png'),
-                                            ),
-                                            Container(
-                                              width: double.infinity,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      width: 52,
-                                                      height: 52,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Colors.transparent,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(26),
-                                                        border: Border.all(
-                                                          color: const Color(
-                                                              0xFFCFAF4E),
-                                                          width: 1,
-                                                        ),
-                                                      ),
-                                                      child: Image.asset(
-                                                          data.image)),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(data.name,
-                                                      style: custName),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(data.points,
-                                                      style: label),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text('Total points',
-                                                      style: totalText),
-                                                  const SizedBox(
-                                                    height: 50,
-                                                  ),
-                                                  Text('0723 732 770',
-                                                      style: numText),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    'Phone number',
-                                                    style: numDesc,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 30,
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .push(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Transactions(
-                                                            data.image,
-                                                            data.name,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text('Transactions',
-                                                        style: transText),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 15.0),
-                                      child: Image.asset(data.image),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(data.name, style: custName),
-                                        Text('Points: ' + data.points,
-                                            style: desc2),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            DataCell(
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                    margin: EdgeInsets.only(right: 15),
-                                    child: Center(
-                                      child: Image.asset('assets/whatsapp.png'),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18),
-                                      color: Color(0xFFD9D9D9),
-                                    ),
-                                    child: Center(
-                                      child: Image.asset('assets/call.png'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ]);
-                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Image.asset('assets/customer.png'),
+                        SizedBox(height: 5),
+                        Text('Customers', style: footerText),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Profile(),
+                        //   ),
+                        // );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/profile.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Profile',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          /* Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-            decoration: BoxDecoration(
-              color: Color(0xFFD9D9D9),
-            ),
-            child: Row(
-              children: [
-                // Footer Navigation Buttons
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Home(),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset('assets/home.png',
-                            color: Color.fromRGBO(0, 0, 0, 0.3)),
-                        SizedBox(height: 5),
-                        Text('Home',
-                            style: footerText.copyWith(
-                                color: Color.fromRGBO(0, 0, 0, 0.3))),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => GiveReward(),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset('assets/reward.png',
-                            color: Color.fromRGBO(0, 0, 0, 0.3)),
-                        SizedBox(height: 5),
-                        Text('Give reward',
-                            style: footerText.copyWith(
-                                color: Color.fromRGBO(0, 0, 0, 0.3))),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Image.asset('assets/customer.png'),
-                      SizedBox(height: 5),
-                      Text('Customers', style: footerText),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Profile(),
-                      //   ),
-                      // );
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset('assets/profile.png',
-                            color: Color.fromRGBO(0, 0, 0, 0.3)),
-                        SizedBox(height: 5),
-                        Text('Profile',
-                            style: footerText.copyWith(
-                                color: Color.fromRGBO(0, 0, 0, 0.3))),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-         */
-        ],
+           */
+          ],
+        ),
       ),
     );
   }

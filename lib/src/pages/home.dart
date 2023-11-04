@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tiger_loyalty/const/my_appbar.dart';
 import 'package:tiger_loyalty/src/pages/customers.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
@@ -11,6 +12,7 @@ import 'package:tiger_loyalty/src/pages/profile.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
+import 'package:tiger_loyalty/src/pages/notification.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -52,844 +54,559 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: size.width,
-            height: size.height,
+      backgroundColor: Colors.white,
+      appBar: My_AppBar(context,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 20),
             child: Column(
-              children: <Widget>[
-                Container(
-                  // margin: const EdgeInsets.only(top: 50.0),
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Hello Jane,', style: label.copyWith(color: Colors.black)),
+                const SizedBox(height: 5.0),
+                Text('Boob Boo Restaurant', style: desc),
+              ],
+            ),
+          )),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            // Container(
+            //   // margin: const EdgeInsets.only(top: 50.0),
+            //   padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Expanded(
+            //         child: Column(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           mainAxisAlignment: MainAxisAlignment.start,
+            //           children: [
+            //             Text('Hello Jane,', style: label),
+            //             const SizedBox(height: 5.0),
+            //             Text('Boob Boo Restaurant', style: desc),
+            //             const SizedBox(height: 10.0),
+            //           ],
+            //         ),
+            //       ),
+            //       GestureDetector(
+            //         onTap: () {
+            //           Navigator.push(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => Notifications()));
+            //         },
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(top: 8),
+            //           child: Stack(
+            //             children: [
+            //               Image.asset('assets/notification.png'),
+            //               Positioned(
+            //                 top: -1,
+            //                 right: 0,
+            //                 child: Stack(
+            //                   alignment: Alignment.center,
+            //                   children: [
+            //                     Image.asset('assets/notification_bg.png'),
+            //                     Text('3', style: notificationText),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text('Hello Jane,', style: label),
-                            const SizedBox(height: 5.0),
-                            Text('Boob Boo Restaurant', style: desc),
-                            const SizedBox(height: 10.0),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Stack(
-                          children: [
-                            Image.asset('assets/notification.png'),
-                            Positioned(
-                              top: -1,
-                              right: 0,
-                              child: Stack(
+                      GestureDetector(
+                        onPanUpdate: (details) {
+                          if (details.delta.dx > 0) {
+                            setState(() {
+                              points = true;
+                            });
+                          }
+                          if (details.delta.dx < 0) {
+                            setState(() {
+                              points = false;
+                            });
+                          }
+                        },
+                        child: points
+                            ? Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Image.asset('assets/notification_bg.png'),
-                                  Text('3', style: notificationText),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onPanUpdate: (details) {
-                            if (details.delta.dx > 0) {
-                              setState(() {
-                                points = true;
-                              });
-                            }
-                            if (details.delta.dx < 0) {
-                              setState(() {
-                                points = false;
-                              });
-                            }
-                          },
-                          child: points
-                              ? Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset('assets/rectangle_1.png'),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 30,
-                                      child:
-                                          Image.asset('assets/rectangle_2.png'),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(15.0),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text('Issuance', style: imgLabel),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  showDatePickerDialog();
-                                                },
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                  ),
-                                                  height: 20,
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "Today",
-                                                        style:
-                                                            todayText.copyWith(
-                                                                color: Colors
-                                                                    .white),
-                                                      ),
-                                                      const Icon(
-                                                        Icons
-                                                            .arrow_drop_down_outlined,
-                                                        color: Colors.white,
-                                                        size: 18,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 15.0),
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('10', style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Customers',
-                                                      style: imgDesc)
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Image.asset('assets/line.png'),
-                                              const Spacer(),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('60,120', style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Total issued points',
-                                                      style: imgDesc)
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset('assets/rectangle_3.png'),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 10,
-                                      child:
-                                          Image.asset('assets/rectangle_4.png'),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(15.0),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text('Redemption',
-                                                  style: imgLabel),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  showDatePickerDialog();
-                                                },
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                  ),
-                                                  height: 20,
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "Today",
-                                                        style:
-                                                            todayText.copyWith(
-                                                                color: Colors
-                                                                    .white),
-                                                      ),
-                                                      const Icon(
-                                                        Icons
-                                                            .arrow_drop_down_outlined,
-                                                        color: Colors.white,
-                                                        size: 18,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 15.0),
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('23', style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Customers',
-                                                      style: imgDesc)
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Image.asset('assets/line.png'),
-                                              const Spacer(),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('178,300',
-                                                      style: imgNum),
-                                                  const SizedBox(height: 5.0),
-                                                  Text('Total redeemed points',
-                                                      style: imgDescDark)
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                        ),
-                        const SizedBox(height: 10.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: indicators(2, points == true ? 0 : 1),
-                        ),
-                        const SizedBox(height: 15.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Issued points', style: labelSm),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFFF5F5F5),
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      color: const Color(0XFFD9D9D9))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/search.png'),
-                                    const SizedBox(width: 10),
-                                    SizedBox(
-                                      width: size.width * 0.3,
-                                      height: 24,
-                                      child: TextField(
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 11),
-                                          hintText: 'Search customer',
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                        ),
-                                        style: dialogTextSm,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10.0),
-                        Container(
-                          height: 32,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                                color: const Color(0xFF000000), width: 0.5),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color:
-                                        points ? const Color(0xFFD9D9D9) : null,
-                                    borderRadius: BorderRadius.circular(5),
+                                  Image.asset('assets/rectangle_1.png'),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 30,
+                                    child:
+                                        Image.asset('assets/rectangle_2.png'),
                                   ),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        points = true;
-                                      });
-                                    },
-                                    child: Text('Pending', style: smText),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: points ? null : Color(0xFFD9D9D9),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        points = false;
-                                      });
-                                    },
-                                    child: Text('Issued', style: smText),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        /* Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Expanded(
-                            child: SingleChildScrollView(
-                              child: DataTable(
-                                horizontalMargin: 5,
-                                headingRowHeight: 10,
-                                checkboxHorizontalMargin: 0,
-                                columns: [
-                                  DataColumn(label: Text('')),
-                                  DataColumn(label: Text('')),
-                                ],
-                                rows: pointsData.map((data) {
-                                  return DataRow(cells: [
-                                    DataCell(
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(right: 15.0),
-                                            child: Image.asset(data.image),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(data.points, style: labelSm),
-                                              Text(data.name, style: desc),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    if (points)
-                                      DataCell(
+                                  Container(
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Column(
+                                      children: [
                                         Row(
                                           children: [
-                                            TextButton(
-                                              onPressed: () {},
-                                              style: approveBtn,
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.only(right: 5.0),
-                                                    child: Image.asset(
-                                                        'assets/approve.png'),
-                                                  ),
-                                                  Text('Approve',
-                                                      style: approveText),
-                                                ],
-                                              ),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                showModalBottomSheet(
-                                                  context: context,
-                                                  shape:
-                                                      const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(
-                                                      top: Radius.circular(15.0),
-                                                    ),
-                                                  ),
-                                                  builder: (BuildContext context) {
-                                                    return Stack(
-                                                      children: [
-                                                        Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom: 50, top: 15),
-                                                          decoration:
-                                                              BoxDecoration(),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            mainAxisSize:
-                                                                MainAxisSize.min,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                            children: <Widget>[
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            15,
-                                                                        vertical:
-                                                                            10),
-                                                                child: Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    children: [
-                                                                      Container(
-                                                                        width: 260,
-                                                                        alignment:
-                                                                            Alignment
-                                                                                .center,
-                                                                        child: Text(
-                                                                          'Do you want to cancel ${data.name} rewards point?',
-                                                                          style:
-                                                                              labelSm,
-                                                                          textAlign:
-                                                                              TextAlign
-                                                                                  .center,
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              15.0),
-                                                                      Container(
-                                                                        width: double
-                                                                            .infinity,
-                                                                        height: 53,
-                                                                        child:
-                                                                            TextButton(
-                                                                          onPressed:
-                                                                              () {},
-                                                                          style:
-                                                                              btnGrey,
-                                                                          child:
-                                                                              Text(
-                                                                            'No',
-                                                                            style:
-                                                                                btnGreyText,
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              5.0),
-                                                                      Container(
-                                                                        width: double
-                                                                            .infinity,
-                                                                        height: 53,
-                                                                        child:
-                                                                            TextButton(
-                                                                          onPressed:
-                                                                              () {},
-                                                                          style:
-                                                                              btnRed,
-                                                                          child:
-                                                                              Text(
-                                                                            'Yes',
-                                                                            style:
-                                                                                yesText,
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Positioned(
-                                                          right: 0,
-                                                          child: TextButton(
-                                                            onPressed: () {
-                                                              Navigator.of(context)
-                                                                  .pop();
-                                                            },
-                                                            child: Image.asset(
-                                                                'assets/close.png'),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
+                                            Text('Issuance', style: imgLabel),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDatePickerDialog();
                                               },
-                                              child: Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Image.asset(
-                                                    'assets/close_sm.png'),
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                ),
+                                                height: 20,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Today",
+                                                      style: todayText.copyWith(
+                                                          color: Colors.white),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .arrow_drop_down_outlined,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                      )
-                                    else
-                                      DataCell(
-                                        TextButton(
-                                          onPressed: () {
-                                            /* showModalBottomSheet(
-                                              context: context,
-                                              shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.vertical(
-                                                  top: Radius.circular(15.0),
+                                        const SizedBox(height: 15.0),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('10', style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('Customers',
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Image.asset('assets/line.png'),
+                                            const Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('60,120', style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('Total issued points',
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Image.asset('assets/rectangle_3.png'),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 10,
+                                    child:
+                                        Image.asset('assets/rectangle_4.png'),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('Redemption', style: imgLabel),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDatePickerDialog();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                ),
+                                                height: 20,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Today",
+                                                      style: todayText.copyWith(
+                                                          color: Colors.white),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .arrow_drop_down_outlined,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                              builder: (BuildContext context) {
-                                                return Stack(
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 50, top: 15),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment.end,
-                                                        children: <Widget>[
-                                                          Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal: 15,
-                                                                    vertical: 10),
-                                                            child: Container(
-                                                              width:
-                                                                  double.infinity,
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 260,
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    child: Text(
-                                                                      'Do you want to cancel ${data.name} rewards point?',
-                                                                      style:
-                                                                          labelSm,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: 15.0),
-                                                                  Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 53,
-                                                                    child:
-                                                                        TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style:
-                                                                          btnGrey,
-                                                                      child: Text(
-                                                                        'No',
-                                                                        style:
-                                                                            btnGreyText,
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: 5.0),
-                                                                  Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 53,
-                                                                    child:
-                                                                        TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style: btnRed,
-                                                                      child: Text(
-                                                                        'Yes',
-                                                                        style:
-                                                                            yesText,
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Positioned(
-                                                      right: 0,
-                                                      child: TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Image.asset(
-                                                            'assets/close.png'),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ); */
-                                            showModalBottomSheet(
-                                              context: context,
-                                              shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.vertical(
-                                                  top: Radius.circular(15.0),
-                                                ),
-                                              ),
-                                              builder: (BuildContext context) {
-                                                return Stack(
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 50, top: 25),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment.end,
-                                                        children: <Widget>[
-                                                          Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              horizontal: 15,
-                                                            ),
-                                                            child: Container(
-                                                              width:
-                                                                  double.infinity,
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 260,
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    child: Text(
-                                                                      'Do you want to cancel ${data.name} rewards point?',
-                                                                      style:
-                                                                          labelSm,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: 15.0),
-                                                                  Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 53,
-                                                                    child:
-                                                                        TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style:
-                                                                          btnGrey,
-                                                                      child: Text(
-                                                                        'No',
-                                                                        style:
-                                                                            btnGreyText,
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: 5.0),
-                                                                  Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 53,
-                                                                    child:
-                                                                        TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style: btnRed,
-                                                                      child: Text(
-                                                                        'Yes',
-                                                                        style:
-                                                                            yesText,
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Positioned(
-                                                      right: 0,
-                                                      child: TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Image.asset(
-                                                            'assets/close.png'),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          },
-                                          style: cancelBtn,
-                                          child: Text(
-                                            'Cancel',
-                                            style: cancelText,
-                                          ),
+                                            ),
+                                          ],
                                         ),
+                                        const SizedBox(height: 15.0),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('23', style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('Customers',
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Image.asset('assets/line.png'),
+                                            const Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('178,300', style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('Total redeemed points',
+                                                    style: imgDescDark)
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: indicators(2, points == true ? 0 : 1),
+                      ),
+                      const SizedBox(height: 15.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Issued points', style: labelSm),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: const Color(0xFFF5F5F5),
+                                borderRadius: BorderRadius.circular(5),
+                                border:
+                                    Border.all(color: const Color(0XFFD9D9D9))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/search.png'),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    width: size.width * 0.3,
+                                    height: 24,
+                                    child: TextField(
+                                      decoration: const InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.symmetric(vertical: 11),
+                                        hintText: 'Search customer',
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
                                       ),
-                                  ]);
-                                }).toList(),
+                                      style: dialogTextSm,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                        ) */
-                        ListView.separated(
-                          padding: const EdgeInsets.only(top: 10),
-                          shrinkWrap: true,
-                          itemCount: pointsData.length,
-                          separatorBuilder: (context, index) => const Divider(
-                              color: Color(0XFFD9D9D9), thickness: 1),
-                          itemBuilder: (context, index) {
-                            var data = pointsData[index];
-                            return Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              height:
-                                  MediaQuery.of(context).size.height * 0.055,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                      width: size.width * 0.14,
-                                      child: Image.asset(data.image)),
-                                  SizedBox(
-                                    width: size.width * 0.45,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                        ],
+                      ),
+                      const SizedBox(height: 10.0),
+                      Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              color: const Color(0xFF000000), width: 0.5),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      points ? const Color(0xFFD9D9D9) : null,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      points = true;
+                                    });
+                                  },
+                                  child: Text('Pending', style: smText),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: points ? null : Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      points = false;
+                                    });
+                                  },
+                                  child: Text('Issued', style: smText),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      /* Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: DataTable(
+                              horizontalMargin: 5,
+                              headingRowHeight: 10,
+                              checkboxHorizontalMargin: 0,
+                              columns: [
+                                DataColumn(label: Text('')),
+                                DataColumn(label: Text('')),
+                              ],
+                              rows: pointsData.map((data) {
+                                return DataRow(cells: [
+                                  DataCell(
+                                    Row(
                                       children: [
-                                        Text(data.points, style: labelSm),
-                                        const SizedBox(height: 5),
-                                        Text(data.name, style: desc),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 15.0),
+                                          child: Image.asset(data.image),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(data.points, style: labelSm),
+                                            Text(data.name, style: desc),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {},
-                                        style: approveBtn,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 5.0),
-                                              child: Image.asset(
-                                                  'assets/approve.png'),
+                                  if (points)
+                                    DataCell(
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {},
+                                            style: approveBtn,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(right: 5.0),
+                                                  child: Image.asset(
+                                                      'assets/approve.png'),
+                                                ),
+                                                Text('Approve',
+                                                    style: approveText),
+                                              ],
                                             ),
-                                            Text('Approve', style: approveText),
-                                          ],
-                                        ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                    top: Radius.circular(15.0),
+                                                  ),
+                                                ),
+                                                builder: (BuildContext context) {
+                                                  return Stack(
+                                                    children: [
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 50, top: 15),
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          15,
+                                                                      vertical:
+                                                                          10),
+                                                              child: Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 260,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child: Text(
+                                                                        'Do you want to cancel ${data.name} rewards point?',
+                                                                        style:
+                                                                            labelSm,
+                                                                        textAlign:
+                                                                            TextAlign
+                                                                                .center,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height:
+                                                                            15.0),
+                                                                    Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height: 53,
+                                                                      child:
+                                                                          TextButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        style:
+                                                                            btnGrey,
+                                                                        child:
+                                                                            Text(
+                                                                          'No',
+                                                                          style:
+                                                                              btnGreyText,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height:
+                                                                            5.0),
+                                                                    Container(
+                                                                      width: double
+                                                                          .infinity,
+                                                                      height: 53,
+                                                                      child:
+                                                                          TextButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        style:
+                                                                            btnRed,
+                                                                        child:
+                                                                            Text(
+                                                                          'Yes',
+                                                                          style:
+                                                                              yesText,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Positioned(
+                                                        right: 0,
+                                                        child: TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(context)
+                                                                .pop();
+                                                          },
+                                                          child: Image.asset(
+                                                              'assets/close.png'),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Image.asset(
+                                                  'assets/close_sm.png'),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          showModalBottomSheet(
+                                    )
+                                  else
+                                    DataCell(
+                                      TextButton(
+                                        onPressed: () {
+                                          /* showModalBottomSheet(
                                             context: context,
                                             shape: const RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
+                                              borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(15.0),
                                               ),
                                             ),
@@ -899,7 +616,6 @@ class _HomeState extends State<Home> {
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         bottom: 50, top: 15),
-                                                    decoration: BoxDecoration(),
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -907,14 +623,12 @@ class _HomeState extends State<Home> {
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
+                                                          CrossAxisAlignment.end,
                                                       children: <Widget>[
                                                         Padding(
                                                           padding: EdgeInsets
                                                               .symmetric(
-                                                                  horizontal:
-                                                                      15,
+                                                                  horizontal: 15,
                                                                   vertical: 10),
                                                           child: Container(
                                                             width:
@@ -939,8 +653,7 @@ class _HomeState extends State<Home> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                    height:
-                                                                        15.0),
+                                                                    height: 15.0),
                                                                 Container(
                                                                   width: double
                                                                       .infinity,
@@ -962,8 +675,96 @@ class _HomeState extends State<Home> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                    height:
-                                                                        5.0),
+                                                                    height: 5.0),
+                                                                Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 53,
+                                                                  child:
+                                                                      TextButton(
+                                                                    onPressed:
+                                                                        () {},
+                                                                    style: btnRed,
+                                                                    child: Text(
+                                                                      'Yes',
+                                                                      style:
+                                                                          yesText,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    right: 0,
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: Image.asset(
+                                                          'assets/close.png'),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ); */
+                                          showModalBottomSheet(
+                                            context: context,
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(15.0),
+                                              ),
+                                            ),
+                                            builder: (BuildContext context) {
+                                              return Stack(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom: 50, top: 25),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.end,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                            horizontal: 15,
+                                                          ),
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Container(
+                                                                  width: 260,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  child: Text(
+                                                                    'Do you want to cancel ${data.name} rewards point?',
+                                                                    style:
+                                                                        labelSm,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    height: 15.0),
                                                                 Container(
                                                                   width: double
                                                                       .infinity,
@@ -973,7 +774,28 @@ class _HomeState extends State<Home> {
                                                                     onPressed:
                                                                         () {},
                                                                     style:
-                                                                        btnRed,
+                                                                        btnGrey,
+                                                                    child: Text(
+                                                                      'No',
+                                                                      style:
+                                                                          btnGreyText,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    height: 5.0),
+                                                                Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 53,
+                                                                  child:
+                                                                      TextButton(
+                                                                    onPressed:
+                                                                        () {},
+                                                                    style: btnRed,
                                                                     child: Text(
                                                                       'Yes',
                                                                       style:
@@ -1007,115 +829,297 @@ class _HomeState extends State<Home> {
                                             },
                                           );
                                         },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(2.0),
-                                          decoration: const BoxDecoration(
-                                              color: Color(0XFFD9D9D9),
-                                              shape: BoxShape.circle),
-                                          child: const Icon(
-                                            Icons.close,
-                                            color: Colors.white,
-                                            size: 15,
-                                          ),
+                                        style: cancelBtn,
+                                        child: Text(
+                                          'Cancel',
+                                          style: cancelText,
                                         ),
                                       ),
+                                    ),
+                                ]);
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ) */
+                      ListView.separated(
+                        padding: const EdgeInsets.only(top: 10),
+                        shrinkWrap: true,
+                        itemCount: pointsData.length,
+                        separatorBuilder: (context, index) => const Divider(
+                            color: Color(0XFFD9D9D9), thickness: 1),
+                        itemBuilder: (context, index) {
+                          var data = pointsData[index];
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            height: MediaQuery.of(context).size.height * 0.055,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                    width: size.width * 0.14,
+                                    child: Image.asset(data.image)),
+                                SizedBox(
+                                  width: size.width * 0.45,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(data.points, style: labelSm),
+                                      const SizedBox(height: 5),
+                                      Text(data.name, style: desc),
                                     ],
                                   ),
-                                ],
-                              ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                /* Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFD9D9D9),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Image.asset('assets/home.png'),
-                            SizedBox(height: 5),
-                            Text('Home', style: footerText),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => GiveReward(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset('assets/reward.png',
-                                  color: Color.fromRGBO(0, 0, 0, 0.3)),
-                              SizedBox(height: 5),
-                              Text('Give reward',
-                                  style: footerText.copyWith(
-                                      color: Color.fromRGBO(0, 0, 0, 0.3))),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => Customers(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset('assets/customer.png',
-                                  color: Color.fromRGBO(0, 0, 0, 0.3)),
-                              SizedBox(height: 5),
-                              Text('Customers',
-                                  style: footerText.copyWith(
-                                      color: Color.fromRGBO(0, 0, 0, 0.3))),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => Profile(),
-                            //   ),
-                            // );
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset('assets/profile.png',
-                                  color: Color.fromRGBO(0, 0, 0, 0.3)),
-                              SizedBox(height: 5),
-                              Text('Profile',
-                                  style: footerText.copyWith(
-                                      color: Color.fromRGBO(0, 0, 0, 0.3))),
-                            ],
-                          ),
-                        ),
-                      ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {},
+                                      style: approveBtn,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 5.0),
+                                            child: Image.asset(
+                                                'assets/approve.png'),
+                                          ),
+                                          Text('Approve', style: approveText),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(15.0),
+                                            ),
+                                          ),
+                                          builder: (BuildContext context) {
+                                            return Stack(
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 50, top: 15),
+                                                  decoration: BoxDecoration(),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 15,
+                                                                vertical: 10),
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Container(
+                                                                width: 260,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child: Text(
+                                                                  'Do you want to cancel ${data.name} rewards point?',
+                                                                  style:
+                                                                      labelSm,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 15.0),
+                                                              Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 53,
+                                                                child:
+                                                                    TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style:
+                                                                      btnGrey,
+                                                                  child: Text(
+                                                                    'No',
+                                                                    style:
+                                                                        btnGreyText,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 5.0),
+                                                              Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 53,
+                                                                child:
+                                                                    TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style: btnRed,
+                                                                  child: Text(
+                                                                    'Yes',
+                                                                    style:
+                                                                        yesText,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  right: 0,
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Image.asset(
+                                                        'assets/close.png'),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2.0),
+                                        decoration: const BoxDecoration(
+                                            color: Color(0XFFD9D9D9),
+                                            shape: BoxShape.circle),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),
-               */
-              ],
+              ),
             ),
-          ),
+            /* Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                color: Color(0xFFD9D9D9),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Image.asset('assets/home.png'),
+                        SizedBox(height: 5),
+                        Text('Home', style: footerText),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => GiveReward(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/reward.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Give reward',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Customers(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/customer.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Customers',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Profile(),
+                        //   ),
+                        // );
+                      },
+                      child: Column(
+                        children: [
+                          Image.asset('assets/profile.png',
+                              color: Color.fromRGBO(0, 0, 0, 0.3)),
+                          SizedBox(height: 5),
+                          Text('Profile',
+                              style: footerText.copyWith(
+                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+           */
+          ],
         ),
       ),
     );

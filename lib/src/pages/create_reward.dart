@@ -572,11 +572,12 @@ class _CreateRewardState extends State<CreateReward> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => const BottomTab(),
-                                ),
-                              );
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const BottomTab(),
+                                  ),
+                                  (route) => false);
                             },
                             style: btnGold2,
                             child: Padding(

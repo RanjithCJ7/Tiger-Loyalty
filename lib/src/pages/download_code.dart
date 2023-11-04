@@ -11,6 +11,8 @@ import 'styles.dart';
 class DownloadCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -18,7 +20,7 @@ class DownloadCode extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(40.0),
+                padding: EdgeInsets.all(size.width * 0.05),
                 child: Column(
                   children: [
                     Container(
@@ -30,7 +32,7 @@ class DownloadCode extends StatelessWidget {
                             'Boo Boo Restaurant',
                             style: label,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Stack(
                             alignment: Alignment.center,
                             children: [
@@ -38,17 +40,17 @@ class DownloadCode extends StatelessWidget {
                               Image.asset('assets/tigersuit_sm.png'),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           DottedBorder(
                             borderType: BorderType.RRect,
-                            radius: Radius.circular(5),
-                            dashPattern: [6, 7],
+                            radius: const Radius.circular(5),
+                            dashPattern: const [6, 7],
                             color: Colors.black,
                             strokeWidth: 1.5,
                             child: Container(
                               width: 263,
                               decoration: BoxDecoration(
-                                color: Color(0xFFCFAF4E).withOpacity(0.4),
+                                color: const Color(0xFFCFAF4E).withOpacity(0.4),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Center(
@@ -61,8 +63,8 @@ class DownloadCode extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 70,
+                          SizedBox(
+                            width: size.width * 0.2,
                             child: TextButton(
                               onPressed: () {},
                               child: Row(
@@ -85,8 +87,8 @@ class DownloadCode extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 25.0),
-                      width: 122,
+                      margin: const EdgeInsets.only(bottom: 25.0),
+                      width: size.width * 0.3,
                       child: TextButton(
                         style: btnGrey,
                         onPressed: () {
@@ -97,14 +99,14 @@ class DownloadCode extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(right: 10.0),
+                                padding: const EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  'Sign in',
+                                  'Proceed',
                                   style: btnGreyText,
                                 ),
                               ),
@@ -114,30 +116,27 @@ class DownloadCode extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text("OR", style: orText),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("OR", style: orText),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
                           ),
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                    SizedBox(height: size.height * 0.02),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: Column(
                         children: [
                           Text(
@@ -145,9 +144,9 @@ class DownloadCode extends StatelessWidget {
                             style: textGrey,
                             textAlign: TextAlign.center,
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 25.0),
-                            width: 223,
+                          SizedBox(height: size.height * 0.03),
+                          SizedBox(
+                            width: size.width * 0.5,
                             child: TextButton(
                               style: btnGrey,
                               onPressed: () {
@@ -158,13 +157,14 @@ class DownloadCode extends StatelessWidget {
                                 );
                               },
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10.0, vertical: 8.0),
                                 child: Row(
                                   children: [
                                     Image.asset('assets/add_lipa.png'),
                                     Padding(
-                                      padding: EdgeInsets.only(left: 35.0),
+                                      padding:
+                                          const EdgeInsets.only(left: 35.0),
                                       child: Text(
                                         'Add Lipa namba',
                                         style: btnGreyText,

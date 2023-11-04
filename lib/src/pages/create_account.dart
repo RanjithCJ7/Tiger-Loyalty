@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/src/pages/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -44,7 +45,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 borderRadius: BorderRadius.circular(46),
               ),
-              child: Image.asset('assets/tiger.gif'),
+              child: Image.asset(Images.loadingGIF),
             ),
             Container(
               margin: EdgeInsets.only(bottom: 20.0),
@@ -67,6 +68,8 @@ class _CreateAccountState extends State<CreateAccount> {
 class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -74,42 +77,41 @@ class Welcome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(40.0),
                 child: Column(
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset('assets/tigersuit.png'),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Text(
                             'Welcome to Tiger',
                             style: desc,
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           Text(
                             'Boo Boo Restaurant',
                             style: label,
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           Text(
                             'Your Merchant reward number is',
                             style: desc,
                           ),
-                          SizedBox(height: 25),
+                          const SizedBox(height: 25),
                           DottedBorder(
                             borderType: BorderType.RRect,
-                            radius: Radius.circular(5),
-                            dashPattern: [6, 7],
+                            radius: const Radius.circular(5),
+                            dashPattern: const [6, 7],
                             color: Colors.black,
                             strokeWidth: 1.5,
                             child: Container(
                               width: 263,
                               decoration: BoxDecoration(
-                                color: Color(0xFFCFAF4E).withOpacity(0.4),
+                                color: const Color(0xFFCFAF4E).withOpacity(0.4),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Center(
@@ -122,8 +124,11 @@ class Welcome extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 150,
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.5,
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).push(
@@ -151,17 +156,20 @@ class Welcome extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(height: size.height * 0.02),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: Text(
                         'The number above allows your customers to pay cash and collect reward points from you.',
                         style: textDark,
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 25.0),
-                      width: 122,
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.35,
                       child: TextButton(
                         style: btnGrey,
                         onPressed: () {
@@ -172,14 +180,14 @@ class Welcome extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(right: 10.0),
+                                padding: const EdgeInsets.only(right: 10.0),
                                 child: Text(
-                                  'Sign in',
+                                  'Proceed',
                                   style: btnGreyText,
                                 ),
                               ),
@@ -189,69 +197,70 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text("OR", style: orText),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Color(0xFF808080),
-                            ),
-                          ),
-                        ],
-                      ),
+                    SizedBox(
+                      height: size.height * 0.03,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Use Lipa number to receive payment and give instant rewards to customers',
-                            style: textGrey,
-                            textAlign: TextAlign.center,
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
                           ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 25.0),
-                            width: 223,
-                            child: TextButton(
-                              style: btnGrey,
-                              onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => SignIn(),
-                                //   ),
-                                // );
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 8.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset('assets/add_lipa.png'),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 35.0),
-                                      child: Text(
-                                        'Add Lipa namba',
-                                        style: btnGreyText,
-                                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text("OR", style: orText),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: Color(0xFF808080),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'Use Lipa number to receive payment and give instant rewards to customers',
+                          style: textGrey,
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        SizedBox(
+                          width: size.width * 0.55,
+                          child: TextButton(
+                            style: btnGrey,
+                            onPressed: () {
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) => SignIn(),
+                              //   ),
+                              // );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 8.0),
+                              child: Row(
+                                children: [
+                                  Image.asset('assets/add_lipa.png'),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 35.0),
+                                    child: Text(
+                                      'Add Lipa namba',
+                                      style: btnGreyText,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
