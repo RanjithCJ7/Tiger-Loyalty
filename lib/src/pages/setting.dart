@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tiger_loyalty/src/pages/create_reward.dart';
 import 'styles.dart';
 
@@ -63,113 +64,147 @@ class _SettingState extends State<Setting> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 15, top: 15),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child: Image.asset('assets/chevron_left.png'),
-                  ),
-                  Text(
-                    'Setting',
-                    style: settingLabel,
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Column(
-              children: subscriptionData.map((data) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedSubscription = data;
-                    });
-                  },
-                  child: Stack(
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 15, top: 5),
+                  child: Row(
                     children: [
-                      Container(
-                        width: 347,
-                        height: 159,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: data.backgroundColor,
-                        ),
-                        margin: EdgeInsets.only(bottom: 5.0),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.title,
-                                style: label.copyWith(
-                                  color: data.titleColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Image.asset('assets/chevron_left.png'),
+                      ),
+                      const SizedBox(width: 10),
+                      Text('Setting', style: settingLabel),
+                      Spacer()
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text(
+                          //   'Setting',
+                          //   style: label,
+                          // ),
+                          Container(
+                            width: size.width,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: subscriptionData.length,
+                                itemBuilder: (context, index) {
+                                  var data = subscriptionData[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedSubscription = data;
+                                      });
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: size.width,
+                                          padding: const EdgeInsets.only(
+                                              left: 20, right: 20, top: 10),
+                                          child: Container(
+                                            width: size.width * 0.8,
+                                            height: size.height * 0.2,
+                                            padding: const EdgeInsets.all(20),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: data.backgroundColor,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  data.title,
+                                                  style: label.copyWith(
+                                                    color: data.titleColor,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    height: size.height * 0.01),
+                                                Text(
+                                                  data.desc,
+                                                  style: subsDark.copyWith(
+                                                    letterSpacing: 0.5,
+                                                    color: data.descColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        if (data.title ==
+                                            selectedSubscription?.title)
+                                          Positioned(
+                                            top: 0,
+                                            right: 5,
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Image.asset(
+                                                    'assets/white_border.png'),
+                                                Image.asset('assets/check.png'),
+                                              ],
+                                            ),
+                                          )
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              style: btnGold2,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
                                 ),
-                              ),
-                              SizedBox(height: 20.0),
-                              Text(
-                                data.desc,
-                                style: subsDark.merge(
-                                  TextStyle(
-                                    letterSpacing: 0.5,
-                                    color: data.descColor,
+                                child: SizedBox(
+                                  width: size.width * 0.8,
+                                  child: Text(
+                                    'Upgrade',
+                                    style: btnGoldText2,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                      if (data.title == selectedSubscription?.title)
-                        Positioned(
-                          top: -4,
-                          right: -4,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset('assets/white_border.png'),
-                              Image.asset('assets/check.png'),
-                            ],
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: btnGold2,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    width: double.infinity,
-                    child: Text(
-                      'Upgrade',
-                      style: btnGoldText2,
-                      textAlign: TextAlign.center,
                     ),
-                  ),
+                  ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
