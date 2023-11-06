@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tiger_loyalty/const/Image.dart';
-
-import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
-import 'package:tiger_loyalty/src/pages/create_account.dart';
-import 'package:tiger_loyalty/src/pages/create_reward.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
-import 'package:tiger_loyalty/src/pages/give_reward.dart';
-import 'package:tiger_loyalty/src/pages/manage_brand.dart';
-import 'package:tiger_loyalty/src/pages/pin_setup.dart';
-import 'package:tiger_loyalty/src/pages/privacy_policy.dart';
-import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
-import 'package:tiger_loyalty/src/pages/signin.dart';
-import 'package:tiger_loyalty/src/pages/terms_conditions.dart';
+import 'package:tiger_loyalty/const/constant.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signin/component/signin.dart';
+import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
 
 import 'src/pages/styles.dart';
 
@@ -24,8 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(title: ''),
+    return GetMaterialApp(
+      home: const MyHomePage(title: ''),
+      initialBinding: InitialBinding(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -43,18 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        // MaterialPageRoute(builder: (context) => SignIn()),
-        MaterialPageRoute(builder: (context) => ChooseSubscription()),
-      );
+    SetSharedPref().getData();
+    Future.delayed(const Duration(seconds: 3), () {
+      Params.userToken != "null"
+          ? Get.offAll(() => const BottomTab())
+          : Get.offAll(() => SignIn());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: Padding(
@@ -75,41 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: splashText,
             ),
           ],
-        )
-        /* Stack(
-          children: [
-            // if (isLoading)
-            // Image.asset(
-            //   "assets/loading.gif",
-            //   height: 125.0,
-            //   width: 125.0,
-            // ),
-            // if (!isLoading)
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 175.0),
-                  child: Column(
-                    children: [
-                      Image.asset('assets/splash.png'),
-                      SizedBox(height: 15.0),
-                      Text(
-                        'Reward for Growth',
-                        style: splashText,
-                      ),
-                    ],
-                  ),
-                ),
-                Image.asset(
-                  Images.loadingGIF,
-                  height: 50,
-                ),
-              ],
-            ),
-          ],
-        ) */
-        ,
+        ),
       ),
     );
   }

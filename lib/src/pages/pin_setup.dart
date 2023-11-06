@@ -1,157 +1,230 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/src/pages/create_account.dart';
+import 'package:tiger_loyalty/widget/loader_widget.dart';
 import 'styles.dart';
 
 class PinSetup extends StatelessWidget {
-  final _oldPinFormatter = CustomTextInputFormatter();
-  final _newPinFormatter = CustomTextInputFormatter();
+  SignupController signupController = Get.find<SignupController>();
+
+  RxBool pinMatch = false.obs;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(size.width * 0.1),
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: [
-                      Image.asset('assets/pin_setup.png'),
-                      SizedBox(height: size.height * 0.02),
-                      Text(
-                        'PIN setup',
-                        style: label,
-                      ),
-                      SizedBox(height: size.height * 0.02),
-                      Text(
-                        'Protect your deals and rewards',
-                        style: desc,
-                      ),
-                      SizedBox(height: size.height * 0.02),
-                      Row(
-                        children: [
-                          Container(
-                            width: size.width * 0.54,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFF5F5F5)),
-                              color: const Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Image.asset('assets/pin.png'),
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(4),
-                                      _oldPinFormatter,
-                                    ],
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
-                                      hintText: '* * * *',
-                                      hintStyle:
-                                          TextStyle(color: Color(0xFF808080)),
-                                      border: InputBorder.none,
+      body: Obx(
+        () => signupController.isLoading.value
+            ? const LoaderWidget()
+            : Center(
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(size.width * 0.1),
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            children: [
+                              Image.asset('assets/pin_setup.png'),
+                              SizedBox(height: size.height * 0.02),
+                              Text(
+                                'PIN setup',
+                                style: label,
+                              ),
+                              SizedBox(height: size.height * 0.02),
+                              Text(
+                                'Protect your deals and rewards',
+                                style: desc,
+                              ),
+                              SizedBox(height: size.height * 0.02),
+                              signupController.pinMatch.value == false
+                                  ? SizedBox(height: Get.height * 0.032)
+                                  : Column(
+                                      children: [
+                                        const IntrinsicHeight(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              VerticalDivider(
+                                                color: Colors.red,
+                                                thickness: 3,
+                                                width: 0,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "PIN mismatch, write again",
+                                                style: TextStyle(
+                                                  fontFamily: "Inter",
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 15,
+                                                  color: Colors.red,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: size.height * 0.01),
+                                      ],
                                     ),
-                                    style: textFieldStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: size.width * 0.54,
-                            // margin: EdgeInsets.only(right: 5.0),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFF5F5F5)),
-                              color: const Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Image.asset('assets/pin.png'),
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(4),
-                                      _newPinFormatter,
-                                    ],
-                                    obscureText: true,
-                                    decoration: const InputDecoration(
-                                      hintText: '* * * *',
-                                      hintStyle:
-                                          TextStyle(color: Color(0xFF808080)),
-                                      border: InputBorder.none,
-                                    ),
-                                    style: textFieldStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: size.width * 0.01),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => CreateAccount(),
-                                ),
-                              );
-                            },
-                            style: btnGold,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 13, vertical: 8.0),
-                              child: Row(
+                              Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Text(
-                                      'Next',
-                                      style: btnGoldText,
+                                  Container(
+                                    width: size.width * 0.54,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color(0xFFF5F5F5)),
+                                      color: const Color(0xFFD9D9D9),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Image.asset('assets/pin.png'),
+                                        ),
+                                        Expanded(
+                                          child: TextField(
+                                            controller:
+                                                signupController.pin1Controller,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                            ],
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                              hintText: '****',
+                                              hintStyle: TextStyle(
+                                                  color: Color(0xFF808080)),
+                                              border: InputBorder.none,
+                                            ),
+                                            style: textFieldStyle.copyWith(
+                                                letterSpacing: 4.0),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Image.asset('assets/btn_arrow_right.png'),
                                 ],
                               ),
-                            ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: size.width * 0.54,
+                                    // margin: EdgeInsets.only(right: 5.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color(0xFFF5F5F5)),
+                                      color: const Color(0xFFD9D9D9),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Image.asset('assets/pin.png'),
+                                        ),
+                                        Expanded(
+                                          child: TextField(
+                                            controller:
+                                                signupController.pin2Controller,
+                                            onChanged: (value) {
+                                              if (signupController.pin1Controller.text.isNotEmpty &&
+                                                  signupController
+                                                      .pin2Controller
+                                                      .text
+                                                      .isNotEmpty &&
+                                                  signupController
+                                                          .pin1Controller
+                                                          .text !=
+                                                      signupController
+                                                          .pin2Controller
+                                                          .text) {
+                                                signupController
+                                                    .pinMatch.value = true;
+                                              } else if (signupController
+                                                      .pin1Controller.text ==
+                                                  signupController
+                                                      .pin2Controller.text) {
+                                                signupController
+                                                    .pinMatch.value = false;
+                                              } else if (signupController
+                                                  .pin2Controller
+                                                  .text
+                                                  .isEmpty) {
+                                                signupController
+                                                    .pinMatch.value = false;
+                                              }
+                                            },
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                            ],
+                                            obscureText: true,
+                                            decoration: const InputDecoration(
+                                              hintText: '****',
+                                              hintStyle: TextStyle(
+                                                  color: Color(0xFF808080)),
+                                              border: InputBorder.none,
+                                            ),
+                                            style: textFieldStyle.copyWith(
+                                                letterSpacing: 4.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: size.width * 0.01),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => CreateAccount(),
+                                        ),
+                                      );
+                                    },
+                                    style: btnGold,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 13, vertical: 8.0),
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10.0),
+                                            child: Text(
+                                              'Next',
+                                              style: btnGoldText,
+                                            ),
+                                          ),
+                                          Image.asset(
+                                              'assets/btn_arrow_right.png'),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

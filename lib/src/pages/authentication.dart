@@ -1,80 +1,18 @@
-import 'dart:convert';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/src/pages/pin_setup.dart';
-import 'package:tiger_loyalty/src/pages/signin.dart';
+import 'package:tiger_loyalty/screens/signin/component/signin.dart';
+
 import 'styles.dart';
 
+// ignore: must_be_immutable
 class Authentication extends StatelessWidget {
-  TextEditingController pinController = TextEditingController();
+  Authentication({super.key});
 
-  final _tinFormatter = CustomTextInputFormatter();
-
-  Future<void> otpLogin(String pin, BuildContext context) async {
-    if (pin.isEmpty) {
-      Fluttertoast.showToast(msg: "Please enter OTP");
-    } else {}
-
-    try {
-      final String apiUrl = "https://dummyjson.com/auth/login";
-
-      Map<String, String> formData = {
-        "pin": pin,
-      };
-
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        body: formData,
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-
-        String token = data['token'];
-        String pin = data['pin'];
-
-        print('Token: $token');
-        print('PIN : $pin');
-        print('Login successfully');
-
-        // Now you can navigate to another screen or perform other actions upon successful login.
-        // For example:
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //   builder: (context) {
-        //     // Pass user data to the next screen if needed
-        //     return NextScreen(username, token);
-        //   },
-        // ));
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Verifying'),
-              content: Text('Please wait'),
-            );
-          },
-        );
-      } else {
-        final Map<String, dynamic> errorData = jsonDecode(response.body);
-        String errorMessage = errorData['message'];
-        print('Login failed. Status code: ${response.statusCode}');
-        print('Error Message: $errorMessage');
-
-        // Show an error message to the user, e.g., using a SnackBar
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please enter otp'),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  SignupController signupController = Get.find<SignupController>();
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +58,7 @@ class Authentication extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.symmetric(
@@ -128,21 +67,24 @@ class Authentication extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: TextField(
-                                      controller: pinController,
+                                      controller:
+                                          signupController.otpController,
                                       keyboardType: TextInputType.number,
                                       inputFormatters: <TextInputFormatter>[
                                         FilteringTextInputFormatter.digitsOnly,
                                         LengthLimitingTextInputFormatter(4),
-                                        _tinFormatter,
                                       ],
                                       obscureText: true,
                                       decoration: const InputDecoration(
-                                        hintText: '* * * *',
-                                        hintStyle:
-                                            TextStyle(color: Color(0xFF808080)),
+                                        hintText: '****',
+                                        hintStyle: TextStyle(
+                                            color: Color(0xFF808080),
+                                            letterSpacing: 4.0),
                                         border: InputBorder.none,
                                       ),
-                                      style: textFieldStyle,
+                                      obscuringCharacter: '*',
+                                      style: textFieldStyle.copyWith(
+                                          letterSpacing: 4.0),
                                     ),
                                   ),
                                 ],
@@ -150,9 +92,7 @@ class Authentication extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
-                              otpLogin(pinController.text, context);
-                            },
+                            onPressed: () {},
                             style: btnGold,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -214,30 +154,30 @@ class Authentication extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 50.0),
+                        margin: const EdgeInsets.only(bottom: 50.0),
                         width: double.infinity,
                         height: 50,
                         child: TextButton(
                           style: btnGrey,
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignIn(),
-                                ),
-                                (route) => false);
+                            Get.offAll(() => SignIn(),
+                                binding: InitialBinding());
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('assets/btn_arrow_left.png'),
+                                const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.black,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     'Sign in',
-                                    style: btnGreyText,
+                                    style: btnGreyText.copyWith(
+                                        color: Colors.black),
                                   ),
                                 ),
                               ],
@@ -253,31 +193,6 @@ class Authentication extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CustomTextInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.isEmpty) {
-      return newValue;
-    }
-
-    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
-
-    final StringBuffer newText = StringBuffer();
-    for (int i = 0; i < text.length; i++) {
-      if (i > 0 && i % 3 == 0) {
-        newText.write('-');
-      }
-      newText.write(text[i]);
-    }
-
-    return TextEditingValue(
-      text: newText.toString(),
-      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

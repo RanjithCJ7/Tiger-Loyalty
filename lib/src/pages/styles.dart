@@ -19,15 +19,15 @@ final TextStyle desc = TextStyle(
 );
 final TextStyle desc2 = TextStyle(
   fontFamily: 'Inter',
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: FontWeight.w400,
   color: Color(0xFF000000),
 );
 
 final TextStyle textFieldStyle = TextStyle(
   fontFamily: 'Inter',
-  fontSize: 14.0,
-  fontWeight: FontWeight.w700,
+  fontSize: 16.0,
+  fontWeight: FontWeight.w800,
   color: Color(0xFF000000),
 );
 
@@ -94,7 +94,7 @@ final TextStyle selectBtnSm = TextStyle(
 );
 final TextStyle alertTitle = TextStyle(
   fontFamily: 'Inter',
-  fontSize: 20.0,
+  fontSize: 26.0,
   fontWeight: FontWeight.w700,
   color: Colors.black,
 );
@@ -273,11 +273,11 @@ final TextStyle transBold = TextStyle(
   fontWeight: FontWeight.w700,
   color: const Color(0xFF000000),
 );
-final TextStyle transDesc = TextStyle(
+TextStyle transDesc = const TextStyle(
   fontFamily: 'Inter',
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: FontWeight.w400,
-  color: const Color(0xFF808080),
+  color: Color(0xFF808080),
 );
 final TextStyle redeemText = TextStyle(
   fontFamily: 'Inter',
@@ -353,6 +353,17 @@ final TextStyle settingLabel = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w700,
   color: Color(0xFF0E2ED4),
+);
+final TextStyle invoiceLabel = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+TextStyle rewardText = const TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 14,
+  fontWeight: FontWeight.w700,
+  color: Color(0xFF808080),
 );
 
 final ButtonStyle btnGold = ElevatedButton.styleFrom(
