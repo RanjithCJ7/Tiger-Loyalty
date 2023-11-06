@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
+import 'package:tiger_loyalty/src/pages/create_reward.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';

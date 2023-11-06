@@ -2500,3 +2500,12 @@ build/image_picker_android/intermediates/incremental/packageDebugAssets/merger.x
 build/image_picker_android/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
 build/image_picker_android/outputs/logs/manifest-merger-debug-report.txt
 build/image_picker_android/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/.filecache
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/app.dill
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/debug_android_application.stamp
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/flutter_assets.d
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/gen_dart_plugin_registrant.stamp
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/gen_localizations.stamp
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/kernel_snapshot.d
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/kernel_snapshot.stamp
+.dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/outputs.json

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiger_loyalty/src/pages/notification.dart';
 import 'styles.dart';
 
 class Transactions extends StatefulWidget {

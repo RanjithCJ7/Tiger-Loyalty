@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tiger_loyalty/src/pages/notification.dart';
 import 'styles.dart';
 
 class PointsData {
