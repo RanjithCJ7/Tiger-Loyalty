@@ -2509,3 +2509,6 @@ build/image_picker_android/tmp/compileDebugJavaWithJavac/previous-compilation-da
 .dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/kernel_snapshot.d
 .dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/kernel_snapshot.stamp
 .dart_tool/flutter_build/b5b7c49a9466735d10828d43ff1c22dd/outputs.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
