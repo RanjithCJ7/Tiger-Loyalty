@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/src/pages/customers.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/profile.dart';
@@ -54,25 +56,25 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xFF0E2ED4),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Expanded(
             child: Column(
               children: [
-                Container(
-                  margin: EdgeInsets.only(left: 15, top: 30),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Image.asset('assets/chevron_left.png'),
-                      ),
-                      Spacer()
-                    ],
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
@@ -80,27 +82,31 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
                       Container(
                         child: Column(
                           children: [
-                            Image.asset('assets/update_business.png'),
-                            SizedBox(height: 15),
+                            Image.asset(
+                              Images.updateBusinessDetails,
+                              height: 50,
+                            ),
+                            const SizedBox(height: 15),
                             Text('Update Business Details', style: label),
                           ],
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                             bottom: 5.0, left: 15.0, right: 15.0),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFF5F5F5)),
-                          color: Color(0xFFD9D9D9),
+                          border: Border.all(color: const Color(0xFFF5F5F5)),
+                          color: const Color(0xFFD9D9D9),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText: '$name',
-                              hintStyle: TextStyle(color: Color(0xFF808080)),
+                              hintText: name,
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFF808080)),
                               border: InputBorder.none,
                             ),
                             style: textFieldStyle,
@@ -108,17 +114,17 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                             bottom: 5.0, left: 15.0, right: 15.0),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFF5F5F5)),
-                          color: Color(0xFFD9D9D9),
+                          border: Border.all(color: const Color(0xFFF5F5F5)),
+                          color: const Color(0xFFD9D9D9),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: '123-344-232',
                               hintStyle: TextStyle(color: Color(0xFF808080)),
                               border: InputBorder.none,
@@ -167,15 +173,15 @@ class _UpdateBusinessState extends State<UpdateBusiness> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                           style: btnGold2,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: SizedBox(
                               width: double.infinity,
                               child: Text(
                                 'Update',

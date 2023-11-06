@@ -79,6 +79,7 @@ class ImageUploadHelper {
     } else {
       return image;
     }
+    return null;
   }
 
   Future<XFile?> imgFromCamera() async {
@@ -108,6 +109,7 @@ class ImageUploadHelper {
       // print("normal");
       return image;
     }
+    return null;
   }
 
   chooseOption(BuildContext context, bool isCircleProfile,

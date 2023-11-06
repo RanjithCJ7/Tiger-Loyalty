@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:tiger_loyalty/src/pages/create_reward.dart';
 import 'styles.dart';
 
@@ -32,7 +33,7 @@ class _SettingState extends State<Setting> {
       desc:
           'Lorem ipsum dolor sit amet consectetur. Eget vitae aenean risus aliquet elit turpis quam. Ut tellus tincidunt hendrerit venenatis. Sed integer semper felis felis eros lobortis risus. ',
       descColor: Colors.black,
-      backgroundColor: Color(0xFF000000).withOpacity(0.2),
+      backgroundColor: const Color(0xFF000000).withOpacity(0.2),
     ),
     SubscriptionData(
       title: 'TZS. 25,000',
@@ -40,7 +41,7 @@ class _SettingState extends State<Setting> {
       desc:
           'Lorem ipsum dolor sit amet consectetur. Eget vitae aenean risus aliquet elit turpis quam. Ut tellus tincidunt hendrerit venenatis. Sed integer semper felis felis eros lobortis risus. ',
       descColor: Colors.black,
-      backgroundColor: Color(0xFF1BB46A).withOpacity(0.5),
+      backgroundColor: const Color(0xFF1BB46A).withOpacity(0.5),
     ),
     SubscriptionData(
       title: 'TZS. 50,000',
@@ -48,7 +49,7 @@ class _SettingState extends State<Setting> {
       desc:
           'Lorem ipsum dolor sit amet consectetur. Eget vitae aenean risus aliquet elit turpis quam. Ut tellus tincidunt hendrerit venenatis. Sed integer semper felis felis eros lobortis risus. ',
       descColor: Colors.white,
-      backgroundColor: Color(0xFF000000).withOpacity(0.7),
+      backgroundColor: const Color(0xFF000000).withOpacity(0.7),
     ),
     SubscriptionData(
       title: 'TZS. 75,000',
@@ -56,7 +57,7 @@ class _SettingState extends State<Setting> {
       desc:
           'Lorem ipsum dolor sit amet consectetur. Eget vitae aenean risus aliquet elit turpis quam. Ut tellus tincidunt hendrerit venenatis. Sed integer semper felis felis eros lobortis risus. ',
       descColor: Colors.white,
-      backgroundColor: Color(0xFF000000).withOpacity(1.0),
+      backgroundColor: const Color(0xFF000000).withOpacity(1.0),
     ),
   ];
 
@@ -65,143 +66,163 @@ class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leadingWidth: size.width,
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Color(0xFF0E2ED4),
+                ),
+              ),
+              const Text(
+                "Setting",
+                style: TextStyle(
+                  color: Color(0xFF0E2ED4),
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(vertical: 15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 15, top: 5),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Image.asset('assets/chevron_left.png'),
-                      ),
-                      const SizedBox(width: 10),
-                      Text('Setting', style: settingLabel),
-                      Spacer()
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Text(
-                          //   'Setting',
-                          //   style: label,
-                          // ),
-                          Container(
-                            width: size.width,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: subscriptionData.length,
-                                itemBuilder: (context, index) {
-                                  var data = subscriptionData[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedSubscription = data;
-                                      });
-                                    },
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          width: size.width,
-                                          padding: const EdgeInsets.only(
-                                              left: 20, right: 20, top: 10),
-                                          child: Container(
-                                            width: size.width * 0.8,
-                                            height: size.height * 0.2,
-                                            padding: const EdgeInsets.all(20),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: data.backgroundColor,
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  data.title,
-                                                  style: label.copyWith(
-                                                    color: data.titleColor,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    height: size.height * 0.01),
-                                                Text(
-                                                  data.desc,
-                                                  style: subsDark.copyWith(
-                                                    letterSpacing: 0.5,
-                                                    color: data.descColor,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        if (data.title ==
-                                            selectedSubscription?.title)
-                                          Positioned(
-                                            top: 0,
-                                            right: 5,
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                    'assets/white_border.png'),
-                                                Image.asset('assets/check.png'),
-                                              ],
-                                            ),
-                                          )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(10),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              style: btnGold2,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                ),
-                                child: SizedBox(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: size.width,
+                  child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: subscriptionData.length,
+                      itemBuilder: (context, index) {
+                        var data = subscriptionData[index];
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedSubscription = data;
+                            });
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: size.width,
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 10),
+                                child: Container(
                                   width: size.width * 0.8,
-                                  child: Text(
-                                    'Upgrade',
-                                    style: btnGoldText2,
-                                    textAlign: TextAlign.center,
+                                  height: size.height * 0.2,
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: data.backgroundColor,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data.title,
+                                        style: label.copyWith(
+                                          color: data.titleColor,
+                                        ),
+                                      ),
+                                      SizedBox(height: size.height * 0.01),
+                                      Text(
+                                        data.desc,
+                                        style: subsDark.copyWith(
+                                          letterSpacing: 0.5,
+                                          color: data.descColor,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
+                              if (data.title == selectedSubscription?.title)
+                                Positioned(
+                                  top: 0,
+                                  right: 5,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Image.asset('assets/white_border.png'),
+                                      Image.asset('assets/check.png'),
+                                    ],
+                                  ),
+                                )
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        );
+                      }),
                 ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                Container(
+                  height: size.height * 0.06,
+                  width: size.width * 0.9,
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFCFAF4E),
+                      borderRadius: BorderRadius.circular(6)),
+                  child: Center(
+                    child: Text(
+                      'Upgrade  ',
+                      style: btnGoldText2,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+                // Container(
+                //   margin: const EdgeInsets.all(10),
+                //   child: TextButton(
+                //     onPressed: () {
+                //       if (selectedSubscription == null) {
+                //         Fluttertoast.showToast(
+                //             msg: "Please choose subscription plan");
+                //       } else {
+                //         Navigator.of(context).push(
+                //           MaterialPageRoute(
+                //             builder: (context) => CreateReward(),
+                //           ),
+                //         );
+                //       }
+                //     },
+                //     style: btnGold2,
+                //     child: Padding(
+                //       padding: const EdgeInsets.symmetric(vertical: 10),
+                //       child: Container(
+                //         width: size.width,
+                //         child: Text(
+                //           'Proceed',
+                //           style: btnGoldText2,
+                //           textAlign: TextAlign.center,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

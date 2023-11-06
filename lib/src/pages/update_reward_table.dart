@@ -1,13 +1,7 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
-import 'package:tiger_loyalty/src/pages/home.dart';
+import 'package:get/get.dart';
 import 'styles.dart';
 
 class RewardTableModel {
@@ -26,47 +20,13 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
   TextEditingController maxController = TextEditingController();
   TextEditingController percentageController = TextEditingController();
   List<RewardTableModel> rewardData = [];
-
-  List<DataRow> generateRows(List<List<String>> data) {
-    return data.asMap().entries.map((entry) {
-      int index = entry.key;
-      List<String> rowData = entry.value;
-
-      Color backgroundColor = index.isOdd ? Colors.white : Color(0xFFD9D9D9);
-
-      return DataRow(
-        color: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.selected)) {
-            return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-          }
-          return backgroundColor;
-        }),
-        cells: [
-          DataCell(Text(rowData[0])),
-          DataCell(Text(rowData[1])),
-          DataCell(
-            Row(
-              children: [
-                Text(rowData[2]),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Image.asset('assets/remove.png'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }).toList();
-  }
-
-  List<String> rowData = [];
-
-  String selectedMinValue = '';
-  String selectedMaxValue = '';
-
-  bool showCreateReward = true;
+  // bool showCreateReward = true;
+  List data = [
+    {'min': '10,000', 'max': "100,000"},
+    {'min': '100,001', 'max': "100,000"},
+    {'min': '1,000,001', 'max': "5,000,000"},
+    {'min': '5,000,001', 'max': "10,000,000"},
+  ];
 
   @override
   void dispose() {
@@ -78,42 +38,28 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    List<List<String>> tableData = [
-      ['10,000', '100,000', '1%', ''],
-      ['100,001', '1,000,000', '2%', ''],
-      ['1,000,001', '5,000,000', '3%', ''],
-      ['5,000,001', '10,000,000', '4%', ''],
-    ];
-
-    List data = [
-      {'min': '10,000', 'max': "100,000"},
-      {'min': '100,001', 'max': "100,000"},
-      {'min': '1,000,001', 'max': "5,000,000"},
-      {'min': '5,000,001', 'max': "10,000,000"},
-    ];
 
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xFF0E2ED4),
+          ),
+        ),
+        title: Text('Reward table', style: label.copyWith(color: Colors.black)),
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 15, top: 30),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Image.asset('assets/chevron_left.png'),
-                  ),
-                  Spacer(),
-                  Text('Reward table', style: labelSm),
-                  Spacer()
-                ],
-              ),
-            ),
             Padding(
-              padding: EdgeInsets.all(40.0),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               child: Column(
                 children: [
                   Padding(
@@ -316,23 +262,19 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  Container(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      style: btnGold2,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        child: SizedBox(
-                          width: size.width * 1.0,
-                          child: Text(
-                            'Proceed',
-                            style: btnGoldText2,
-                            textAlign: TextAlign.center,
-                          ),
+                  TextButton(
+                    onPressed: () {},
+                    style: btnGold2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      child: SizedBox(
+                        width: size.width * 1.0,
+                        child: Text(
+                          'Proceed',
+                          style: btnGoldText2,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -360,10 +302,12 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
       if (min > max) {
         Fluttertoast.showToast(msg: "Please enter valid max value");
       } else {
-        rewardData.add(RewardTableModel(
-            min: min.toString(),
-            max: max.toString(),
-            percentage: percentageController.text.trim()));
+        setState(() {
+          rewardData.add(RewardTableModel(
+              min: min.toString(),
+              max: max.toString(),
+              percentage: percentageController.text.trim()));
+        });
       }
     }
   }
