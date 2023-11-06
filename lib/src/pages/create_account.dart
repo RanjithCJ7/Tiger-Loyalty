@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:tiger_loyalty/const/Image.dart';
+import 'package:tiger_loyalty/src/pages/add_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -174,7 +175,7 @@ class Welcome extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => SignIn(),
+                              builder: (context) => DownloadCode(),
                             ),
                           );
                         },
@@ -235,11 +236,11 @@ class Welcome extends StatelessWidget {
                           child: TextButton(
                             style: btnGrey,
                             onPressed: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => SignIn(),
-                              //   ),
-                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => AddLipaNamba(),
+                                ),
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

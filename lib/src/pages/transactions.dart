@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'styles.dart';
 
 class Transactions extends StatefulWidget {
@@ -70,24 +69,33 @@ class _TransactionsState extends State<Transactions> {
                 )
               ],
             ),
-            Stack(
-              children: [
-                Image.asset('assets/notification.png'),
-                Positioned(
-                  top: -1,
-                  right: 0,
-                  child: Container(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset('assets/notification_bg.png'),
-                        Text('3', style: notificationText),
-                      ],
+            Container(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NotificationScreen(),
                     ),
-                  ),
+                  );
+                },
+                child: Stack(
+                  children: [
+                    Image.asset('assets/notification.png'),
+                    Positioned(
+                      top: -1,
+                      right: 0,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset('assets/notification_bg.png'),
+                          Text('3', style: notificationText),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),

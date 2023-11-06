@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
+import 'package:tiger_loyalty/src/pages/create_account.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -190,7 +191,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => SignIn(),
+                                builder: (context) => CreateAccount(),
                               ),
                             );
                           },

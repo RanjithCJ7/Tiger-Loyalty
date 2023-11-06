@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
@@ -76,7 +75,7 @@ class _AddLipaNambaState extends State<AddLipaNamba> {
                             child: Container(
                               width: 263,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFCFAF4E),
+                                color: const Color(0xFFCFAF4E).withOpacity(0.4),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Center(
@@ -150,6 +149,7 @@ class _AddLipaNambaState extends State<AddLipaNamba> {
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(20),
                         ),
+                        style: textFieldStyle,
                       ),
                     ),
                     SizedBox(
@@ -161,7 +161,7 @@ class _AddLipaNambaState extends State<AddLipaNamba> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => SaveLipaNamba(),
+                              builder: (context) => ChooseSubscription(),
                             ),
                           );
                         },
@@ -204,7 +204,7 @@ class _AddLipaNambaState extends State<AddLipaNamba> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => SignIn(),
+                              builder: (context) => CreateReward(),
                             ),
                           );
                         },

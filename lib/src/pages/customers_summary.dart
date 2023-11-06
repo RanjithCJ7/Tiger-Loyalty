@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/src/pages/home.dart';
-
 import 'package:table_calendar/table_calendar.dart';
 import 'styles.dart';
 
@@ -51,22 +50,33 @@ class _Customers_SummaryState extends State<Customers_Summary> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Customers', style: label),
-                  Stack(
-                    children: [
-                      Image.asset('assets/notification.png'),
-                      Positioned(
-                        top: -1,
-                        right: 0,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset('assets/notification_bg.png'),
-                            Text('3', style: notificationText),
-                          ],
-                        ),
+                  Container(
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => NotificationScreen(),
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Image.asset('assets/notification.png'),
+                          Positioned(
+                            top: -1,
+                            right: 0,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.asset('assets/notification_bg.png'),
+                                Text('3', style: notificationText),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
