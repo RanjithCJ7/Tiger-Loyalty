@@ -1,16 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:tiger_loyalty/src/pages/customers.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
-import 'package:tiger_loyalty/src/pages/give_reward.dart';
-import 'package:tiger_loyalty/src/pages/home.dart';
-import 'package:tiger_loyalty/src/pages/notification.dart';
-import 'package:tiger_loyalty/src/pages/profile.dart';
-import 'package:tiger_loyalty/src/pages/signin.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
 
 class Transactions extends StatefulWidget {

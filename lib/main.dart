@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tiger_loyalty/const/Image.dart';
-
-import 'package:tiger_loyalty/src/pages/signin.dart';
+import 'package:tiger_loyalty/const/constant.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signin/component/signin.dart';
+import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
 
 import 'src/pages/styles.dart';
 
@@ -14,8 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(title: ''),
+    return GetMaterialApp(
+      home: const MyHomePage(title: ''),
+      initialBinding: InitialBinding(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -33,17 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SignIn()),
-      );
+    SetSharedPref().getData();
+    Future.delayed(const Duration(seconds: 3), () {
+      Params.userToken != "null"
+          ? Get.offAll(() => const BottomTab())
+          : Get.offAll(() => SignIn());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       bottomNavigationBar: Padding(
@@ -64,41 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: splashText,
             ),
           ],
-        )
-        /* Stack(
-          children: [
-            // if (isLoading)
-            // Image.asset(
-            //   "assets/loading.gif",
-            //   height: 125.0,
-            //   width: 125.0,
-            // ),
-            // if (!isLoading)
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 175.0),
-                  child: Column(
-                    children: [
-                      Image.asset('assets/splash.png'),
-                      SizedBox(height: 15.0),
-                      Text(
-                        'Reward for Growth',
-                        style: splashText,
-                      ),
-                    ],
-                  ),
-                ),
-                Image.asset(
-                  Images.loadingGIF,
-                  height: 50,
-                ),
-              ],
-            ),
-          ],
-        ) */
-        ,
+        ),
       ),
     );
   }

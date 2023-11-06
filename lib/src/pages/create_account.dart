@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/src/pages/add_lipa_namba.dart';
 import 'package:tiger_loyalty/src/pages/download_code.dart';
-import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
-import 'package:tiger_loyalty/src/pages/signin.dart';
+import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
 

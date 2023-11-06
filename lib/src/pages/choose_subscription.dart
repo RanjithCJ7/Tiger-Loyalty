@@ -77,7 +77,7 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      margin: const EdgeInsets.symmetric(vertical: 15.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -85,11 +85,11 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                             'Choose subscription',
                             style: label,
                           ),
-                          Container(
+                          SizedBox(
                             width: size.width,
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: subscriptionData.length,
                                 itemBuilder: (context, index) {
                                   var data = subscriptionData[index];

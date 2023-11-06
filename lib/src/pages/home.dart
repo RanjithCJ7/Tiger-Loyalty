@@ -1,18 +1,8 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tiger_loyalty/const/my_appbar.dart';
-import 'package:tiger_loyalty/src/pages/customers.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
-import 'package:tiger_loyalty/src/pages/give_reward.dart';
-import 'package:tiger_loyalty/src/pages/profile.dart';
-import 'package:tiger_loyalty/src/pages/signin.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
-import 'package:tiger_loyalty/src/pages/notification.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,11 +23,12 @@ class _HomeState extends State<Home> {
   List<String> selectDay = ['Today', 'Tomorrow', 'Next Week'];
   List<String> filterDays = ["Today", "Week", "Month", "Year"];
   String selectedFilterDay = "Today";
-  CalendarFormat calendarFormat = CalendarFormat.month;
-  DateTime focusedDay = DateTime.now();
-  DateTime? rangeStart;
-  DateTime? rangeEnd;
-  RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOn;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOn;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
 
   List<PointsData> pointsData = [
     PointsData(
@@ -409,628 +400,7 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      /* Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Expanded(
-                          child: SingleChildScrollView(
-                            child: DataTable(
-                              horizontalMargin: 5,
-                              headingRowHeight: 10,
-                              checkboxHorizontalMargin: 0,
-                              columns: [
-                                DataColumn(label: Text('')),
-                                DataColumn(label: Text('')),
-                              ],
-                              rows: pointsData.map((data) {
-                                return DataRow(cells: [
-                                  DataCell(
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 15.0),
-                                          child: Image.asset(data.image),
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(data.points, style: labelSm),
-                                            Text(data.name, style: desc),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  if (points)
-                                    DataCell(
-                                      Row(
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {},
-                                            style: approveBtn,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(right: 5.0),
-                                                  child: Image.asset(
-                                                      'assets/approve.png'),
-                                                ),
-                                                Text('Approve',
-                                                    style: approveText),
-                                              ],
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              showModalBottomSheet(
-                                                context: context,
-                                                shape:
-                                                    const RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.vertical(
-                                                    top: Radius.circular(15.0),
-                                                  ),
-                                                ),
-                                                builder: (BuildContext context) {
-                                                  return Stack(
-                                                    children: [
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            bottom: 50, top: 15),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          15,
-                                                                      vertical:
-                                                                          10),
-                                                              child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: 260,
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      child: Text(
-                                                                        'Do you want to cancel ${data.name} rewards point?',
-                                                                        style:
-                                                                            labelSm,
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            15.0),
-                                                                    Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height: 53,
-                                                                      child:
-                                                                          TextButton(
-                                                                        onPressed:
-                                                                            () {},
-                                                                        style:
-                                                                            btnGrey,
-                                                                        child:
-                                                                            Text(
-                                                                          'No',
-                                                                          style:
-                                                                              btnGreyText,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        height:
-                                                                            5.0),
-                                                                    Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      height: 53,
-                                                                      child:
-                                                                          TextButton(
-                                                                        onPressed:
-                                                                            () {},
-                                                                        style:
-                                                                            btnRed,
-                                                                        child:
-                                                                            Text(
-                                                                          'Yes',
-                                                                          style:
-                                                                              yesText,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        right: 0,
-                                                        child: TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(context)
-                                                                .pop();
-                                                          },
-                                                          child: Image.asset(
-                                                              'assets/close.png'),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            },
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Image.asset(
-                                                  'assets/close_sm.png'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  else
-                                    DataCell(
-                                      TextButton(
-                                        onPressed: () {
-                                          /* showModalBottomSheet(
-                                            context: context,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(15.0),
-                                              ),
-                                            ),
-                                            builder: (BuildContext context) {
-                                              return Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        bottom: 50, top: 15),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.end,
-                                                      children: <Widget>[
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal: 15,
-                                                                  vertical: 10),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Container(
-                                                                  width: 260,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                    'Do you want to cancel ${data.name} rewards point?',
-                                                                    style:
-                                                                        labelSm,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 15.0),
-                                                                Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: 53,
-                                                                  child:
-                                                                      TextButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style:
-                                                                        btnGrey,
-                                                                    child: Text(
-                                                                      'No',
-                                                                      style:
-                                                                          btnGreyText,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 5.0),
-                                                                Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: 53,
-                                                                  child:
-                                                                      TextButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style: btnRed,
-                                                                    child: Text(
-                                                                      'Yes',
-                                                                      style:
-                                                                          yesText,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 0,
-                                                    child: TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/close.png'),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          ); */
-                                          showModalBottomSheet(
-                                            context: context,
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(15.0),
-                                              ),
-                                            ),
-                                            builder: (BuildContext context) {
-                                              return Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        bottom: 50, top: 25),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.end,
-                                                      children: <Widget>[
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            horizontal: 15,
-                                                          ),
-                                                          child: Container(
-                                                            width:
-                                                                double.infinity,
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Container(
-                                                                  width: 260,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                    'Do you want to cancel ${data.name} rewards point?',
-                                                                    style:
-                                                                        labelSm,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 15.0),
-                                                                Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: 53,
-                                                                  child:
-                                                                      TextButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style:
-                                                                        btnGrey,
-                                                                    child: Text(
-                                                                      'No',
-                                                                      style:
-                                                                          btnGreyText,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height: 5.0),
-                                                                Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: 53,
-                                                                  child:
-                                                                      TextButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    style: btnRed,
-                                                                    child: Text(
-                                                                      'Yes',
-                                                                      style:
-                                                                          yesText,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    right: 0,
-                                                    child: TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/close.png'),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        style: cancelBtn,
-                                        child: Text(
-                                          'Cancel',
-                                          style: cancelText,
-                                        ),
-                                      ),
-                                    ),
-                                ]);
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ) */
-                      ListView.separated(
-                        padding: const EdgeInsets.only(top: 10),
-                        shrinkWrap: true,
-                        itemCount: pointsData.length,
-                        separatorBuilder: (context, index) => const Divider(
-                            color: Color(0XFFD9D9D9), thickness: 1),
-                        itemBuilder: (context, index) {
-                          var data = pointsData[index];
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            height: MediaQuery.of(context).size.height * 0.055,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                    width: size.width * 0.14,
-                                    child: Image.asset(data.image)),
-                                SizedBox(
-                                  width: size.width * 0.45,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(data.points, style: labelSm),
-                                      const SizedBox(height: 5),
-                                      Text(data.name, style: desc),
-                                    ],
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {},
-                                      style: approveBtn,
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 5.0),
-                                            child: Image.asset(
-                                                'assets/approve.png'),
-                                          ),
-                                          Text('Approve', style: approveText),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(15.0),
-                                            ),
-                                          ),
-                                          builder: (BuildContext context) {
-                                            return Stack(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 50, top: 15),
-                                                  decoration: BoxDecoration(),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 15,
-                                                                vertical: 10),
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Container(
-                                                                width: 260,
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: Text(
-                                                                  'Do you want to cancel ${data.name} rewards point?',
-                                                                  style:
-                                                                      labelSm,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  height: 15.0),
-                                                              Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 53,
-                                                                child:
-                                                                    TextButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  style:
-                                                                      btnGrey,
-                                                                  child: Text(
-                                                                    'No',
-                                                                    style:
-                                                                        btnGreyText,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  height: 5.0),
-                                                              Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 53,
-                                                                child:
-                                                                    TextButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  style: btnRed,
-                                                                  child: Text(
-                                                                    'Yes',
-                                                                    style:
-                                                                        yesText,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  right: 0,
-                                                  child: TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: Image.asset(
-                                                        'assets/close.png'),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(2.0),
-                                        decoration: const BoxDecoration(
-                                            color: Color(0XFFD9D9D9),
-                                            shape: BoxShape.circle),
-                                        child: const Icon(
-                                          Icons.close,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      )
+                      points ? pendingPoint(size) : issuedPoints(size)
                     ],
                   ),
                 ),
@@ -1126,8 +496,9 @@ class _HomeState extends State<Home> {
   }
 
   showDatePickerDialog() {
-    rangeStart = null;
-    rangeEnd = null;
+    _rangeStart = null;
+    _rangeEnd = null;
+    _focusedDay = DateTime.now();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -1201,34 +572,48 @@ class _HomeState extends State<Home> {
                         height: 15.0,
                       ),
                       TableCalendar(
-                          headerVisible: false,
-                          firstDay: DateTime(DateTime.now().year - 1),
-                          lastDay: DateTime(DateTime.now().year + 1),
-                          focusedDay: focusedDay,
-                          calendarFormat: calendarFormat,
-                          rangeSelectionMode: rangeSelectionMode,
-                          rangeStartDay: rangeStart,
-                          rangeEndDay: rangeEnd,
-                          onDaySelected: (selectedDay, focusedDay) {
-                            if (!isSameDay(selectedDay, selectedDay)) {
-                              setState(() {
-                                selectedDay = selectedDay;
-                                focusedDay = focusedDay;
-                                rangeStart = null;
-                                rangeEnd = null;
-                                rangeSelectionMode =
-                                    RangeSelectionMode.toggledOff;
-                              });
-                            }
-                          },
-                          onRangeSelected: (start, end, focusedDay) {
+                        headerVisible: false,
+                        firstDay: DateTime(DateTime.now().year - 10),
+                        lastDay: DateTime(DateTime.now().year + 10),
+                        focusedDay: _focusedDay,
+                        selectedDayPredicate: (day) =>
+                            isSameDay(_selectedDay, day),
+                        rangeStartDay: _rangeStart,
+                        rangeEndDay: _rangeEnd,
+                        calendarFormat: _calendarFormat,
+                        rangeSelectionMode: _rangeSelectionMode,
+                        onDaySelected: (selectedDay, focusedDay) {
+                          if (!isSameDay(_selectedDay, selectedDay)) {
                             setState(() {
-                              focusedDay = focusedDay;
-                              rangeStart = start;
-                              rangeEnd = end;
-                              rangeSelectionMode = RangeSelectionMode.toggledOn;
+                              _selectedDay = selectedDay;
+                              _focusedDay = focusedDay;
+                              _rangeStart = null;
+                              _rangeEnd = null;
+                              _rangeSelectionMode =
+                                  RangeSelectionMode.toggledOff;
                             });
-                          }),
+                          }
+                        },
+                        onRangeSelected: (start, end, focusedDay) {
+                          setState(() {
+                            _selectedDay = null;
+                            _focusedDay = focusedDay;
+                            _rangeStart = start;
+                            _rangeEnd = end;
+                            _rangeSelectionMode = RangeSelectionMode.toggledOn;
+                          });
+                        },
+                        onFormatChanged: (format) {
+                          if (_calendarFormat != format) {
+                            setState(() {
+                              _calendarFormat = format;
+                            });
+                          }
+                        },
+                        onPageChanged: (focusedDay) {
+                          _focusedDay = focusedDay;
+                        },
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1243,8 +628,8 @@ class _HomeState extends State<Home> {
                             //             Profile(),
                             //   ),
                             // );
-                            print("startday == >$rangeStart");
-                            print("endday == >$rangeEnd");
+                            print(
+                                "first date ==> $_rangeStart end => $_rangeEnd");
                           },
                           style: btnGold2,
                           child: Padding(
@@ -1299,5 +684,417 @@ class _HomeState extends State<Home> {
         ),
       );
     });
+  }
+
+  pendingPoint(Size size) {
+    return ListView.separated(
+      padding: const EdgeInsets.only(top: 10),
+      shrinkWrap: true,
+      itemCount: pointsData.length,
+      separatorBuilder: (context, index) =>
+          const Divider(color: Color(0XFFD9D9D9), thickness: 1),
+      itemBuilder: (context, index) {
+        var data = pointsData[index];
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          height: MediaQuery.of(context).size.height * 0.055,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: size.width * 0.14, child: Image.asset(data.image)),
+              SizedBox(
+                width: size.width * 0.45,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(data.points, style: labelSm),
+                    const SizedBox(height: 5),
+                    Text(data.name, style: desc),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    style: approveBtn,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.0),
+                          child: Image.asset('assets/approve.png'),
+                        ),
+                        Text('Approve', style: approveText),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(15.0),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 50, top: 15),
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 10),
+                                      child: Container(
+                                        width: double.infinity,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              width: 260,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Do you want to cancel ${data.name} rewards point?',
+                                                style: labelSm,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            SizedBox(height: 15.0),
+                                            Container(
+                                              width: double.infinity,
+                                              height: 53,
+                                              child: TextButton(
+                                                onPressed: () {},
+                                                style: btnGrey,
+                                                child: Text(
+                                                  'No',
+                                                  style: btnGreyText,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.0),
+                                            Container(
+                                              width: double.infinity,
+                                              height: 53,
+                                              child: TextButton(
+                                                onPressed: () {},
+                                                style: btnRed,
+                                                child: Text(
+                                                  'Yes',
+                                                  style: yesText,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Image.asset('assets/close.png'),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: const BoxDecoration(
+                          color: Color(0XFFD9D9D9), shape: BoxShape.circle),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  issuedPoints(Size size) {
+    return ListView.separated(
+      padding: const EdgeInsets.only(top: 10),
+      shrinkWrap: true,
+      itemCount: pointsData.length,
+      separatorBuilder: (context, index) =>
+          const Divider(color: Color(0XFFD9D9D9), thickness: 1),
+      itemBuilder: (context, index) {
+        var data = pointsData[index];
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          height: MediaQuery.of(context).size.height * 0.055,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: size.width * 0.14, child: Image.asset(data.image)),
+              SizedBox(
+                width: size.width * 0.45,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(data.points, style: labelSm),
+                    const SizedBox(height: 5),
+                    Text(data.name, style: desc),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(15.0),
+                      ),
+                    ),
+                    builder: (BuildContext context) {
+                      return Stack(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(bottom: 50, top: 15),
+                            decoration: BoxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          width: 260,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'Do you want to cancel ${data.name} rewards point?',
+                                            style: labelSm,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        SizedBox(height: 15.0),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 53,
+                                          child: TextButton(
+                                            onPressed: () {},
+                                            style: btnGrey,
+                                            child: Text(
+                                              'No',
+                                              style: btnGreyText,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5.0),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 53,
+                                          child: TextButton(
+                                            onPressed: () {},
+                                            style: btnRed,
+                                            child: Text(
+                                              'Yes',
+                                              style: yesText,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Image.asset('assets/close.png'),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(22),
+                      color: const Color(0xFFCA1818)),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+              /* Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    style: approveBtn,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.0),
+                          child: Image.asset('assets/approve.png'),
+                        ),
+                        Text('Approve', style: approveText),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(15.0),
+                          ),
+                        ),
+                        builder: (BuildContext context) {
+                          return Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 50, top: 15),
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 10),
+                                      child: Container(
+                                        width: double.infinity,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              width: 260,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Do you want to cancel ${data.name} rewards point?',
+                                                style: labelSm,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            SizedBox(height: 15.0),
+                                            Container(
+                                              width: double.infinity,
+                                              height: 53,
+                                              child: TextButton(
+                                                onPressed: () {},
+                                                style: btnGrey,
+                                                child: Text(
+                                                  'No',
+                                                  style: btnGreyText,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.0),
+                                            Container(
+                                              width: double.infinity,
+                                              height: 53,
+                                              child: TextButton(
+                                                onPressed: () {},
+                                                style: btnRed,
+                                                child: Text(
+                                                  'Yes',
+                                                  style: yesText,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Image.asset('assets/close.png'),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(2.0),
+                      decoration: const BoxDecoration(
+                          color: Color(0XFFD9D9D9), shape: BoxShape.circle),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ), */
+            ],
+          ),
+        );
+      },
+    );
   }
 }
