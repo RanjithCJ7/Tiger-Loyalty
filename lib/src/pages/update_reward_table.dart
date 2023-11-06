@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'styles.dart';
 
+final _rpFormatter = CustomTextInputFormatter();
+
 class RewardTableModel {
   String min, max, percentage;
   RewardTableModel(
@@ -224,7 +226,9 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
                             controller: percentageController,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(3),
+                              _rpFormatter,
                             ],
                             decoration: const InputDecoration(
                               hintText: '%',
@@ -310,5 +314,28 @@ class _UpdateRewardTableState extends State<UpdateRewardTable> {
         });
       }
     }
+  }
+}
+
+class CustomTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
+
+    int discountValue = int.tryParse(text) ?? 0;
+    discountValue = discountValue.clamp(1, 100);
+
+    String formattedText = '$discountValue%';
+
+    return TextEditingValue(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
   }
 }
