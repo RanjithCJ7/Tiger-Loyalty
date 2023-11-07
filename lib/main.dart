@@ -5,6 +5,9 @@ import 'package:tiger_loyalty/const/constant.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
+import 'package:tiger_loyalty/src/pages/pin_setup.dart';
+import 'package:tiger_loyalty/src/pages/promo_screen.dart';
+import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
 
 import 'src/pages/styles.dart';
 

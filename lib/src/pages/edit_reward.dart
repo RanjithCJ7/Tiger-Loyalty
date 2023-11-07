@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -30,6 +31,7 @@ class _EditRewardState extends State<EditReward> {
     RewardData(text: 'Update reward table', image: Images.updateReward),
     RewardData(text: 'Update Contacts', image: Images.updateContact)
   ];
+  String filePath = "null";
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -292,89 +294,7 @@ class _EditRewardState extends State<EditReward> {
 
         break;
       case 'Add menu (pdf)':
-        showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-          builder: (BuildContext context) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 50.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Get.close(1);
-                        },
-                        child: Image.asset('assets/close.png'),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'UPLOAD MENU',
-                          style: changeLabel,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 30.0),
-                        SizedBox(
-                          width: double.infinity,
-                          height: Get.height * 0.06,
-                          child: TextButton(
-                            onPressed: () {},
-                            style: btnGrey,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  child: Image.asset(
-                                    Images.uploadMenu,
-                                    height: 20,
-                                  ),
-                                ),
-                                Text(
-                                  'Upload file',
-                                  style: btnGreyText,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10.0),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 53,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: btnGrey,
-                            child: Text(
-                              'SAVE',
-                              style: btnGreyText,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+        selectPDFBottomSheet(context);
         break;
       case 'Update reward table':
         Get.to(() => UpdateRewardTable());
@@ -435,5 +355,110 @@ class _EditRewardState extends State<EditReward> {
         );
       },
     );
+  }
+
+  selectPDFBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 50.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Get.close(1);
+                      },
+                      child: Image.asset('assets/close.png'),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'UPLOAD MENU',
+                        style: changeLabel,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 30.0),
+                      SizedBox(
+                        width: double.infinity,
+                        height: Get.height * 0.06,
+                        child: TextButton(
+                          onPressed: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['pdf'],
+                            );
+
+                            setState(() {
+                              if (result != null) {
+                                filePath = result.paths.first!;
+                              }
+                            });
+                          },
+                          style: btnGrey,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                child: Image.asset(
+                                  Images.uploadMenu,
+                                  height: 20,
+                                ),
+                              ),
+                              Text(
+                                filePath == "null"
+                                    ? 'Upload file'
+                                    : filePath.split('/').last,
+                                style: btnGreyText,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 53,
+                        child: TextButton(
+                          onPressed: () {
+                            Get.close(1);
+                            filePath = "null";
+                          },
+                          style: btnGrey,
+                          child: Text(
+                            'SAVE',
+                            style: btnGreyText,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+      },
+    ).then((value) {
+      filePath = "null";
+    });
   }
 }

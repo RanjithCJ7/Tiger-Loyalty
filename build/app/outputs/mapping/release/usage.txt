@@ -7147,6 +7147,31 @@ com.example.tiger_loyalty.R$xml
 com.example.tiger_loyalty.R
 com.google.common.util.concurrent.ListenableFuture:
     public abstract void addListener(java.lang.Runnable,java.util.concurrent.Executor)
+com.mr.flutter.plugin.filepicker.BuildConfig
+com.mr.flutter.plugin.filepicker.FilePickerDelegate:
+    private static final java.lang.String TAG
+com.mr.flutter.plugin.filepicker.FilePickerPlugin:
+    private static final java.lang.String CHANNEL
+    private static final java.lang.String EVENT_CHANNEL
+    private static final java.lang.String TAG
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
+com.mr.flutter.plugin.filepicker.FileUtils:
+    private static final java.lang.String CSV_EXTENSION
+    private static final java.lang.String CSV_MIME_TYPE
+    private static final java.lang.String PRIMARY_VOLUME_NAME
+    private static final java.lang.String TAG
+    public void <init>()
+com.mr.flutter.plugin.filepicker.R$attr
+com.mr.flutter.plugin.filepicker.R$color
+com.mr.flutter.plugin.filepicker.R$dimen
+com.mr.flutter.plugin.filepicker.R$drawable
+com.mr.flutter.plugin.filepicker.R$id
+com.mr.flutter.plugin.filepicker.R$integer
+com.mr.flutter.plugin.filepicker.R$layout
+com.mr.flutter.plugin.filepicker.R$string
+com.mr.flutter.plugin.filepicker.R$style
+com.mr.flutter.plugin.filepicker.R$styleable
+com.mr.flutter.plugin.filepicker.R
 com.yalantis.ucrop.BuildConfig
 com.yalantis.ucrop.OkHttpClientStore:
     void setClient(okhttp3.OkHttpClient)
@@ -8633,7 +8658,6 @@ io.flutter.embedding.engine.dart.DartExecutor$DartCallback
 io.flutter.embedding.engine.dart.DartExecutor$DefaultBinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.dart.DartExecutor:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
@@ -8642,14 +8666,12 @@ io.flutter.embedding.engine.dart.DartExecutor:
     public void executeDartEntrypoint(io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint)
     public io.flutter.plugin.common.BinaryMessenger getBinaryMessenger()
     public int getPendingChannelResponseCount()
-    public void send(java.lang.String,java.nio.ByteBuffer)
     public void setIsolateServiceIdListener(io.flutter.embedding.engine.dart.DartExecutor$IsolateServiceIdListener)
 io.flutter.embedding.engine.dart.DartMessenger:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
     public int getPendingChannelResponseCount()
-    public void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.embedding.engine.deferredcomponents.DeferredComponentManager:
     public abstract void loadAssets(int,java.lang.String)
     public abstract void loadDartLibrary(int,java.lang.String)
@@ -8845,14 +8867,15 @@ io.flutter.plugin.common.BinaryMessenger$TaskQueueOptions:
 io.flutter.plugin.common.BinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public abstract void send(java.lang.String,java.nio.ByteBuffer)
 io.flutter.plugin.common.ErrorLogResult
-io.flutter.plugin.common.EventChannel$1
-io.flutter.plugin.common.EventChannel$EventSink
-io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler$EventSinkImplementation
-io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler
-io.flutter.plugin.common.EventChannel$StreamHandler
-io.flutter.plugin.common.EventChannel
+io.flutter.plugin.common.EventChannel$EventSink:
+    public abstract void endOfStream()
+    public abstract void error(java.lang.String,java.lang.String,java.lang.Object)
+io.flutter.plugin.common.EventChannel$IncomingStreamRequestHandler$EventSinkImplementation:
+    public void endOfStream()
+    public void error(java.lang.String,java.lang.String,java.lang.Object)
+io.flutter.plugin.common.EventChannel:
+    private static final java.lang.String TAG
 io.flutter.plugin.common.FlutterException:
     private static final java.lang.String TAG
 io.flutter.plugin.common.JSONUtil:
@@ -9052,6 +9075,29 @@ io.flutter.plugins.imagepicker.R$style
 io.flutter.plugins.imagepicker.R$styleable
 io.flutter.plugins.imagepicker.R$xml
 io.flutter.plugins.imagepicker.R
+io.flutter.plugins.sharedpreferences.BuildConfig
+io.flutter.plugins.sharedpreferences.Messages$FlutterError:
+    public void <init>(java.lang.String,java.lang.String,java.lang.Object)
+io.flutter.plugins.sharedpreferences.Messages:
+    public void <init>()
+io.flutter.plugins.sharedpreferences.R$attr
+io.flutter.plugins.sharedpreferences.R$color
+io.flutter.plugins.sharedpreferences.R$dimen
+io.flutter.plugins.sharedpreferences.R$drawable
+io.flutter.plugins.sharedpreferences.R$id
+io.flutter.plugins.sharedpreferences.R$integer
+io.flutter.plugins.sharedpreferences.R$layout
+io.flutter.plugins.sharedpreferences.R$string
+io.flutter.plugins.sharedpreferences.R$style
+io.flutter.plugins.sharedpreferences.R$styleable
+io.flutter.plugins.sharedpreferences.R
+io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin:
+    private static final java.lang.String BIG_INTEGER_PREFIX
+    private static final java.lang.String DOUBLE_PREFIX
+    private static final java.lang.String LIST_IDENTIFIER
+    private static final java.lang.String SHARED_PREFERENCES_NAME
+    private static final java.lang.String TAG
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
 io.flutter.util.HandlerCompat:
     public void <init>()
 io.flutter.util.PathUtils:

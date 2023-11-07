@@ -7,6 +7,7 @@ import 'package:tiger_loyalty/const/Url.dart';
 import 'package:tiger_loyalty/const/constant.dart';
 import 'package:tiger_loyalty/screens/signin/model/signin_model.dart';
 import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
+import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
 
 class SigninController extends GetxController {
   RxBool isLoading = false.obs;
@@ -44,7 +45,8 @@ class SigninController extends GetxController {
 
       if (response.statusCode == 200) {
         signInModel.value = SignInModel.fromJson(decodeData);
-        Get.offAll(() => const BottomTab());
+        // Get.offAll(() => const BottomTab());
+        Get.offAll(() => ChooseSubscription());
 
         SetSharedPref().setData(
             token: signInModel.value.token ?? "null",

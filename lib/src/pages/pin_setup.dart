@@ -39,7 +39,7 @@ class PinSetup extends StatelessWidget {
                                 'Protect your deals and rewards',
                                 style: desc,
                               ),
-                              SizedBox(height: size.height * 0.02),
+                              SizedBox(height: size.height * 0.03),
                               signupController.pinMatch.value == false
                                   ? SizedBox(height: Get.height * 0.032)
                                   : Column(
@@ -55,7 +55,7 @@ class PinSetup extends StatelessWidget {
                                                 width: 0,
                                               ),
                                               SizedBox(
-                                                width: 5,
+                                                width: 8,
                                               ),
                                               Text(
                                                 "PIN mismatch, write again",

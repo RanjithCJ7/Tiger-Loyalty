@@ -91,66 +91,79 @@ class _RegisterUserState extends State<RegisterUser> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "What's your gender?",
-                                  style: smText,
+                                const Text(
+                                  "What’s you sex?",
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                                const SizedBox(width: 15.0),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // setState(() {
-                                    signupController.gender.value = 'Female';
-                                    // });
-                                  },
-                                  style:
-                                      signupController.gender.value == 'Female'
+                                Row(
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // setState(() {
+                                        signupController.gender.value =
+                                            'Female';
+                                        // });
+                                      },
+                                      style: signupController.gender.value ==
+                                              'Female'
                                           ? selectBtn
                                           : deSelectBtn,
-                                  child: Row(
-                                    children: [
-                                      Text("Female",
-                                          style:
-                                              signupController.gender.value ==
+                                      child: Row(
+                                        children: [
+                                          Text("Female",
+                                              style: signupController
+                                                          .gender.value ==
                                                       'Female'
                                                   ? selectBtnBold
                                                   : selectBtnSm),
-                                      if (signupController.gender.value ==
-                                          'Female')
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15),
-                                          child: Image.asset('assets/tick.png'),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10.0),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    signupController.gender.value = 'Male';
-                                  },
-                                  style: signupController.gender.value == 'Male'
-                                      ? selectBtn
-                                      : deSelectBtn,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Male",
-                                        style: signupController.gender.value ==
-                                                'Male'
-                                            ? selectBtnBold
-                                            : selectBtnSm,
+                                          if (signupController.gender.value ==
+                                              'Female')
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 15),
+                                              child: Image.asset(
+                                                  'assets/tick.png'),
+                                            ),
+                                        ],
                                       ),
-                                      if (signupController.gender.value ==
-                                          'Male')
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15),
-                                          child: Image.asset('assets/tick.png'),
-                                        ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                    const SizedBox(width: 10.0),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        signupController.gender.value = 'Male';
+                                      },
+                                      style: signupController.gender.value ==
+                                              'Male'
+                                          ? selectBtn
+                                          : deSelectBtn,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Male",
+                                            style:
+                                                signupController.gender.value ==
+                                                        'Male'
+                                                    ? selectBtnBold
+                                                    : selectBtnSm,
+                                          ),
+                                          if (signupController.gender.value ==
+                                              'Male')
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 15),
+                                              child: Image.asset(
+                                                  'assets/tick.png'),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -198,9 +211,13 @@ class _RegisterUserState extends State<RegisterUser> {
                               style: textFieldStyle,
                             ),
                           ),
+                          SizedBox(height: Get.height * 0.014),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Checkbox(
+                                visualDensity: const VisualDensity(
+                                    vertical: 0, horizontal: -4),
                                 value: signupController.isTermChecked.value,
                                 onChanged: (value) {
                                   signupController.isTermChecked.value =

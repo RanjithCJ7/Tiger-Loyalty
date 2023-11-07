@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:tiger_loyalty/const/my_appbar.dart';
 
@@ -59,12 +61,19 @@ class GiveReward extends StatelessWidget {
                             style: label,
                           ),
                           const SizedBox(height: 20),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset('assets/download_code.png'),
-                              Image.asset('assets/tigersuit_sm.png'),
-                            ],
+                          // Stack(
+                          //   alignment: Alignment.center,
+                          //   children: [
+                          //     Image.asset('assets/download_code.png'),
+                          //     Image.asset('assets/tigersuit_sm.png'),
+                          //   ],
+                          // ),
+                          QrImageView(
+                            data: '1234567890',
+                            version: QrVersions.auto,
+                            size: Get.width * 0.62,
+                            embeddedImage:
+                                const AssetImage('assets/tigersuit_sm.png'),
                           ),
                           Container(
                             margin: const EdgeInsets.all(40.0),

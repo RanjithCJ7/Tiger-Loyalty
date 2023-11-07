@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/my_appbar.dart';
 
 import 'package:tiger_loyalty/src/pages/transactions.dart';
@@ -42,6 +44,34 @@ class _CustomersState extends State<Customers> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   bool points = true;
+  RxList<String> monthList = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ].obs;
+  RxString selectedMonth = "Jan".obs;
+  List<String> yearList = [
+    '2023',
+    '2024',
+    '2025',
+    '2026',
+    '2027',
+    '2028',
+    '2029',
+    '2030',
+    '2031',
+  ];
+
+  String selectedyear = "2023";
 
   @override
   Widget build(BuildContext context) {
@@ -65,219 +95,233 @@ class _CustomersState extends State<Customers> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onPanUpdate: (details) {
-                        if (details.delta.dx > 0) {
-                          setState(() {
-                            points = true;
-                          });
-                        }
-                        if (details.delta.dx < 0) {
-                          setState(() {
-                            points = false;
-                          });
-                        }
-                      },
-                      child: points
-                          ? Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset('assets/rectangle_3.png'),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 10,
-                                  child: Image.asset('assets/rectangle_4.png'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30.0),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text('Summary',
-                                                    style: imgLabel),
-                                                Spacer(),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showDatePickerDialog();
-                                                  },
-                                                  child: Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 5),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25.0),
-                                                    ),
-                                                    height: 20,
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          "Today",
-                                                          style: todayText
-                                                              .copyWith(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                        const Icon(
-                                                          Icons
-                                                              .arrow_drop_down_outlined,
-                                                          color: Colors.white,
-                                                          size: 18,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 15.0),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text('219', style: imgNum),
-                                                    const SizedBox(height: 5.0),
-                                                    Text('Customers',
-                                                        style: imgDesc)
-                                                  ],
-                                                ),
-                                                const Spacer(),
-                                                Image.asset('assets/line.png'),
-                                                const Spacer(),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text('3,478,300',
-                                                        style: imgNum),
-                                                    const SizedBox(height: 5.0),
-                                                    Text('Total issued points',
-                                                        style: imgDescDark)
-                                                  ],
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          : Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset('assets/rectangle_5.png'),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 10,
-                                  child: Image.asset('assets/rectangle_4.png'),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Padding(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GestureDetector(
+                        onPanUpdate: (details) {
+                          if (details.delta.dx > 0) {
+                            setState(() {
+                              points = true;
+                            });
+                          }
+                          if (details.delta.dx < 0) {
+                            setState(() {
+                              points = false;
+                            });
+                          }
+                        },
+                        child: points
+                            ? Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Image.asset('assets/rectangle_3.png'),
+                                  // Positioned(
+                                  //   bottom: 0,
+                                  //   right: 10,
+                                  //   child: Image.asset('assets/rectangle_4.png'),
+                                  // ),
+                                  Image.asset(Images.homeBackImg3),
+                                  Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 30.0),
+                                        horizontal: 10.0),
                                     child: Column(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text('Summary', style: imgLabel),
-                                            const Spacer(),
-                                            GestureDetector(
-                                              onTap: () {
-                                                showDatePickerDialog();
-                                              },
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0),
-                                                ),
-                                                height: 20,
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "Today",
-                                                      style: todayText.copyWith(
-                                                          color: Colors.white),
+                                        Container(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text('Summary',
+                                                      style: imgLabel),
+                                                  Spacer(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showDatePickerDialog();
+                                                    },
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 5),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: Colors.white,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25.0),
+                                                      ),
+                                                      height: 20,
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Today",
+                                                            style: todayText
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                          const Icon(
+                                                            Icons
+                                                                .arrow_drop_down_outlined,
+                                                            color: Colors.white,
+                                                            size: 18,
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                    const Icon(
-                                                      Icons
-                                                          .arrow_drop_down_outlined,
-                                                      color: Colors.white,
-                                                      size: 18,
-                                                    )
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 15.0),
-                                        Row(
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text('59', style: imgNum),
-                                                const SizedBox(height: 5.0),
-                                                Text('Customers',
-                                                    style: imgDesc)
-                                              ],
-                                            ),
-                                            const Spacer(),
-                                            Image.asset('assets/line.png'),
-                                            const Spacer(),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text('1,503,700',
-                                                    style: imgNum),
-                                                const SizedBox(height: 5.0),
-                                                Text('Total redeemed points',
-                                                    style: redeemText)
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                              const SizedBox(height: 15.0),
+                                              Row(
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text('219',
+                                                          style: imgNum),
+                                                      const SizedBox(
+                                                          height: 5.0),
+                                                      Text('Customers',
+                                                          style: imgDesc)
+                                                    ],
+                                                  ),
+                                                  const Spacer(),
+                                                  Image.asset(
+                                                      'assets/line.png'),
+                                                  const Spacer(),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text('3,478,300',
+                                                          style: imgNum),
+                                                      const SizedBox(
+                                                          height: 5.0),
+                                                      Text(
+                                                          'Total issued points',
+                                                          style: imgDescDark)
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
+                                  )
+                                ],
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Image.asset('assets/rectangle_5.png'),
+                                  // Positioned(
+                                  //   bottom: 0,
+                                  //   right: 10,
+                                  //   child:
+                                  //       Image.asset('assets/rectangle_4.png'),
+                                  // ),
+                                  Image.asset(Images.homeBackImg2),
+
+                                  Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text('Summary', style: imgLabel),
+                                              const Spacer(),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showDatePickerDialog();
+                                                },
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 5),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.0),
+                                                  ),
+                                                  height: 20,
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "Today",
+                                                        style:
+                                                            todayText.copyWith(
+                                                                color: Colors
+                                                                    .white),
+                                                      ),
+                                                      const Icon(
+                                                        Icons
+                                                            .arrow_drop_down_outlined,
+                                                        color: Colors.white,
+                                                        size: 18,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 15.0),
+                                          Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('59', style: imgNum),
+                                                  const SizedBox(height: 5.0),
+                                                  Text('Customers',
+                                                      style: imgDesc)
+                                                ],
+                                              ),
+                                              const Spacer(),
+                                              Image.asset('assets/line.png'),
+                                              const Spacer(),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('1,503,700',
+                                                      style: imgNum),
+                                                  const SizedBox(height: 5.0),
+                                                  Text('Total redeemed points',
+                                                      style: redeemText)
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                      ),
                     ),
                     const SizedBox(height: 10.0),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: indicators(2, points == true ? 0 : 1),
@@ -332,7 +376,6 @@ class _CustomersState extends State<Customers> {
                         ),
                       ),
                     ),
-                    // SizedBox(height: 10.0),
                     ListView.separated(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
@@ -410,6 +453,10 @@ class _CustomersState extends State<Customers> {
                         separatorBuilder: (context, index) => const Divider(
                             color: Color(0XFFD9D9D9), thickness: 1),
                         itemCount: pointsData.length),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(color: Color(0XFFD9D9D9), thickness: 1),
+                    )
                   ],
                 ),
               ),
@@ -424,8 +471,11 @@ class _CustomersState extends State<Customers> {
     _rangeStart = null;
     _rangeEnd = null;
     _focusedDay = DateTime.now();
+    _selectedDay = null;
+
     showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.white,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -458,6 +508,16 @@ class _CustomersState extends State<Customers> {
                                     onTap: () {
                                       setState(() {
                                         selectedFilterDay = e;
+                                        _selectedDay = null;
+
+                                        if (e == "Today") {
+                                          _rangeSelectionMode =
+                                              RangeSelectionMode.toggledOff;
+                                        }
+                                        if (e == "Week") {
+                                          _rangeSelectionMode =
+                                              RangeSelectionMode.toggledOn;
+                                        }
                                       });
                                     },
                                     child: Container(
@@ -487,74 +547,153 @@ class _CustomersState extends State<Customers> {
                                 ))
                             .toList(),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
+                      SizedBox(height: Get.height * 0.03),
                       Center(
-                        child: Text('Select a date', style: selectDateText),
+                        child: Text(
+                            selectedFilterDay == "Month"
+                                ? 'Select a month'
+                                : selectedFilterDay == "Year"
+                                    ? 'Select a year'
+                                    : 'Select a date',
+                            style: selectDateText),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      TableCalendar(
-                        headerVisible: false,
-                        firstDay: DateTime(DateTime.now().year - 1),
-                        lastDay: DateTime(DateTime.now().year + 1),
-                        focusedDay: _focusedDay,
-                        selectedDayPredicate: (day) =>
-                            isSameDay(_selectedDay, day),
-                        rangeStartDay: _rangeStart,
-                        rangeEndDay: _rangeEnd,
-                        calendarFormat: _calendarFormat,
-                        rangeSelectionMode: _rangeSelectionMode,
-                        onDaySelected: (selectedDay, focusedDay) {
-                          if (!isSameDay(_selectedDay, selectedDay)) {
-                            setState(() {
-                              _selectedDay = selectedDay;
-                              _focusedDay = focusedDay;
-                              _rangeStart = null;
-                              _rangeEnd = null;
-                              _rangeSelectionMode =
-                                  RangeSelectionMode.toggledOff;
-                            });
-                          }
-                        },
-                        onRangeSelected: (start, end, focusedDay) {
-                          setState(() {
-                            _selectedDay = null;
-                            _focusedDay = focusedDay;
-                            _rangeStart = start;
-                            _rangeEnd = end;
-                            _rangeSelectionMode = RangeSelectionMode.toggledOn;
-                          });
-                        },
-                        onFormatChanged: (format) {
-                          if (_calendarFormat != format) {
-                            setState(() {
-                              _calendarFormat = format;
-                            });
-                          }
-                        },
-                        onPageChanged: (focusedDay) {
-                          _focusedDay = focusedDay;
-                        },
-                      ),
+                      selectedFilterDay == "Month"
+                          ? Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 19 / 9),
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: monthList.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedMonth.value = monthList[index];
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: selectedMonth.value ==
+                                                  monthList[index]
+                                              ? Colors.black
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Center(
+                                        child: Text(
+                                          monthList[index],
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: selectedMonth.value ==
+                                                      monthList[index]
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : selectedFilterDay == "Year"
+                              ? Expanded(
+                                  child: GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            childAspectRatio: 19 / 9),
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: yearList.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedyear = yearList[index];
+                                          });
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: selectedyear ==
+                                                      yearList[index]
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Center(
+                                            child: Text(
+                                              yearList[index],
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: selectedyear ==
+                                                          yearList[index]
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              : TableCalendar(
+                                  headerVisible: false,
+                                  firstDay: DateTime(DateTime.now().year - 1),
+                                  lastDay: DateTime(DateTime.now().year + 1),
+                                  focusedDay: _focusedDay,
+                                  selectedDayPredicate: (day) =>
+                                      isSameDay(_selectedDay, day),
+                                  rangeStartDay: _rangeStart,
+                                  rangeEndDay: _rangeEnd,
+                                  calendarFormat: _calendarFormat,
+                                  rangeSelectionMode: _rangeSelectionMode,
+                                  onDaySelected: (selectedDay, focusedDay) {
+                                    if (!isSameDay(_selectedDay, selectedDay)) {
+                                      setState(() {
+                                        _selectedDay = selectedDay;
+                                        _focusedDay = focusedDay;
+                                        _rangeStart = null;
+                                        _rangeEnd = null;
+                                        _rangeSelectionMode =
+                                            RangeSelectionMode.toggledOff;
+                                      });
+                                    }
+                                  },
+                                  onRangeSelected: (start, end, focusedDay) {
+                                    setState(() {
+                                      _selectedDay = null;
+                                      _focusedDay = focusedDay;
+                                      _rangeStart = start;
+                                      _rangeEnd = end;
+                                      _rangeSelectionMode =
+                                          RangeSelectionMode.toggledOn;
+                                    });
+                                  },
+                                  onFormatChanged: (format) {
+                                    if (_calendarFormat != format) {
+                                      setState(() {
+                                        _calendarFormat = format;
+                                      });
+                                    }
+                                  },
+                                  onPageChanged: (focusedDay) {
+                                    _focusedDay = focusedDay;
+                                  },
+                                ),
                       const SizedBox(height: 10),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
-                            // Navigator.of(context)
-                            //     .push(
-                            //   MaterialPageRoute(
-                            //     builder:
-                            //         (context) =>
-                            //             Profile(),
-                            //   ),
-                            // );
+                            Get.close(1);
                             print(
-                                "first date ==> $_rangeStart end => $_rangeEnd");
+                                "first date ==> ${_rangeStart} end => ${_rangeEnd}");
                           },
                           style: btnGold2,
                           child: Padding(
@@ -614,9 +753,13 @@ class _CustomersState extends State<Customers> {
   showTransaction(PointsData data) {
     showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       builder: (BuildContext context) {
         return Container(
-          margin: const EdgeInsets.only(bottom: 50.0),
+          height: Get.height * 0.6,
+          margin: EdgeInsets.only(bottom: Get.height * 0.05),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -633,6 +776,9 @@ class _CustomersState extends State<Customers> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: Get.height * 0.1,
+                    ),
                     Container(
                         width: 52,
                         height: 52,
@@ -648,7 +794,13 @@ class _CustomersState extends State<Customers> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(data.name, style: custName),
+                    Text(data.name,
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFCFAF4E),
+                        )),
                     const SizedBox(
                       height: 10,
                     ),
@@ -657,9 +809,7 @@ class _CustomersState extends State<Customers> {
                       height: 5,
                     ),
                     Text('Total points', style: totalText),
-                    const SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: Get.height * 0.05),
                     Text('0723 732 770', style: numText),
                     const SizedBox(
                       height: 10,
@@ -668,9 +818,7 @@ class _CustomersState extends State<Customers> {
                       'Phone number',
                       style: numDesc,
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: Get.height * 0.03),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(

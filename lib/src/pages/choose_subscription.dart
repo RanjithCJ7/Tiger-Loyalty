@@ -125,7 +125,7 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                    height: size.height * 0.01),
+                                                    height: size.height * 0.02),
                                                 Text(
                                                   data.desc,
                                                   style: subsDark.copyWith(

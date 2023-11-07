@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/constant.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
@@ -41,14 +42,15 @@ class Profile extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 30, right: 30),
                       width: size.width,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          Image.asset('assets/bg_rectangle.png'),
+                          Image.asset(Images.profileBack),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
                             child: Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 25),
@@ -66,20 +68,55 @@ class Profile extends StatelessWidget {
                                     },
                                     child: Stack(
                                       children: [
-                                        Image.asset(
-                                            'assets/profile_avatar.png'),
+                                        Align(
+                                          child: Container(
+                                            padding: const EdgeInsets.all(2),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    color:
+                                                        const Color(0xFFCFAF4E),
+                                                    width: 2)),
+                                            child: CircleAvatar(
+                                              backgroundImage:
+                                                  AssetImage(Images.profile),
+                                              radius: Get.height * 0.05,
+                                            ),
+                                          ),
+                                        ),
                                         Positioned(
                                           bottom: 0,
                                           right: 0,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Image.asset(
-                                                  'assets/camera_bg.png'),
-                                              Image.asset('assets/camera.png'),
-                                            ],
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              ImageUploadHelper()
+                                                  .showCropImagePicker(
+                                                      context, true, (p0) {
+                                                if (p0 != null) {}
+                                              });
+                                            },
+                                            child: CircleAvatar(
+                                              radius: 12,
+                                              backgroundColor: Colors.white,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xFF0E2ED4),
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        color: Colors.white,
+                                                        width: 2)),
+                                                child: const Icon(
+                                                  Icons.camera_alt,
+                                                  color: Colors.white,
+                                                  size: 16,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -130,6 +167,7 @@ class Profile extends StatelessWidget {
                                 'Badili lugha?',
                                 style: smText,
                               ),
+                              const SizedBox(width: 5),
                               GestureDetector(
                                 onTap: () {},
                                 child: Text(
@@ -287,89 +325,6 @@ class Profile extends StatelessWidget {
                 ),
               ),
             ),
-            /* Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFD9D9D9),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Home(),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset('assets/home.png',
-                              color: Color.fromRGBO(0, 0, 0, 0.3)),
-                          SizedBox(height: 5),
-                          Text('Home',
-                              style: footerText.copyWith(
-                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => GiveReward(),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset('assets/reward.png',
-                              color: Color.fromRGBO(0, 0, 0, 0.3)),
-                          SizedBox(height: 5),
-                          Text('Give reward',
-                              style: footerText.copyWith(
-                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Customers(),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.asset('assets/customer.png',
-                              color: Color.fromRGBO(0, 0, 0, 0.3)),
-                          SizedBox(height: 5),
-                          Text('Customers',
-                              style: footerText.copyWith(
-                                  color: Color.fromRGBO(0, 0, 0, 0.3))),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Image.asset('assets/profile.png'),
-                        SizedBox(height: 5),
-                        Text('Profile', style: footerText),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-           */
           ],
         ),
       ),
@@ -388,10 +343,10 @@ class Profile extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.0),
+          margin: const EdgeInsets.symmetric(horizontal: 30.0),
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFF5F5F5)),
-            color: Color(0xFFD9D9D9),
+            border: Border.all(color: const Color(0xFFF5F5F5)),
+            color: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5),
           ),
           child: TextButton(
@@ -403,13 +358,13 @@ class Profile extends StatelessWidget {
               );
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child:
-                        Image.asset(image, color: Color.fromRGBO(0, 0, 0, 0.3)),
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Image.asset(image,
+                        color: const Color.fromRGBO(0, 0, 0, 0.3)),
                   ),
                   Expanded(
                     child: Text(
@@ -430,10 +385,10 @@ class Profile extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 30.0),
+          margin: const EdgeInsets.symmetric(horizontal: 30.0),
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFF5F5F5)),
-            color: Color(0xFFD9D9D9),
+            border: Border.all(color: const Color(0xFFF5F5F5)),
+            color: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Padding(
@@ -812,7 +767,8 @@ class Profile extends StatelessWidget {
                                                 const SizedBox(height: 10),
                                                 TextButton(
                                                   onPressed: () {
-                                                    Navigator.of(context).pop();
+                                                    Get.close(1);
+                                                    showAuthModelSheet(context);
                                                   },
                                                   style: btnGold2,
                                                   child: Padding(
@@ -856,172 +812,6 @@ class Profile extends StatelessWidget {
                           child: TextButton(
                             onPressed: () {
                               Get.close(1);
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15))),
-                                builder: (BuildContext context) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom: MediaQuery.of(context)
-                                            .viewInsets
-                                            .bottom),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Image.asset(
-                                                  'assets/close.png'),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 30),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(
-                                                Icons.lock,
-                                                color: Colors.black,
-                                                size: 55,
-                                                weight: 10,
-                                              ),
-                                              // Image.asset(
-                                              //     'assets/authentication.png'),
-                                              const SizedBox(height: 20),
-                                              Text(
-                                                'Authentication',
-                                                style: changeLabel,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              const SizedBox(height: 20),
-                                              Text(
-                                                'Enter OTP sent to *****ya@**.com ',
-                                                style: todayText,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              const SizedBox(height: 50.0),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 5.0),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: const Color(
-                                                                0xFFF5F5F5)),
-                                                        color: const Color(
-                                                            0xFFD9D9D9),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        15),
-                                                            child: Image.asset(
-                                                                'assets/pin.png'),
-                                                          ),
-                                                          Expanded(
-                                                            child: TextField(
-                                                              // controller: pinController,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number,
-                                                              inputFormatters: <TextInputFormatter>[
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly,
-                                                                LengthLimitingTextInputFormatter(
-                                                                    4),
-                                                                // _tinFormatter,
-                                                              ],
-                                                              obscureText: true,
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                hintText:
-                                                                    'Enter OTP',
-                                                                hintStyle: TextStyle(
-                                                                    color: Color(
-                                                                        0xFF808080)),
-                                                                border:
-                                                                    InputBorder
-                                                                        .none,
-                                                              ),
-                                                              style:
-                                                                  textFieldStyle,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .push(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              EditReward(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    style: btnGold2,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 13,
-                                                          vertical: 8.0),
-                                                      child: Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    right:
-                                                                        10.0),
-                                                            child: Text(
-                                                              'Save',
-                                                              style:
-                                                                  btnGoldText,
-                                                            ),
-                                                          ),
-                                                          Image.asset(
-                                                              'assets/btn_arrow_right.png'),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 100.0),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
                             },
                             style: btnGrey,
                             child: Text(
@@ -1194,51 +984,60 @@ class Profile extends StatelessWidget {
               height: MediaQuery.of(context).size.height - 125.0,
               alignment: Alignment.bottomCenter,
               child: Dialog(
-                child: SizedBox(
-                  width: Get.width * 0.9,
-                  height: Get.height,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0, bottom: 20.0),
-                        child: Row(
-                          children: [
-                            const Spacer(),
-                            Text(
-                              'About Tiger Loyalty',
-                              style: alertTitle,
-                              textAlign: TextAlign.center,
-                            ),
-                            const Spacer(),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 15.0,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: Get.width,
+                      height: Get.height,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin:
+                                const EdgeInsets.only(top: 30.0, bottom: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'About Tiger Loyalty',
+                                  style: alertTitle,
+                                  textAlign: TextAlign.center,
                                 ),
-                                child: Image.asset('assets/close.png'),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(bottom: 30.0),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Text(
-                              'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa',
-                              style: dialogTextSm,
-                              textAlign: TextAlign.justify,
+                              ],
                             ),
                           ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.only(bottom: 30.0),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: Text(
+                                  'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa\n\nLorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa',
+                                  style: dialogTextSm,
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 10,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            right: 15.0,
+                          ),
+                          child: Image.asset('assets/close.png'),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -1248,5 +1047,137 @@ class Profile extends StatelessWidget {
       default:
         break;
     }
+  }
+
+  showAuthModelSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      builder: (BuildContext context) {
+        return Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Image.asset('assets/close.png'),
+                  ),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.lock,
+                      color: Colors.black,
+                      size: 55,
+                      weight: 10,
+                    ),
+                    // Image.asset(
+                    //     'assets/authentication.png'),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Authentication',
+                      style: changeLabel,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Enter OTP sent to *****ya@**.com ',
+                      style: todayText,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 50.0),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 5.0),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: const Color(0xFFF5F5F5)),
+                              color: const Color(0xFFD9D9D9),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Image.asset('assets/pin.png'),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    // controller: pinController,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(4),
+                                      // _tinFormatter,
+                                    ],
+                                    obscureText: true,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Enter OTP',
+                                      hintStyle:
+                                          TextStyle(color: Color(0xFF808080)),
+                                      border: InputBorder.none,
+                                    ),
+                                    style: textFieldStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => EditReward(),
+                              ),
+                            );
+                          },
+                          style: btnGold2,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 13, vertical: 8.0),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Text(
+                                    'Save',
+                                    style: btnGoldText,
+                                  ),
+                                ),
+                                Image.asset('assets/btn_arrow_right.png'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 100.0),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

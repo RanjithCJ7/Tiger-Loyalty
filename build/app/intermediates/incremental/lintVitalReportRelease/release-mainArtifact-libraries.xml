@@ -4,6 +4,19 @@
       jars="E:\Projects\Tiger-Loyalty\build\app\intermediates\flutter\release\libs.jar"
       resolved="__local_aars__:E:\Projects\Tiger-Loyalty\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
   <library
+      name="E:\Projects\Tiger-Loyalty\android@@:shared_preferences_android::release"
+      jars="E:\Projects\Tiger-Loyalty\build\shared_preferences_android\.transforms\0280a8481c06f3c6cd8b8d7b2cfed0b2\transformed\out\jars\classes.jar;E:\Projects\Tiger-Loyalty\build\shared_preferences_android\.transforms\0280a8481c06f3c6cd8b8d7b2cfed0b2\transformed\out\jars\libs\R.jar"
+      resolved="io.flutter.plugins.sharedpreferences:shared_preferences_android:unspecified"
+      folder="E:\Projects\Tiger-Loyalty\build\shared_preferences_android\.transforms\0280a8481c06f3c6cd8b8d7b2cfed0b2\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="E:\Projects\Tiger-Loyalty\android@@:flutter_plugin_android_lifecycle::release"
       jars="E:\Projects\Tiger-Loyalty\build\flutter_plugin_android_lifecycle\.transforms\1e035f8563f05917ae12f0cf6289be8c\transformed\out\jars\classes.jar;E:\Projects\Tiger-Loyalty\build\flutter_plugin_android_lifecycle\.transforms\1e035f8563f05917ae12f0cf6289be8c\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.flutter_plugin_android_lifecycle:flutter_plugin_android_lifecycle:unspecified"
@@ -21,6 +34,19 @@
       jars="E:\Projects\Tiger-Loyalty\build\flutter_exif_rotation\.transforms\d1870e386a3cbda93b742fe2491b35e0\transformed\out\jars\classes.jar;E:\Projects\Tiger-Loyalty\build\flutter_exif_rotation\.transforms\d1870e386a3cbda93b742fe2491b35e0\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.flutterexifrotation:flutter_exif_rotation:unspecified"
       folder="E:\Projects\Tiger-Loyalty\build\flutter_exif_rotation\.transforms\d1870e386a3cbda93b742fe2491b35e0\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="E:\Projects\Tiger-Loyalty\android@@:file_picker::release"
+      jars="E:\Projects\Tiger-Loyalty\build\file_picker\.transforms\a13f102bed08341b4ab5c6b320306394\transformed\out\jars\classes.jar;E:\Projects\Tiger-Loyalty\build\file_picker\.transforms\a13f102bed08341b4ab5c6b320306394\transformed\out\jars\libs\R.jar"
+      resolved="com.mr.flutter.plugin.filepicker:file_picker:unspecified"
+      folder="E:\Projects\Tiger-Loyalty\build\file_picker\.transforms\a13f102bed08341b4ab5c6b320306394\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

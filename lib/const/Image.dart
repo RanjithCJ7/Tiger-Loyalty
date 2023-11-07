@@ -22,4 +22,9 @@ class Images {
   static String locationImg = "assets/locationImg.png";
   static String whatsappImg = "assets/whatsappImg.png";
   static String phoneImg = "assets/phoneImg.png";
+
+  static String homeBackImg = "assets/homeBackImg.png";
+  static String homeBackImg2 = "assets/homeBackImg2.png";
+  static String homeBackImg3 = "assets/homeBackImg3.png";
+  static String profileBack = "assets/bg_rectangle.png";
 }

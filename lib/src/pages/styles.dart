@@ -27,7 +27,7 @@ final TextStyle desc2 = TextStyle(
 final TextStyle textFieldStyle = TextStyle(
   fontFamily: 'Inter',
   fontSize: 16.0,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w400,
   color: Color(0xFF000000),
 );
 
@@ -94,7 +94,7 @@ final TextStyle selectBtnSm = TextStyle(
 );
 final TextStyle alertTitle = TextStyle(
   fontFamily: 'Inter',
-  fontSize: 26.0,
+  fontSize: 22.0,
   fontWeight: FontWeight.w700,
   color: Colors.black,
 );
@@ -382,7 +382,7 @@ final ButtonStyle btnGrey = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(5),
   ),
-  primary: Color(0xFFD9D9D9),
+  backgroundColor: Color(0xFFD9D9D9),
 );
 final ButtonStyle selectBtn = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(

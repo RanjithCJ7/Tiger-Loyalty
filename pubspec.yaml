@@ -45,7 +45,9 @@ dependencies:
   flutter_svg: ^2.0.9
   get: ^4.6.6
   smooth_star_rating_null_safety: ^1.0.4+2
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.2    
+  file_picker: ^6.1.1
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/my_appbar.dart';
 import 'package:tiger_loyalty/src/pages/styles.dart';

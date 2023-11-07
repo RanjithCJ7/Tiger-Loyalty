@@ -1,4 +1,4 @@
-#Mon Nov 06 13:08:13 IST 2023
+#Tue Nov 07 16:52:57 IST 2023
 base.0=E\:\\Projects\\Tiger-Loyalty\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

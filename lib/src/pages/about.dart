@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:tiger_loyalty/src/pages/customers.dart';
-import 'package:tiger_loyalty/src/pages/home.dart';
+import 'package:tiger_loyalty/screens/home/component/home.dart';
 
 import 'styles.dart';
 

@@ -8,7 +8,6 @@ import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/src/pages/authentication.dart';
 import 'package:tiger_loyalty/screens/signup/component/reg_business.dart';
 import 'package:http/http.dart' as http;
-import 'package:tiger_loyalty/src/pages/pin_setup.dart';
 
 class SignupController extends GetxController {
   RxBool isLoading = false.obs;

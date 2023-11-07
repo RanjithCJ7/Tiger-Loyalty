@@ -220,6 +220,10 @@ class _TransactionsState extends State<Transactions> {
               );
             },
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Divider(color: Color(0XFFD9D9D9), thickness: 1),
+          )
           /* Expanded(
             child: Container(
               child: SingleChildScrollView(
