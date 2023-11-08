@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
-import 'package:tiger_loyalty/src/pages/pin_setup.dart';
+import 'package:tiger_loyalty/screens/signup/component/pin_setup.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 
 import 'styles.dart';
@@ -92,7 +93,18 @@ class Authentication extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (signupController.otpController.text.isEmpty) {
+                                Fluttertoast.showToast(msg: "Please enter OTP");
+                              } else if (signupController
+                                      .otpController.text.length <
+                                  4) {
+                                Fluttertoast.showToast(
+                                    msg: "OTP should be more than 4 number");
+                              } else {
+                                Get.to(() => PinSetup());
+                              }
+                            },
                             style: btnGold,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

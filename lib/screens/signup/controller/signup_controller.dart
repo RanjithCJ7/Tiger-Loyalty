@@ -8,6 +8,7 @@ import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/src/pages/authentication.dart';
 import 'package:tiger_loyalty/screens/signup/component/reg_business.dart';
 import 'package:http/http.dart' as http;
+import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
 
 class SignupController extends GetxController {
   RxBool isLoading = false.obs;
@@ -24,37 +25,39 @@ class SignupController extends GetxController {
   TextEditingController pin1Controller = TextEditingController();
   TextEditingController pin2Controller = TextEditingController();
   RxBool pinMatch = false.obs;
+  RxBool isLocationSelected = false.obs;
+  RxString locationName = "".obs;
   RxList<String> businessCategories = [
-    'Business category',
-    'Bakery',
-    'Bar',
-    'Beauty',
-    'Bookstore',
-    'Butcheries',
-    'Coffee Shops',
-    'Cosmetics',
-    'Decor',
-    'Electronics',
-    'Fashion',
-    'Fast Food',
-    'Florists',
-    'Groceries',
-    'Gym',
-    'Hotel',
-    'Laundry',
-    'Liquor Stores',
-    'Pets',
-    'Pharmacies',
-    'Resort',
-    'Restaurant',
-    'Saloon',
-    'Shopping',
-    'Spa',
-    'Supermarkets',
-    'Travel',
-    'Yoga'
+    'Business category'.tr,
+    "bakery".tr,
+    "bar".tr,
+    "beauty".tr,
+    "bookstore".tr,
+    "butcheries".tr,
+    "coffee_shops".tr,
+    "cosmetics".tr,
+    "decor".tr,
+    "electronics".tr,
+    "fashion".tr,
+    "fast_food".tr,
+    "florists".tr,
+    "groceries".tr,
+    "gym".tr,
+    "hotel".tr,
+    "laundry".tr,
+    "liquor_stores".tr,
+    "pets".tr,
+    "pharmacies".tr,
+    "resort".tr,
+    "restaurant".tr,
+    "saloon".tr,
+    "shopping".tr,
+    "spa".tr,
+    "supermarkets".tr,
+    "travel".tr,
+    "yoga".tr,
   ].obs;
-  RxString selectedCategory = 'Business category'.obs;
+  RxString selectedCategory = 'Business category'.tr.obs;
 
   nextFuncation() {
     if (firstNameController.text.isEmpty) {
@@ -63,7 +66,7 @@ class SignupController extends GetxController {
       Fluttertoast.showToast(msg: "Please Enter Last name");
     } else if (numberController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Please Enter Phone Number");
-    } else if (numberController.text.length < 7) {
+    } else if (numberController.text.length < 10) {
       Fluttertoast.showToast(msg: "Please Enter Valid Phone Number");
     } else if (emailController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Please Enter Email");
@@ -85,11 +88,11 @@ class SignupController extends GetxController {
       Fluttertoast.showToast(msg: "Please Enter Valid TIN Number");
     } else if (selectedCategory.value == "Business category") {
       Fluttertoast.showToast(msg: "Please choose Business category");
-    } else if (locationController.text.isEmpty) {
-      Fluttertoast.showToast(msg: "Please Enter Location");
+    } else if (isLocationSelected.value == false) {
+      Fluttertoast.showToast(msg: "Please Select Location");
     } else {
-      signUp();
-      // Get.to(() => PinSetup(), binding: InitialBinding());
+      // signUp();
+      Get.to(() => Authentication(), binding: InitialBinding());
     }
   }
 
@@ -101,7 +104,7 @@ class SignupController extends GetxController {
       request.body = json.encode({
         "username": emailController.text.trim(),
         "roles": ["merchant"],
-        "password": "password123",
+        "password": pin2Controller.text.trim(),
         "phoneNumber": numberController.text.trim(),
         "firstName": firstNameController.text.trim(),
         "lastName": lasttNameController.text.trim(),
@@ -109,19 +112,20 @@ class SignupController extends GetxController {
         "businessName": businessNameController.text.trim(),
         "tin": tinController.text.trim().replaceAll("-", ""),
         "category": selectedCategory.value,
-        "location": locationController.text.trim()
+        "location": locationName.value
       });
       request.headers.addAll({'Content-Type': 'application/json'});
 
       http.StreamedResponse response = await request.send();
-      // var decodeData = jsonDecode(await response.stream.bytesToString());
-      print("signup response ==> ${await response.stream.bytesToString()}");
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
 
       if (response.statusCode == 200) {
-        Get.to(() => Authentication(), binding: InitialBinding());
+        Get.to(() => const BottomTab(), binding: InitialBinding());
         isLoading(false);
       } else {
         print("error ==> ${response.reasonPhrase}");
+        Fluttertoast.showToast(msg: result["message"]);
         isLoading(false);
       }
     } catch (e) {

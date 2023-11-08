@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiger_loyalty/const/my_appbar.dart';
 
 import 'styles.dart';
 
@@ -33,58 +34,26 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: size.height * 0.08,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.black,
-          ),
-        ),
+      backgroundColor: Colors.white,
+      appBar: My_AppBar(
+        context,
         title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            Image.asset(widget.image),
+            const SizedBox(width: 5),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(widget.image),
-                const SizedBox(width: 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.name,
-                      style: label.copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Transactions',
-                      style: desc,
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Stack(
-              children: [
-                Image.asset('assets/notification.png'),
-                Positioned(
-                  top: -1,
-                  right: 0,
-                  child: Container(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset('assets/notification_bg.png'),
-                        Text('3', style: notificationText),
-                      ],
-                    ),
-                  ),
+                Text(
+                  widget.name,
+                  style: label.copyWith(color: Colors.black),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Transactions',
+                  style: desc,
                 ),
               ],
             )
@@ -93,68 +62,6 @@ class _TransactionsState extends State<Transactions> {
       ),
       body: Column(
         children: <Widget>[
-          // Container(
-          //   margin: EdgeInsets.only(top: 50.0),
-          //   padding: EdgeInsets.symmetric(horizontal: 20.0),
-          //   child: Row(
-          //     children: [
-          //       Expanded(
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 Padding(
-          //                   padding: EdgeInsets.only(right: 15),
-          //                   child: Container(
-          //                     child: Image.asset(widget.image),
-          //                   ),
-          //                 ),
-          //                 Column(
-          //                   crossAxisAlignment: CrossAxisAlignment.start,
-          //                   children: [
-          //                     Text(
-          //                       widget.name,
-          //                       style: label,
-          //                     ),
-          //                     SizedBox(height: 10.0),
-          //                     Text(
-          //                       'Transactions',
-          //                       style: desc,
-          //                     ),
-          //                     SizedBox(height: 10.0),
-          //                   ],
-          //                 ),
-          //               ],
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //       Stack(
-          //         children: [
-          //           Container(
-          //             margin:
-          //                 EdgeInsets.only(bottom: 30.0, right: 5.0, top: 5.0),
-          //             child: Image.asset('assets/notification.png'),
-          //           ),
-          //           Positioned(
-          //             top: -1,
-          //             right: 0,
-          //             child: Container(
-          //               child: Stack(
-          //                 alignment: Alignment.center,
-          //                 children: [
-          //                   Image.asset('assets/notification_bg.png'),
-          //                   Text('3', style: notificationText),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ],
-          //   ),
-          // ),
           ListView.separated(
             padding: const EdgeInsets.only(top: 10),
             shrinkWrap: true,

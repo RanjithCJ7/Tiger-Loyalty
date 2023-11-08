@@ -92,7 +92,7 @@ class _RegisterUserState extends State<RegisterUser> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
-                                  "What’s you sex?",
+                                  "What's your gender?",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 14.0,
@@ -180,7 +180,8 @@ class _RegisterUserState extends State<RegisterUser> {
                               controller: signupController.numberController,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(10),
                               ],
                               decoration: const InputDecoration(
                                 hintText: 'Phone number',

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-copyfile.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\127d99f5ac6207e8b97f5dd6767940bf\nuget-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\8be6dca8a01626e392fec7a3e9ea8a1b\nuget-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\62ee8cd33f897cbcc2ca6eea710cf584\nuget-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Projects\Tiger-Loyalty\build\windows\_deps\nuget-subbuild\CMakeFiles\nuget-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3B6F84AA-127E-37AC-9834-32EAEB0F63BB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+# Target labels
+ nuget-populate
+# Source files and their labels
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/nuget-populate
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/62ee8cd33f897cbcc2ca6eea710cf584/nuget-populate.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/8be6dca8a01626e392fec7a3e9ea8a1b/nuget-populate-complete.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-build.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-configure.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-copyfile.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-download.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-install.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-mkdir.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-patch.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-test.rule
+E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/127d99f5ac6207e8b97f5dd6767940bf/nuget-populate-update.rule

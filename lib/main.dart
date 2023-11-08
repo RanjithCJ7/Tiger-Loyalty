@@ -1,13 +1,18 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/constant.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
+import 'package:tiger_loyalty/screens/signup/component/reg_business.dart';
 import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
-import 'package:tiger_loyalty/src/pages/pin_setup.dart';
+import 'package:tiger_loyalty/screens/signup/component/pin_setup.dart';
 import 'package:tiger_loyalty/src/pages/promo_screen.dart';
 import 'package:tiger_loyalty/src/pages/save_lipa_namba.dart';
+import 'package:tiger_loyalty/translation/translation_service.dart';
 
 import 'src/pages/styles.dart';
 
@@ -20,7 +25,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TranslationService translationService = TranslationService();
+    Get.updateLocale(const Locale('sw'));
+    final String defaultLocale = Platform.localeName;
+
+    print('Device language code: $defaultLocale');
+
     return GetMaterialApp(
+      translations: translationService,
       home: const MyHomePage(title: ''),
       initialBinding: InitialBinding(),
       debugShowCheckedModeBanner: false,

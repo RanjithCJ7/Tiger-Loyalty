@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signup/component/address_picker.dart';
 import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:tiger_loyalty/widget/loader_widget.dart';
@@ -143,25 +145,61 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                   ],
                                 ),
                               )),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 20.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xFFF5F5F5)),
-                              color: const Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: TextField(
-                              controller: signupController.locationController,
-                              decoration: const InputDecoration(
-                                hintText: 'Location',
-                                hintStyle: TextStyle(color: Color(0xFF808080)),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(20),
-                              ),
-                              style: textFieldStyle,
-                            ),
+                          GestureDetector(
+                            onTap: () async {
+                              PermissionStatus status =
+                                  await Permission.location.status;
+                              if (status.isGranted) {
+                                Get.to(() => const AddressPicker(),
+                                    binding: InitialBinding());
+                              } else if (status.isDenied) {
+                                Permission.location.request();
+                              } else if (status.isPermanentlyDenied) {
+                                Permission.location.request();
+                              }
+                            },
+                            child: Container(
+                                width: Get.width,
+                                margin: const EdgeInsets.only(bottom: 20.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 20),
+                                // alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color(0xFFF5F5F5)),
+                                  color: const Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                    signupController.isLocationSelected.value ==
+                                            false
+                                        ? 'Location'
+                                        : signupController.locationName.value,
+                                    textAlign: TextAlign.start,
+                                    style: textFieldStyle.copyWith(
+                                        color: signupController
+                                                    .isLocationSelected.value ==
+                                                false
+                                            ? Color(0xFF808080)
+                                            : Colors.black))
+
+                                /* TextField(
+                                controller: signupController.locationController,
+                                enabled: false,
+                                decoration: InputDecoration(
+                                  hintText: signupController
+                                              .isLocationSelected.value ==
+                                          false
+                                      ? 'Location'
+                                      : signupController.locationName.value,
+                                  hintStyle:
+                                      const TextStyle(color: Color(0xFF808080)),
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(20),
+                                ),
+                                style: textFieldStyle,
+                              ), */
+                                ),
                           ),
                           TextButton(
                             onPressed: () {

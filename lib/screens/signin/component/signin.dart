@@ -106,8 +106,7 @@ class _SignInState extends State<SignIn> {
                                         child: TextField(
                                           controller: signinController
                                               .passwordController,
-                                          keyboardType:
-                                              TextInputType.visiblePassword,
+                                          keyboardType: TextInputType.number,
                                           // inputFormatters: <TextInputFormatter>[
                                           //   FilteringTextInputFormatter.digitsOnly
                                           // ],

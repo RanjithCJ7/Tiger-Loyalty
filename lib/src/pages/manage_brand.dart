@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:tiger_loyalty/src/pages/customers.dart';
+import 'package:tiger_loyalty/screens/customer/component/customers.dart';
 import 'package:tiger_loyalty/screens/home/component/home.dart';
 
 import 'styles.dart';
