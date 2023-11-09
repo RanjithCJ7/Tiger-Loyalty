@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
-import 'package:tiger_loyalty/src/pages/create_account.dart';
 import 'package:tiger_loyalty/widget/loader_widget.dart';
 import '../../../src/pages/styles.dart';
 
 class PinSetup extends StatelessWidget {
+  bool isReset;
+  PinSetup({required this.isReset});
   SignupController signupController = Get.find<SignupController>();
-
-  RxBool pinMatch = false.obs;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    signupController.pinMatch.value == false;
+
     return Scaffold(
       body: Obx(
         () => signupController.isLoading.value
@@ -97,6 +101,8 @@ class PinSetup extends StatelessWidget {
                                             inputFormatters: <TextInputFormatter>[
                                               FilteringTextInputFormatter
                                                   .digitsOnly,
+                                              LengthLimitingTextInputFormatter(
+                                                  4),
                                             ],
                                             obscureText: true,
                                             decoration: const InputDecoration(
@@ -146,6 +152,8 @@ class PinSetup extends StatelessWidget {
                                             inputFormatters: <TextInputFormatter>[
                                               FilteringTextInputFormatter
                                                   .digitsOnly,
+                                              LengthLimitingTextInputFormatter(
+                                                  4),
                                             ],
                                             obscureText: true,
                                             decoration: const InputDecoration(
@@ -164,15 +172,25 @@ class PinSetup extends StatelessWidget {
                                   SizedBox(width: size.width * 0.01),
                                   TextButton(
                                     onPressed: () {
-                                      // Navigator.of(context).push(
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => CreateAccount(),
-                                      //   ),
-                                      // );
-                                      if (signupController.pinMatch.value ==
-                                          true) {
+                                      print(
+                                          "value ==> ${signupController.pinMatch.value}");
+                                      if (signupController
+                                              .pin1Controller.text.isEmpty ||
+                                          signupController
+                                              .pin2Controller.text.isEmpty) {
+                                        Fluttertoast.showToast(
+                                            msg: "Please enter PIN");
                                       } else {
-                                        signupController.signUp();
+                                        if (signupController.pinMatch.value ==
+                                            true) {
+                                        } else {
+                                          if (isReset) {
+                                            Get.offAll(() => SignIn(),
+                                                binding: InitialBinding());
+                                          } else {
+                                            signupController.signUp();
+                                          }
+                                        }
                                       }
                                     },
                                     style: btnGold,

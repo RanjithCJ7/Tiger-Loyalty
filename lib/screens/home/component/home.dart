@@ -491,6 +491,16 @@ class _HomeState extends State<Home> {
   showDatePickerDialog() {
     homeController.selectedFilterDay.value = homeController.appliedFilter.value;
     homeController.focusedDay = DateTime.now();
+    if (homeController.selectedFilterDay.value == "Today") {
+      setState(() {
+        homeController.rangeMode = DateRangePickerSelectionMode.single;
+      });
+    }
+    if (homeController.selectedFilterDay.value == "Week") {
+      setState(() {
+        homeController.rangeMode = DateRangePickerSelectionMode.range;
+      });
+    }
 
     showModalBottomSheet(
       context: context,
@@ -524,7 +534,7 @@ class _HomeState extends State<Home> {
                             .map((e) => Padding(
                                   padding: const EdgeInsets.all(1.0),
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       setState(() {
                                         homeController.selectedFilterDay.value =
                                             e;
@@ -597,14 +607,15 @@ class _HomeState extends State<Home> {
                         height: 15.0,
                       ),
                       homeController.selectedFilterDay.value == "Month"
-                          ? Expanded(
+                          ? /* Expanded(
                               child: GridView.builder(
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        childAspectRatio: 3,
-                                        mainAxisSpacing: 5,
-                                        crossAxisSpacing: 10),
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 3,
+                                  mainAxisSpacing: 5,
+                                  crossAxisSpacing: 10,
+                                ),
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: homeController.monthList.length,
                                 itemBuilder: (context, index) {
@@ -654,6 +665,207 @@ class _HomeState extends State<Home> {
                                     ),
                                   );
                                 },
+                              ),
+                            ) */
+                          Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'From',
+                                            style: label,
+                                          ),
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 10),
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: Colors.grey.shade400),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (homeController
+                                                                  .monthIndex ==
+                                                              11) {
+                                                            homeController
+                                                                .monthIndex = 0;
+                                                          } else {
+                                                            homeController
+                                                                    .monthIndex =
+                                                                homeController
+                                                                        .monthIndex +
+                                                                    1;
+                                                          }
+                                                          print(
+                                                              "index ==> ${homeController.monthIndex}");
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_up_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (homeController
+                                                                  .monthIndex ==
+                                                              0) {
+                                                            homeController
+                                                                .monthIndex = 11;
+                                                          } else {
+                                                            homeController
+                                                                    .monthIndex =
+                                                                homeController
+                                                                        .monthIndex -
+                                                                    1;
+                                                          }
+                                                          print(
+                                                              "index ==> ${homeController.monthIndex}");
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  homeController
+                                                      .monthList[homeController
+                                                          .monthIndex]
+                                                      .month,
+                                                  style: const TextStyle(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(width: Get.width * 0.02),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'To',
+                                            style: label,
+                                          ),
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 10),
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: Colors.grey.shade400),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (homeController
+                                                                  .monthIndex2 ==
+                                                              11) {
+                                                            homeController
+                                                                .monthIndex2 = 0;
+                                                          } else {
+                                                            homeController
+                                                                    .monthIndex2 =
+                                                                homeController
+                                                                        .monthIndex2 +
+                                                                    1;
+                                                          }
+                                                          print(
+                                                              "index ==> ${homeController.monthIndex2}");
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_up_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (homeController
+                                                                  .monthIndex2 ==
+                                                              0) {
+                                                            homeController
+                                                                .monthIndex2 = 11;
+                                                          } else {
+                                                            homeController
+                                                                    .monthIndex2 =
+                                                                homeController
+                                                                        .monthIndex2 -
+                                                                    1;
+                                                          }
+                                                          print(
+                                                              "index ==> ${homeController.monthIndex2}");
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  homeController
+                                                      .monthList[homeController
+                                                          .monthIndex2]
+                                                      .month,
+                                                  style: const TextStyle(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  if (homeController.monthIndex >=
+                                      homeController.monthIndex2) ...[
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Select valid From and To month",
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    )
+                                  ]
+                                ],
                               ),
                             )
                           : homeController.selectedFilterDay.value == "Year"
@@ -717,6 +929,7 @@ class _HomeState extends State<Home> {
                                     ],
                                   ),
                                   child: SfDateRangePicker(
+                                    maxDate: DateTime.now(),
                                     initialSelectedDate:
                                         homeController.selectedDate,
                                     initialSelectedRange: PickerDateRange(
@@ -818,9 +1031,15 @@ class _HomeState extends State<Home> {
                               }
                             } else if (homeController.selectedFilterDay.value ==
                                 "Month") {
-                              if (homeController.selectedMonth.isEmpty) {
+                              // if (homeController.selectedMonth.isEmpty) {
+                              //   Fluttertoast.showToast(
+                              //       msg: "Please select month");
+                              // } else {
+                              if (homeController.monthIndex >=
+                                  homeController.monthIndex2) {
                                 Fluttertoast.showToast(
-                                    msg: "Please select month");
+                                    msg:
+                                        "Please select valid From and To month");
                               } else {
                                 homeController.isFilterApplied.value = true;
                                 homeController.appliedFilter.value =

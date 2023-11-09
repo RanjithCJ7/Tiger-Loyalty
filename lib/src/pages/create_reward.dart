@@ -27,46 +27,15 @@ class _CreateRewardState extends State<CreateReward> {
   RxBool isPercentageAdded = false.obs;
   RxBool isLoading = false.obs;
   RxBool isValidMax = false.obs;
-  List<DataRow> generateRows(List<List<String>> data) {
-    return data.asMap().entries.map((entry) {
-      int index = entry.key;
-      List<String> rowData = entry.value;
-
-      Color backgroundColor = index.isOdd ? Colors.white : Color(0xFFD9D9D9);
-
-      return DataRow(
-        color: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.selected)) {
-            return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-          }
-          return backgroundColor;
-        }),
-        cells: [
-          DataCell(Text(rowData[0])),
-          DataCell(Text(rowData[1])),
-          DataCell(
-            Row(
-              children: [
-                Text(rowData[2]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Image.asset('assets/remove.png'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }).toList();
-  }
-
-  List<String> rowData = [];
-
   String selectedMinValue = '';
   String selectedMaxValue = '';
-
   bool showCreateReward = true;
+  List data = [
+    {'min': '10,000', 'max': "100,000"},
+    {'min': '100,001', 'max': "100,000"},
+    {'min': '1,000,001', 'max': "5,000,000"},
+    {'min': '5,000,001', 'max': "10,000,000"},
+  ];
 
   @override
   void dispose() {
@@ -77,20 +46,6 @@ class _CreateRewardState extends State<CreateReward> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<String>> tableData = [
-      ['10,000', '100,000', '1%', ''],
-      ['100,001', '1,000,000', '2%', ''],
-      ['1,000,001', '5,000,000', '3%', ''],
-      ['5,000,001', '10,000,000', '4%', ''],
-    ];
-
-    List data = [
-      {'min': '10,000', 'max': "100,000"},
-      {'min': '100,001', 'max': "100,000"},
-      {'min': '1,000,001', 'max': "5,000,000"},
-      {'min': '5,000,001', 'max': "10,000,000"},
-    ];
-
     return Scaffold(
       body: Obx(
         () => isLoading.value
@@ -101,7 +56,7 @@ class _CreateRewardState extends State<CreateReward> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(40.0),
+                        padding: const EdgeInsets.all(30.0),
                         child: Column(
                           children: [
                             Container(
@@ -118,293 +73,294 @@ class _CreateRewardState extends State<CreateReward> {
                                   const SizedBox(
                                     height: 35.0,
                                   ),
-                                  if (showCreateReward)
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Center(
-                                          child: SizedBox(
-                                            width: 176,
-                                            child: Text(
-                                              'Define your reward points value to get started',
-                                              style: desc,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
+                                  // if (rewardData.isEmpty)
+                                  //   Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Center(
+                                  //         child: SizedBox(
+                                  //           width: 176,
+                                  //           child: Text(
+                                  //             'Define your reward points value to get started',
+                                  //             style: desc,
+                                  //             textAlign: TextAlign.center,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 35.0,
+                                  //       ),
+                                  //       Container(
+                                  //         margin: const EdgeInsets.only(
+                                  //             bottom: 15.0),
+                                  //         child: Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceBetween,
+                                  //           children: [
+                                  //             Text(
+                                  //               'Create reward table',
+                                  //               style: labelSm,
+                                  //               textAlign: TextAlign.start,
+                                  //             ),
+                                  //             if (isValidMax.value) ...[
+                                  //               Text('Add max value',
+                                  //                   style: labelSm.copyWith(
+                                  //                       color: Colors.red),
+                                  //                   textAlign: TextAlign.left)
+                                  //             ]
+                                  //           ],
+                                  //         ),
+                                  //       ),
+                                  //       Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Container(
+                                  //             width: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .width *
+                                  //                 0.37,
+                                  //             height: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .height *
+                                  //                 0.07,
+                                  //             decoration: BoxDecoration(
+                                  //               color: const Color(0xFFD9D9D9),
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5),
+                                  //             ),
+                                  //             alignment: Alignment.center,
+                                  //             child: TextField(
+                                  //               controller: minController,
+                                  //               keyboardType:
+                                  //                   TextInputType.number,
+                                  //               inputFormatters: <TextInputFormatter>[
+                                  //                 FilteringTextInputFormatter
+                                  //                     .digitsOnly
+                                  //               ],
+                                  //               decoration:
+                                  //                   const InputDecoration(
+                                  //                 hintText: 'Min. spending',
+                                  //                 hintStyle: TextStyle(
+                                  //                     color: Color(0xFF808080)),
+                                  //                 border: InputBorder.none,
+                                  //               ),
+                                  //               style: textFieldStyle,
+                                  //               textAlign: TextAlign.center,
+                                  //             ),
+                                  //           ),
+                                  //           const Spacer(),
+                                  //           Text(
+                                  //             '-',
+                                  //             style: label,
+                                  //           ),
+                                  //           const Spacer(),
+                                  //           Container(
+                                  //             width: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .width *
+                                  //                 0.37,
+                                  //             height: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .height *
+                                  //                 0.07,
+                                  //             alignment: Alignment.center,
+                                  //             decoration: BoxDecoration(
+                                  //               color: const Color(0xFFD9D9D9),
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5),
+                                  //             ),
+                                  //             child: TextField(
+                                  //               controller: maxController,
+                                  //               keyboardType:
+                                  //                   TextInputType.number,
+                                  //               inputFormatters: <TextInputFormatter>[
+                                  //                 FilteringTextInputFormatter
+                                  //                     .digitsOnly
+                                  //               ],
+                                  //               onChanged: (value) {
+                                  //                 if (value.isNotEmpty &&
+                                  //                     int.parse(value) <
+                                  //                         int.parse(
+                                  //                             minController
+                                  //                                 .text)) {
+                                  //                   isValidMax.value = true;
+                                  //                 } else if (value.isNotEmpty &&
+                                  //                     int.parse(value) ==
+                                  //                         int.parse(
+                                  //                             minController
+                                  //                                 .text)) {
+                                  //                   isValidMax.value = true;
+                                  //                 } else {
+                                  //                   isValidMax.value = false;
+                                  //                 }
+                                  //               },
+                                  //               decoration:
+                                  //                   const InputDecoration(
+                                  //                 hintText: 'Max. Spending',
+                                  //                 hintStyle: TextStyle(
+                                  //                     color: Color(0xFF808080)),
+                                  //                 border: InputBorder.none,
+                                  //               ),
+                                  //               style: textFieldStyle,
+                                  //               textAlign: TextAlign.center,
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 15.0,
+                                  //       ),
+                                  //       Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Container(
+                                  //             width: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .width *
+                                  //                 0.37,
+                                  //             height: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .height *
+                                  //                 0.07,
+                                  //             alignment: Alignment.center,
+                                  //             decoration: BoxDecoration(
+                                  //               color: const Color(0xFFD9D9D9),
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5),
+                                  //             ),
+                                  //             child: Container(
+                                  //               margin: const EdgeInsets.only(
+                                  //                   left: 20),
+                                  //               child: TextField(
+                                  //                 controller:
+                                  //                     percentageController,
+                                  //                 keyboardType:
+                                  //                     const TextInputType
+                                  //                         .numberWithOptions(
+                                  //                         decimal: true),
+                                  //                 inputFormatters: [
+                                  //                   OneDotFormatter(),
+                                  //                   PercentageFormatter(),
+                                  //                   FilteringTextInputFormatter
+                                  //                       .allow(RegExp(
+                                  //                           r'^\d*\.?\d{0,2}'))
+                                  //                 ],
+                                  //                 onChanged: (text) {
+                                  //                   if (!isPercentageAdded
+                                  //                       .value) {
+                                  //                     if (text.endsWith('%')) {
+                                  //                       isPercentageAdded
+                                  //                           .value = true;
+                                  //                     } else {
+                                  //                       percentageController
+                                  //                           .text = text + '%';
+                                  //                       // Move the cursor to the end of the text
+                                  //                       percentageController
+                                  //                               .selection =
+                                  //                           TextSelection
+                                  //                               .fromPosition(
+                                  //                         TextPosition(
+                                  //                             offset:
+                                  //                                 percentageController
+                                  //                                         .text
+                                  //                                         .length -
+                                  //                                     1),
+                                  //                       );
+                                  //                       isPercentageAdded
+                                  //                           .value = true;
+                                  //                     }
+                                  //                   }
+                                  //                   if (!text.endsWith('%')) {
+                                  //                     percentageController
+                                  //                         .text = text + '%';
+                                  //                     // Move the cursor to the end of the text
+                                  //                     percentageController
+                                  //                             .selection =
+                                  //                         TextSelection
+                                  //                             .fromPosition(
+                                  //                       TextPosition(
+                                  //                           offset:
+                                  //                               percentageController
+                                  //                                       .text
+                                  //                                       .length -
+                                  //                                   1),
+                                  //                     );
+                                  //                     isPercentageAdded.value =
+                                  //                         true;
+                                  //                   }
+                                  //                 },
+                                  //                 decoration:
+                                  //                     const InputDecoration(
+                                  //                   // suffixText: '%',
+                                  //                   hintText: '%',
+                                  //                   hintStyle: TextStyle(
+                                  //                       color:
+                                  //                           Color(0xFF000000)),
+                                  //                   border: InputBorder.none,
+                                  //                 ),
+                                  //                 // textAlign: TextAlign.center,
+                                  //                 style: textFieldStyle,
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //           const Spacer(),
+                                  //           Container(
+                                  //             width: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .width *
+                                  //                 0.38,
+                                  //             height: MediaQuery.of(context)
+                                  //                     .size
+                                  //                     .height *
+                                  //                 0.07,
+                                  //             decoration: BoxDecoration(
+                                  //               color: const Color(0xFFD9D9D9),
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5),
+                                  //             ),
+                                  //             child: TextButton(
+                                  //               onPressed: () {
+                                  //                 setState(() {
+                                  //                   showCreateReward = false;
+                                  //                 });
+                                  //               },
+                                  //               style: btnGold2,
+                                  //               child: Padding(
+                                  //                 padding: const EdgeInsets
+                                  //                     .symmetric(vertical: 8.0),
+                                  //                 child: Text(
+                                  //                   'Save',
+                                  //                   style: btnGoldText2,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 75.0,
+                                  //       ),
+                                  //     ],
+                                  //   )
+                                  // else
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Define your reward points value to get started',
+                                          style: desc,
                                         ),
-                                        const SizedBox(
-                                          height: 35.0,
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              bottom: 15.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Create reward table',
-                                                style: labelSm,
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              if (isValidMax.value) ...[
-                                                Text('Add max value',
-                                                    style: labelSm.copyWith(
-                                                        color: Colors.red),
-                                                    textAlign: TextAlign.left)
-                                              ]
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.37,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              alignment: Alignment.center,
-                                              child: TextField(
-                                                controller: minController,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly
-                                                ],
-                                                decoration:
-                                                    const InputDecoration(
-                                                  hintText: 'Min. spending',
-                                                  hintStyle: TextStyle(
-                                                      color: Color(0xFF808080)),
-                                                  border: InputBorder.none,
-                                                ),
-                                                style: textFieldStyle,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Text(
-                                              '-',
-                                              style: label,
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.37,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: TextField(
-                                                controller: maxController,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly
-                                                ],
-                                                onChanged: (value) {
-                                                  if (value.isNotEmpty &&
-                                                      int.parse(value) <
-                                                          int.parse(
-                                                              minController
-                                                                  .text)) {
-                                                    isValidMax.value = true;
-                                                  } else if (value.isNotEmpty &&
-                                                      int.parse(value) ==
-                                                          int.parse(
-                                                              minController
-                                                                  .text)) {
-                                                    isValidMax.value = true;
-                                                  } else {
-                                                    isValidMax.value = false;
-                                                  }
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  hintText: 'Max. Spending',
-                                                  hintStyle: TextStyle(
-                                                      color: Color(0xFF808080)),
-                                                  border: InputBorder.none,
-                                                ),
-                                                style: textFieldStyle,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.37,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 20),
-                                                child: TextField(
-                                                  controller:
-                                                      percentageController,
-                                                  keyboardType:
-                                                      const TextInputType
-                                                          .numberWithOptions(
-                                                          decimal: true),
-                                                  inputFormatters: [
-                                                    OneDotFormatter(),
-                                                    PercentageFormatter(),
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'^\d*\.?\d{0,2}'))
-                                                  ],
-                                                  onChanged: (text) {
-                                                    if (!isPercentageAdded
-                                                        .value) {
-                                                      if (text.endsWith('%')) {
-                                                        isPercentageAdded
-                                                            .value = true;
-                                                      } else {
-                                                        percentageController
-                                                            .text = text + '%';
-                                                        // Move the cursor to the end of the text
-                                                        percentageController
-                                                                .selection =
-                                                            TextSelection
-                                                                .fromPosition(
-                                                          TextPosition(
-                                                              offset:
-                                                                  percentageController
-                                                                          .text
-                                                                          .length -
-                                                                      1),
-                                                        );
-                                                        isPercentageAdded
-                                                            .value = true;
-                                                      }
-                                                    }
-                                                    if (!text.endsWith('%')) {
-                                                      percentageController
-                                                          .text = text + '%';
-                                                      // Move the cursor to the end of the text
-                                                      percentageController
-                                                              .selection =
-                                                          TextSelection
-                                                              .fromPosition(
-                                                        TextPosition(
-                                                            offset:
-                                                                percentageController
-                                                                        .text
-                                                                        .length -
-                                                                    1),
-                                                      );
-                                                      isPercentageAdded.value =
-                                                          true;
-                                                    }
-                                                  },
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    // suffixText: '%',
-                                                    hintText: '%',
-                                                    hintStyle: TextStyle(
-                                                        color:
-                                                            Color(0xFF000000)),
-                                                    border: InputBorder.none,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                  style: textFieldStyle,
-                                                ),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.38,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    showCreateReward = false;
-                                                  });
-                                                },
-                                                style: btnGold2,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: Text(
-                                                    'Save',
-                                                    style: btnGoldText2,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 75.0,
-                                        ),
-                                      ],
-                                    )
-                                  else
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            'Define your reward points value to get started',
-                                            style: desc,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 35.0,
-                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 35.0,
+                                      ),
+                                      if (rewardData.isNotEmpty) ...[
                                         Container(
                                           alignment: Alignment.center,
                                           child: Text(
@@ -412,10 +368,12 @@ class _CreateRewardState extends State<CreateReward> {
                                             style: labelSm,
                                             textAlign: TextAlign.center,
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+                                        )
+                                      ],
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      if (rewardData.isNotEmpty) ...[
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5, vertical: 5),
@@ -441,7 +399,7 @@ class _CreateRewardState extends State<CreateReward> {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.25,
+                                                      0.29,
                                                   child: const Text(
                                                     "Max",
                                                     style: TextStyle(
@@ -471,8 +429,9 @@ class _CreateRewardState extends State<CreateReward> {
                                         ListView.builder(
                                           padding: EdgeInsets.zero,
                                           shrinkWrap: true,
-                                          itemCount: data.length,
+                                          itemCount: rewardData.length,
                                           itemBuilder: (context, index) {
+                                            var data = rewardData[index];
                                             return Container(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -491,21 +450,37 @@ class _CreateRewardState extends State<CreateReward> {
                                                         .spaceBetween,
                                                 children: [
                                                   SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.25,
-                                                      child: Text(
-                                                          data[index]["min"])),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.25,
+                                                    child: Text(
+                                                      data.min,
+                                                      style: const TextStyle(
+                                                        fontFamily: "Inter",
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
                                                   SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.25,
-                                                      child: Text(
-                                                          data[index]["max"])),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.25,
+                                                    child: Text(
+                                                      data.max,
+                                                      style: const TextStyle(
+                                                        fontFamily: "Inter",
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
                                                   SizedBox(
                                                     width:
                                                         MediaQuery.of(context)
@@ -517,11 +492,43 @@ class _CreateRewardState extends State<CreateReward> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Text("${index + 1}%"),
+                                                        Text(
+                                                          data.percentage,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontFamily: "Inter",
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
                                                         const SizedBox(
                                                             width: 5),
-                                                        Image.asset(
-                                                            'assets/remove.png'),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              rewardData
+                                                                  .removeAt(
+                                                                      index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xffDA001E),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: const Icon(
+                                                              Icons.remove,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        )
+                                                        // Image.asset(
+                                                        //     'assets/remove.png'),
                                                       ],
                                                     ),
                                                   ),
@@ -529,204 +536,175 @@ class _CreateRewardState extends State<CreateReward> {
                                               ),
                                             );
                                           },
-                                        ),
-                                        // SingleChildScrollView(
-                                        //   child: DataTable(
-                                        //     horizontalMargin: 5,
-                                        //     columns: [
-                                        //       DataColumn(label: Text('Min')),
-                                        //       DataColumn(label: Text('Max')),
-                                        //       DataColumn(label: Text('Reward%')),
-                                        //     ],
-                                        //     rows: generateRows(tableData),
-                                        //   ),
-                                        // ),
+                                        )
+                                      ],
+                                      if (rewardData.isNotEmpty) ...[
                                         const SizedBox(
                                           height: 20.0,
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              bottom: 15.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Add field',
-                                                style: labelSm,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              if (isValidMax.value) ...[
-                                                Text('Add max value',
-                                                    style: labelSm.copyWith(
-                                                        color: Colors.red),
-                                                    textAlign: TextAlign.left)
-                                              ]
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
+                                        )
+                                      ],
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15.0),
+                                        child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.37,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: TextField(
-                                                controller: minController,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly
-                                                ],
-                                                decoration:
-                                                    const InputDecoration(
-                                                  hintText: 'Min. spending',
-                                                  hintStyle: TextStyle(
-                                                      color: Color(0xFF808080)),
-                                                  border: InputBorder.none,
-                                                ),
-                                                style: textFieldStyle,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            // Spacer(),
                                             Text(
-                                              '-',
-                                              style: label,
+                                              rewardData.isEmpty
+                                                  ? 'Create reward table'
+                                                  : 'Add field',
+                                              style: labelSm,
+                                              textAlign: TextAlign.center,
                                             ),
-                                            // Spacer(),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.37,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: TextField(
-                                                controller: maxController,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                inputFormatters: <TextInputFormatter>[
-                                                  FilteringTextInputFormatter
-                                                      .digitsOnly
-                                                ],
-                                                onChanged: (value) {
-                                                  if (value.isNotEmpty &&
-                                                      int.parse(value) <
-                                                          int.parse(
-                                                              minController
-                                                                  .text)) {
-                                                    isValidMax.value = true;
-                                                  } else if (value.isNotEmpty &&
-                                                      int.parse(value) ==
-                                                          int.parse(
-                                                              minController
-                                                                  .text)) {
-                                                    isValidMax.value = true;
-                                                  } else {
-                                                    isValidMax.value = false;
-                                                  }
-                                                },
-                                                decoration:
-                                                    const InputDecoration(
-                                                  hintText: 'Max. Spending',
-                                                  hintStyle: TextStyle(
-                                                      color: Color(0xFF808080)),
-                                                  border: InputBorder.none,
-                                                ),
-                                                style: textFieldStyle,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
+                                            if (isValidMax.value) ...[
+                                              Text('Add max value',
+                                                  style: labelSm.copyWith(
+                                                      color: Colors.red),
+                                                  textAlign: TextAlign.left)
+                                            ]
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.35,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.37,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.07,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFD9D9D9),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: TextField(
+                                              controller: minController,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly
+                                              ],
+                                              decoration: const InputDecoration(
+                                                hintText: 'Min. spending',
+                                                hintStyle: TextStyle(
+                                                    color: Color(0xFF808080)),
+                                                border: InputBorder.none,
                                               ),
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 20),
-                                                child: TextField(
-                                                  controller:
-                                                      percentageController,
-                                                  keyboardType:
-                                                      const TextInputType
-                                                          .numberWithOptions(
-                                                          decimal: true),
-                                                  inputFormatters: [
-                                                    OneDotFormatter(),
-                                                    PercentageFormatter(),
-                                                    FilteringTextInputFormatter
-                                                        .allow(RegExp(
-                                                            r'^\d*\.?\d{0,2}'))
-                                                  ],
-                                                  onChanged: (text) {
-                                                    if (!isPercentageAdded
-                                                        .value) {
-                                                      if (text.endsWith('%')) {
-                                                        isPercentageAdded
-                                                            .value = true;
-                                                      } else {
-                                                        percentageController
-                                                            .text = text + '%';
-                                                        // Move the cursor to the end of the text
-                                                        percentageController
-                                                                .selection =
-                                                            TextSelection
-                                                                .fromPosition(
-                                                          TextPosition(
-                                                              offset:
-                                                                  percentageController
-                                                                          .text
-                                                                          .length -
-                                                                      1),
-                                                        );
-                                                        isPercentageAdded
-                                                            .value = true;
-                                                      }
-                                                    }
-                                                    if (!text.endsWith('%')) {
+                                              style: textFieldStyle,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          // Spacer(),
+                                          Text(
+                                            '-',
+                                            style: label,
+                                          ),
+                                          // Spacer(),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.37,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.07,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFD9D9D9),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: TextField(
+                                              controller: maxController,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly
+                                              ],
+                                              onChanged: (value) {
+                                                if (value.isNotEmpty &&
+                                                    int.parse(value) <
+                                                        int.parse(minController
+                                                            .text)) {
+                                                  isValidMax.value = true;
+                                                } else if (value.isNotEmpty &&
+                                                    int.parse(value) ==
+                                                        int.parse(minController
+                                                            .text)) {
+                                                  isValidMax.value = true;
+                                                } else {
+                                                  isValidMax.value = false;
+                                                }
+                                              },
+                                              decoration: const InputDecoration(
+                                                hintText: 'Max. Spending',
+                                                hintStyle: TextStyle(
+                                                    color: Color(0xFF808080)),
+                                                border: InputBorder.none,
+                                              ),
+                                              style: textFieldStyle,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15.0,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.37,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.07,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFD9D9D9),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: TextField(
+                                                controller:
+                                                    percentageController,
+                                                keyboardType:
+                                                    const TextInputType
+                                                        .numberWithOptions(
+                                                        decimal: true),
+                                                inputFormatters: [
+                                                  OneDotFormatter(),
+                                                  PercentageFormatter(),
+                                                  FilteringTextInputFormatter
+                                                      .allow(RegExp(
+                                                          r'^\d*\.?\d{0,2}'))
+                                                ],
+                                                onChanged: (text) {
+                                                  if (!isPercentageAdded
+                                                      .value) {
+                                                    if (text.endsWith('%')) {
+                                                      isPercentageAdded.value =
+                                                          true;
+                                                    } else {
                                                       percentageController
                                                           .text = text + '%';
                                                       // Move the cursor to the end of the text
@@ -744,54 +722,73 @@ class _CreateRewardState extends State<CreateReward> {
                                                       isPercentageAdded.value =
                                                           true;
                                                     }
-                                                  },
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    // suffixText: '%',
-                                                    hintText: '%',
-                                                    hintStyle: TextStyle(
-                                                        color:
-                                                            Color(0xFF000000)),
-                                                    border: InputBorder.none,
-                                                  ),
-                                                  style: textFieldStyle,
-                                                ),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.35,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.07,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFD9D9D9),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  addrewardPoints();
+                                                  }
+                                                  if (!text.endsWith('%')) {
+                                                    percentageController.text =
+                                                        text + '%';
+                                                    // Move the cursor to the end of the text
+                                                    percentageController
+                                                            .selection =
+                                                        TextSelection
+                                                            .fromPosition(
+                                                      TextPosition(
+                                                          offset:
+                                                              percentageController
+                                                                      .text
+                                                                      .length -
+                                                                  1),
+                                                    );
+                                                    isPercentageAdded.value =
+                                                        true;
+                                                  }
                                                 },
-                                                style: btnGold2,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: Text(
-                                                    'Save',
-                                                    style: btnGoldText2,
-                                                  ),
+                                                decoration:
+                                                    const InputDecoration(
+                                                  // suffixText: '%',
+                                                  hintText: '%',
+                                                  hintStyle: TextStyle(
+                                                      color: Color(0xFF000000)),
+                                                  border: InputBorder.none,
+                                                ),
+                                                style: textFieldStyle,
+                                              ),
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.37,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.07,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFD9D9D9),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: TextButton(
+                                              onPressed: () {
+                                                addrewardPoints();
+                                              },
+                                              style: btnGold2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 8.0),
+                                                child: Text(
+                                                  'Save',
+                                                  style: btnGoldText2,
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(
                                     height: 80.0,
                                   ),
@@ -808,13 +805,12 @@ class _CreateRewardState extends State<CreateReward> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const BottomTab(),
-                                          ),
-                                          (route) => false);
+                                      if (rewardData.isEmpty) {
+                                        Fluttertoast.showToast(
+                                            msg: "Please add reward data");
+                                      } else {
+                                        Get.offAll(() => const BottomTab());
+                                      }
                                     },
                                     style: btnGold2,
                                     child: Padding(
@@ -854,14 +850,20 @@ class _CreateRewardState extends State<CreateReward> {
     } else {
       int min = int.parse(minController.text.trim().toString());
       int max = int.parse(maxController.text.trim().toString());
-      print("min ==> ${minController.text}");
+
       if (min > max) {
         Fluttertoast.showToast(msg: "Please enter valid max value");
       } else {
-        rewardData.add(RewardTableModel(
-            min: min.toString(),
-            max: max.toString(),
-            percentage: percentageController.text.trim()));
+        setState(() {
+          rewardData.add(RewardTableModel(
+              min: min.toString(),
+              max: max.toString(),
+              percentage: percentageController.text.trim()));
+          minController.clear();
+          maxController.clear();
+          percentageController.clear();
+          Get.focusScope!.unfocus();
+        });
       }
     }
   }

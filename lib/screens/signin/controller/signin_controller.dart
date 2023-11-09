@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:tiger_loyalty/const/Url.dart';
 import 'package:tiger_loyalty/const/constant.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/model/signin_model.dart';
-import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
+import 'package:tiger_loyalty/src/pages/authentication.dart';
 import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
 
 class SigninController extends GetxController {
@@ -63,5 +64,35 @@ class SigninController extends GetxController {
       isLoading(false);
       rethrow;
     }
+  }
+
+  Future resetPin() async {
+    Get.to(() => Authentication(isReset: true), binding: InitialBinding());
+    // try {
+    //   isLoading(true);
+
+    //   var request = http.Request('POST', Uri.parse(Urls.signIn));
+    //   request.body = json.encode({
+    //     "username": emailController.text.trim(),
+    //     "password": passwordController.text.trim()
+    //   });
+    //   request.headers.addAll({'Content-Type': 'application/json'});
+
+    //   http.StreamedResponse response = await request.send();
+    //   var decodeData = jsonDecode(await response.stream.bytesToString());
+    //   print("login response ==> $decodeData");
+
+    //   if (response.statusCode == 200) {
+    //     Get.to(() => Authentication(isReset: true), binding: InitialBinding());
+
+    //     isLoading(false);
+    //   } else {
+    //     print("error ==> ${response.reasonPhrase}");
+    //     isLoading(false);
+    //   }
+    // } catch (e) {
+    //   isLoading(false);
+    //   rethrow;
+    // }
   }
 }

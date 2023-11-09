@@ -1,3 +1,0 @@
-E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/nuget-populate.dir
-E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/ALL_BUILD.dir
-E:/Projects/Tiger-Loyalty/build/windows/_deps/nuget-subbuild/CMakeFiles/ZERO_CHECK.dir

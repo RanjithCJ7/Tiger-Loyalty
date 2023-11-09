@@ -7,10 +7,7 @@ import 'package:intl/intl.dart';
 class MonthModel {
   String month;
   int index;
-  MonthModel({
-    required this.month,
-    required this.index,
-  });
+  MonthModel({required this.month, required this.index});
 }
 
 class HomeController extends GetxController {
@@ -84,6 +81,11 @@ class HomeController extends GetxController {
         image: 'assets/pending_4.png',
         date: "2024-02-10"),
     PointsData(
+        points: '20',
+        name: 'Jaribu Athumani',
+        image: 'assets/pending_4.png',
+        date: "2024-03-10"),
+    PointsData(
         points: '10',
         name: 'Jaribu Athumani',
         image: 'assets/pending_4.png',
@@ -105,6 +107,9 @@ class HomeController extends GetxController {
     MonthModel(index: 12, month: 'Dec'),
   ];
 
+  int monthIndex = 0;
+  int monthIndex2 = 1;
+
   List<MonthModel> selectedMonth = [];
 
   RxList<String> yearList =
@@ -115,10 +120,10 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    filterData.value = pointsData
-        .where((p0) => DateTime.parse(p0.date).isAtSameMomentAs(selectedDate!))
-        .toList();
+    filterData.value = pointsData;
+    // filterData.value = pointsData
+    //     .where((p0) => DateTime.parse(p0.date).isAtSameMomentAs(selectedDate!))
+    //     .toList();
   }
 
   filterListData() {
@@ -135,9 +140,13 @@ class HomeController extends GetxController {
             itemDate.isAtSameMomentAs(rangeEnd!);
       }).toList();
     } else if (selectedFilterDay.value == "Month") {
-      filterData.value = pointsData.where((item) {
-        DateTime itemDate = DateTime.parse(item.date);
-        return selectedMonth.any((element) => element.index == itemDate.month);
+      // filterData.value = pointsData.where((item) {
+      //   DateTime itemDate = DateTime.parse(item.date);
+      //   return selectedMonth.any((element) => element.index == itemDate.month);
+      // }).toList();
+      filterData.value = pointsData.where((data) {
+        int itemDate = DateTime.parse(data.date).month;
+        return itemDate >= monthIndex + 1 && itemDate <= monthIndex2 + 1;
       }).toList();
     } else if (selectedFilterDay.value == "Year") {
       filterData.value = pointsData.where((item) {

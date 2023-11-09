@@ -115,7 +115,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<String>(
                                           value: signupController
-                                              .selectedCategory.value,
+                                              .selectedCategory.value.tr,
                                           style: textFieldStyle,
                                           onChanged: (newValue) {
                                             signupController.selectedCategory
@@ -125,9 +125,9 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                               .businessCategories
                                               .map((category) {
                                             return DropdownMenuItem<String>(
-                                              value: category,
+                                              value: category.tr,
                                               child: Text(
-                                                category,
+                                                category.tr,
                                                 style: textFieldStyle.copyWith(
                                                     color: signupController
                                                                 .selectedCategory
@@ -180,7 +180,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                         color: signupController
                                                     .isLocationSelected.value ==
                                                 false
-                                            ? Color(0xFF808080)
+                                            ? const Color(0xFF808080)
                                             : Colors.black))
 
                                 /* TextField(

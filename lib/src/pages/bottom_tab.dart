@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/screens/customer/component/customers.dart';
 import 'package:tiger_loyalty/src/pages/give_reward.dart';
 import 'package:tiger_loyalty/screens/home/component/home.dart';
-import 'package:tiger_loyalty/src/pages/notification.dart';
 import 'package:tiger_loyalty/src/pages/profile.dart';
 
 class BottomTab extends StatefulWidget {
@@ -35,22 +36,36 @@ class _BottomTabState extends State<BottomTab> {
         items: [
           BottomNavigationBarItem(
             label: 'Home',
-            icon: Image.asset('assets/home.png',
-                color: index == 0 ? Colors.black : const Color(0xFFB0B0B0)),
+            icon: Image.asset(
+              Images.homeTab,
+              color: index == 0 ? Colors.black : const Color(0xFFB0B0B0),
+              height: Get.height * 0.03,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Give reward',
-            icon: Image.asset('assets/reward.png',
-                color: index == 1 ? Colors.black : const Color(0xFFB0B0B0)),
+            icon: Image.asset(
+              Images.rewardTab,
+              color: index == 1 ? Colors.black : const Color(0xFFB0B0B0),
+              height: Get.height * 0.03,
+            ),
           ),
           BottomNavigationBarItem(
-              label: 'Customers',
-              icon: Image.asset('assets/customer.png',
-                  color: index == 2 ? Colors.black : const Color(0xFFB0B0B0))),
+            label: 'Customers',
+            icon: Image.asset(
+              Images.customerTab,
+              color: index == 2 ? Colors.black : const Color(0xFFB0B0B0),
+              height: Get.height * 0.03,
+            ),
+          ),
           BottomNavigationBarItem(
-              label: 'Profile',
-              icon: Image.asset('assets/profile.png',
-                  color: index == 3 ? Colors.black : const Color(0xFFB0B0B0))),
+            label: 'Profile',
+            icon: Image.asset(
+              Images.profileTab,
+              color: index == 3 ? Colors.black : const Color(0xFFB0B0B0),
+              height: Get.height * 0.03,
+            ),
+          ),
         ],
       ),
       body: screen[index],

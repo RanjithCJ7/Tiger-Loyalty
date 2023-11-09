@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -92,8 +93,12 @@ class _AddressPickerState extends State<AddressPicker> {
               alignment: Alignment.bottomCenter,
               child: GestureDetector(
                 onTap: () {
-                  signupController.isLocationSelected.value = true;
-                  Get.back();
+                  if (signupController.locationName.value == "") {
+                    Fluttertoast.showToast(msg: "Please select location");
+                  } else {
+                    signupController.isLocationSelected.value = true;
+                    Get.back();
+                  }
                 },
                 child: Container(
                   height: Get.height * 0.06,

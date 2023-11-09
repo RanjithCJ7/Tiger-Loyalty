@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:tiger_loyalty/widget/select_image.dart';
 import 'styles.dart';
 
@@ -213,7 +212,7 @@ class _CharityState extends State<Charity> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          backgroundColor: Color(0xFFF5F5F5),
+                          backgroundColor: const Color(0xFFF5F5F5),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),

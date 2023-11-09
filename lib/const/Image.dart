@@ -27,4 +27,9 @@ class Images {
   static String homeBackImg2 = "assets/homeBackImg2.png";
   static String homeBackImg3 = "assets/homeBackImg3.png";
   static String profileBack = "assets/bg_rectangle.png";
+
+  static String homeTab = "assets/home.png";
+  static String rewardTab = "assets/reward.png";
+  static String customerTab = "assets/customer.png";
+  static String profileTab = "assets/profile.png";
 }

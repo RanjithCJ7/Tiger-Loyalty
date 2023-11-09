@@ -3,20 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
-import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/screens/signup/component/pin_setup.dart';
+import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
-
 import 'styles.dart';
 
-// ignore: must_be_immutable
 class Authentication extends StatelessWidget {
-  Authentication({super.key});
+  bool isReset;
+  Authentication({super.key, required this.isReset});
 
   SignupController signupController = Get.find<SignupController>();
 
   @override
   Widget build(BuildContext context) {
+    signupController.otpController.clear();
     return Scaffold(
       body: Center(
         child: ListView(
@@ -73,11 +73,11 @@ class Authentication extends StatelessWidget {
                                       keyboardType: TextInputType.number,
                                       inputFormatters: <TextInputFormatter>[
                                         FilteringTextInputFormatter.digitsOnly,
-                                        LengthLimitingTextInputFormatter(4),
+                                        LengthLimitingTextInputFormatter(6),
                                       ],
                                       obscureText: true,
                                       decoration: const InputDecoration(
-                                        hintText: '****',
+                                        hintText: '******',
                                         hintStyle: TextStyle(
                                             color: Color(0xFF808080),
                                             letterSpacing: 4.0),
@@ -98,11 +98,16 @@ class Authentication extends StatelessWidget {
                                 Fluttertoast.showToast(msg: "Please enter OTP");
                               } else if (signupController
                                       .otpController.text.length <
-                                  4) {
+                                  6) {
                                 Fluttertoast.showToast(
-                                    msg: "OTP should be more than 4 number");
+                                    msg: "OTP should be 6 digit");
                               } else {
-                                Get.to(() => PinSetup());
+                                if (isReset) {
+                                  Get.to(() => PinSetup(isReset: isReset),
+                                      binding: InitialBinding());
+                                } else {
+                                  signupController.verifyOTP(isReset);
+                                }
                               }
                             },
                             style: btnGold,
@@ -127,17 +132,22 @@ class Authentication extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Haven’t received?',
-                            style: forgotLabel,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => PinSetup(),
-                                ),
-                              );
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (context) => PinSetup(),
+                              //   ),
+                              // );
                             },
                             child: const Text('Resend'),
                           ),

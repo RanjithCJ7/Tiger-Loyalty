@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/controller/signin_controller.dart';
@@ -107,9 +108,11 @@ class _SignInState extends State<SignIn> {
                                           controller: signinController
                                               .passwordController,
                                           keyboardType: TextInputType.number,
-                                          // inputFormatters: <TextInputFormatter>[
-                                          //   FilteringTextInputFormatter.digitsOnly
-                                          // ],
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(4),
+                                          ],
                                           obscureText: true,
                                           decoration: const InputDecoration(
                                             hintText: 'PIN',
@@ -160,9 +163,6 @@ class _SignInState extends State<SignIn> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // Add your reset PIN logic here
-                                  // For example, you can show a dialog or navigate to a reset PIN screen.
-                                  // Replace the following code with your logic.
                                   showDialog(
                                     context: context,
                                     builder: (context) {
@@ -173,7 +173,8 @@ class _SignInState extends State<SignIn> {
                                         actions: [
                                           TextButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Get.close(1);
+                                              signinController.resetPin();
                                             },
                                             child: const Text(
                                               'Reset',
@@ -182,7 +183,7 @@ class _SignInState extends State<SignIn> {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Get.close(1);
                                             },
                                             child: const Text('Cancel'),
                                           ),

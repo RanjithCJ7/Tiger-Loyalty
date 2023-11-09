@@ -5,10 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/const/Url.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/signup/component/pin_setup.dart';
 import 'package:tiger_loyalty/src/pages/authentication.dart';
 import 'package:tiger_loyalty/screens/signup/component/reg_business.dart';
 import 'package:http/http.dart' as http;
-import 'package:tiger_loyalty/src/pages/bottom_tab.dart';
+import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
 
 class SignupController extends GetxController {
   RxBool isLoading = false.obs;
@@ -91,8 +92,36 @@ class SignupController extends GetxController {
     } else if (isLocationSelected.value == false) {
       Fluttertoast.showToast(msg: "Please Select Location");
     } else {
-      // signUp();
-      Get.to(() => Authentication(), binding: InitialBinding());
+      sendOTP();
+    }
+  }
+
+  Future sendOTP() async {
+    try {
+      isLoading(true);
+
+      var request = http.Request('POST', Uri.parse(Urls.sendOTP));
+      request.body = json.encode({
+        "userName": emailController.text.trim(),
+        "phoneNumber": numberController.text.trim()
+      });
+      request.headers.addAll({'Content-Type': 'application/json'});
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      // final result = jsonDecode(decodeData.body);
+      print("result ==> ${decodeData.body}");
+
+      if (response.statusCode == 200) {
+        Get.to(() => Authentication(isReset: false), binding: InitialBinding());
+        isLoading(false);
+      } else {
+        // Fluttertoast.showToast(msg: result["message"]);
+        isLoading(false);
+      }
+    } catch (e) {
+      isLoading(false);
+      rethrow;
     }
   }
 
@@ -121,7 +150,7 @@ class SignupController extends GetxController {
       final result = jsonDecode(decodeData.body);
 
       if (response.statusCode == 200) {
-        Get.to(() => const BottomTab(), binding: InitialBinding());
+        Get.to(() => ChooseSubscription(), binding: InitialBinding());
         isLoading(false);
       } else {
         print("error ==> ${response.reasonPhrase}");
@@ -134,23 +163,26 @@ class SignupController extends GetxController {
     }
   }
 
-  Future verifyOTP() async {
+  Future verifyOTP(bool isReset) async {
     try {
       isLoading(true);
 
-      var response = await http.post(Uri.parse(Urls.validateOTP), body: {
-        "otp": otpController.text.trim(),
-        "userName": emailController.text.trim()
+      var request = http.Request('POST', Uri.parse(Urls.validateOTP));
+      request.body = json.encode({
+        "otp": int.parse(otpController.text),
+        "userName": emailController.text.trim(),
       });
+      request.headers.addAll({'Content-Type': 'application/json'});
 
-      var decodeData = jsonDecode(response.body);
-      print("validateOTP response ==> $decodeData");
+      http.StreamedResponse response = await request.send();
+      // var decodeData = await http.Response.fromStream(response);
+      // final result = jsonDecode(decodeData.body);
 
       if (response.statusCode == 200) {
-        Get.to(() => Authentication(), binding: InitialBinding());
-
+        Get.to(() => PinSetup(isReset: isReset), binding: InitialBinding());
         isLoading(false);
       } else {
+        // Fluttertoast.showToast(msg: result["message"]);
         isLoading(false);
       }
     } catch (e) {

@@ -485,12 +485,72 @@ library {
 }
 library {
   maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-location"
+    version: "21.0.1"
+  }
+  digests {
+    sha256: "\274\211\361\246\021\211e!kEC\236~\223`\246\362\005FT\344\2023Tv\216x\204\373;k\f"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-base"
+    version: "18.1.0"
+  }
+  digests {
+    sha256: "N\312V\316\354\3242Z7l\330C\257V7~#v\316(M\fo\005\245\320\250/L\033\370\315"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-basement"
+    version: "18.1.0"
+  }
+  digests {
+    sha256: "\003\272\025\363\206\317&\v\336r\374@\020\373\211\250 \304}Q\316c\274\t)~\253\346\314\340\233\335"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-tasks"
+    version: "18.0.2"
+  }
+  digests {
+    sha256: "\003F\\\3656\200\332#\323\324\243\231\\\003)\267\367;!\0358y\036\3136\345\221\376\273\211fd"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
     groupId: "androidx.exifinterface"
     artifactId: "exifinterface"
     version: "1.3.6"
   }
   digests {
     sha256: "\030\004\020^\236\005\375\330\367`A;\255]\344\230\303\201\2522\237O\235\224\310Q\274\211\032\306T\306"
+  }
+  repo_index {
+  }
+}
+library {
+  maven_library {
+    groupId: "com.google.android.gms"
+    artifactId: "play-services-maps"
+    version: "18.2.0"
+  }
+  digests {
+    sha256: "D\365\006UW\212!\305y\341\273-\254\256\304\305E\354M\370\023\223\326\375r6\326d&\200V\251"
   }
   repo_index {
   }
@@ -515,7 +575,7 @@ library {
     sha256: "\222\372\034\355\267=\026\002B`P\262+\343\240\235%\353\033\265z\373\235\f\272\206\256\2542\244-\226"
   }
   repo_index {
-    value: 13
+    value: 19
   }
 }
 library {
@@ -669,7 +729,7 @@ library {
 }
 library {
   digests {
-    sha256: "5w\227E\2218gPW.\344\345\'J\300\024\301\353i\217\247x\\v\207o`\370[\331\277\255"
+    sha256: "\246WH\326\327\256E\251l*#c\324\325\226nN\326\210\313\000\203\005\252:-\313\365\362\2151\374"
   }
 }
 library_dependencies {
@@ -951,35 +1011,27 @@ library_dependencies {
 }
 library_dependencies {
   library_index: 40
-  library_dep_index: 2
+  library_dep_index: 41
+  library_dep_index: 42
+  library_dep_index: 43
 }
 library_dependencies {
   library_index: 41
-  library_dep_index: 12
-  library_dep_index: 11
-  library_dep_index: 4
-  library_dep_index: 5
+  library_dep_index: 28
+  library_dep_index: 26
+  library_dep_index: 33
+  library_dep_index: 42
+  library_dep_index: 43
 }
 library_dependencies {
   library_index: 42
-  library_dep_index: 43
-  library_dep_index: 40
-  library_dep_index: 49
-  library_dep_index: 50
+  library_dep_index: 28
+  library_dep_index: 26
+  library_dep_index: 33
 }
 library_dependencies {
   library_index: 43
-  library_dep_index: 2
-  library_dep_index: 26
-  library_dep_index: 44
-  library_dep_index: 37
-  library_dep_index: 33
-  library_dep_index: 45
-  library_dep_index: 48
-  library_dep_index: 31
-  library_dep_index: 28
-  library_dep_index: 17
-  library_dep_index: 23
+  library_dep_index: 42
 }
 library_dependencies {
   library_index: 44
@@ -987,56 +1039,97 @@ library_dependencies {
 }
 library_dependencies {
   library_index: 45
-  library_dep_index: 28
-  library_dep_index: 2
-  library_dep_index: 26
-  library_dep_index: 46
-  library_dep_index: 47
+  library_dep_index: 33
+  library_dep_index: 41
+  library_dep_index: 42
+  library_dep_index: 43
 }
 library_dependencies {
   library_index: 46
-  library_dep_index: 2
-  library_dep_index: 26
-  library_dep_index: 28
+  library_dep_index: 12
+  library_dep_index: 11
+  library_dep_index: 4
+  library_dep_index: 5
 }
 library_dependencies {
   library_index: 47
-  library_dep_index: 46
-  library_dep_index: 29
-  library_dep_index: 28
+  library_dep_index: 48
+  library_dep_index: 44
+  library_dep_index: 54
+  library_dep_index: 55
 }
 library_dependencies {
   library_index: 48
   library_dep_index: 2
   library_dep_index: 26
-  library_dep_index: 35
+  library_dep_index: 49
+  library_dep_index: 37
+  library_dep_index: 33
+  library_dep_index: 50
+  library_dep_index: 53
+  library_dep_index: 31
+  library_dep_index: 28
+  library_dep_index: 17
+  library_dep_index: 23
 }
 library_dependencies {
   library_index: 49
+  library_dep_index: 2
+}
+library_dependencies {
+  library_index: 50
+  library_dep_index: 28
+  library_dep_index: 2
+  library_dep_index: 26
+  library_dep_index: 51
+  library_dep_index: 52
+}
+library_dependencies {
+  library_index: 51
   library_dep_index: 2
   library_dep_index: 26
   library_dep_index: 28
 }
 library_dependencies {
-  library_index: 50
+  library_index: 52
   library_dep_index: 51
+  library_dep_index: 29
+  library_dep_index: 28
+}
+library_dependencies {
+  library_index: 53
+  library_dep_index: 2
+  library_dep_index: 26
+  library_dep_index: 35
+}
+library_dependencies {
+  library_index: 54
+  library_dep_index: 2
+  library_dep_index: 26
+  library_dep_index: 28
+}
+library_dependencies {
+  library_index: 55
+  library_dep_index: 56
 }
 module_dependencies {
   module_name: "base"
   dependency_index: 11
-  dependency_index: 52
-  dependency_index: 53
-  dependency_index: 54
+  dependency_index: 57
+  dependency_index: 58
+  dependency_index: 59
   dependency_index: 0
-  dependency_index: 2
   dependency_index: 40
-  dependency_index: 12
   dependency_index: 26
+  dependency_index: 2
+  dependency_index: 44
+  dependency_index: 12
   dependency_index: 17
+  dependency_index: 45
   dependency_index: 37
-  dependency_index: 41
-  dependency_index: 42
-  dependency_index: 55
+  dependency_index: 46
+  dependency_index: 47
+  dependency_index: 60
 }
 repositories {
   maven_repo {
@@ -1105,7 +1198,47 @@ repositories {
 }
 repositories {
   maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
+  }
+}
+repositories {
+  maven_repo {
     url: "https://www.jitpack.io"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://dl.google.com/dl/android/maven2/"
+  }
+}
+repositories {
+  maven_repo {
+    url: "https://repo.maven.apache.org/maven2/"
   }
 }
 repositories {

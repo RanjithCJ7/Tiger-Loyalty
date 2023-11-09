@@ -107,8 +107,8 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                                               left: 20, right: 20, top: 10),
                                           child: Container(
                                             width: size.width * 0.8,
-                                            height: size.height * 0.2,
-                                            padding: const EdgeInsets.all(20),
+                                            height: size.height * 0.185,
+                                            padding: const EdgeInsets.all(15),
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
@@ -125,7 +125,8 @@ class _ChooseSubscriptionState extends State<ChooseSubscription> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                    height: size.height * 0.02),
+                                                    height:
+                                                        size.height * 0.015),
                                                 Text(
                                                   data.desc,
                                                   style: subsDark.copyWith(

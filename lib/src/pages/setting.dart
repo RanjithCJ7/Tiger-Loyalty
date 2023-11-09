@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:tiger_loyalty/src/pages/create_reward.dart';
+
 import 'styles.dart';
 
 class SubscriptionData {
@@ -102,129 +102,106 @@ class _SettingState extends State<Setting> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(vertical: 15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: size.width,
-                  child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: subscriptionData.length,
-                      itemBuilder: (context, index) {
-                        var data = subscriptionData[index];
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedSubscription = data;
-                            });
-                          },
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: size.width,
-                                padding: const EdgeInsets.only(
-                                    left: 20, right: 20, top: 10),
-                                child: Container(
-                                  width: size.width * 0.8,
-                                  height: size.height * 0.2,
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: data.backgroundColor,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        data.title,
-                                        style: label.copyWith(
-                                          color: data.titleColor,
-                                        ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: size.width,
+                child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: subscriptionData.length,
+                    itemBuilder: (context, index) {
+                      var data = subscriptionData[index];
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedSubscription = data;
+                          });
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: size.width,
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10),
+                              child: Container(
+                                width: size.width * 0.8,
+                                height: size.height * 0.185,
+                                padding: const EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: data.backgroundColor,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data.title,
+                                      style: label.copyWith(
+                                        color: data.titleColor,
                                       ),
-                                      SizedBox(height: size.height * 0.01),
-                                      Text(
-                                        data.desc,
-                                        style: subsDark.copyWith(
-                                          letterSpacing: 0.5,
-                                          color: data.descColor,
-                                        ),
+                                    ),
+                                    SizedBox(height: size.height * 0.01),
+                                    Text(
+                                      data.desc,
+                                      style: subsDark.copyWith(
+                                        letterSpacing: 0.5,
+                                        color: data.descColor,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              if (data.title == selectedSubscription?.title)
-                                Positioned(
-                                  top: 0,
-                                  right: 5,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Image.asset('assets/white_border.png'),
-                                      Image.asset('assets/check.png'),
-                                    ],
-                                  ),
-                                )
-                            ],
-                          ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Container(
+                            ),
+                            if (data.title == selectedSubscription?.title)
+                              Positioned(
+                                top: 0,
+                                right: 5,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Image.asset('assets/white_border.png'),
+                                    Image.asset('assets/check.png'),
+                                  ],
+                                ),
+                              )
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (selectedSubscription == null) {
+                    Fluttertoast.showToast(
+                        msg: "Please choose subscription plan");
+                  } else {
+                    Get.back();
+                  }
+                },
+                child: Container(
                   height: size.height * 0.06,
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
-                      color: const Color(0xFFCFAF4E),
-                      borderRadius: BorderRadius.circular(6)),
+                    color: const Color(0xFFCFAF4E),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                   child: Center(
                     child: Text(
-                      'Upgrade  ',
+                      'Upgrade',
                       style: btnGoldText2,
                       textAlign: TextAlign.center,
                     ),
                   ),
-                )
-                // Container(
-                //   margin: const EdgeInsets.all(10),
-                //   child: TextButton(
-                //     onPressed: () {
-                //       if (selectedSubscription == null) {
-                //         Fluttertoast.showToast(
-                //             msg: "Please choose subscription plan");
-                //       } else {
-                //         Navigator.of(context).push(
-                //           MaterialPageRoute(
-                //             builder: (context) => CreateReward(),
-                //           ),
-                //         );
-                //       }
-                //     },
-                //     style: btnGold2,
-                //     child: Padding(
-                //       padding: const EdgeInsets.symmetric(vertical: 10),
-                //       child: Container(
-                //         width: size.width,
-                //         child: Text(
-                //           'Proceed',
-                //           style: btnGoldText2,
-                //           textAlign: TextAlign.center,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
