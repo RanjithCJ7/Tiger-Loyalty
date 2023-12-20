@@ -55,6 +55,17 @@ dependencies:
   permission_handler: ^11.0.1
   geolocator: ^10.1.0  
   intl: ^0.18.1
+  image_gallery_saver: ^2.0.3
+  flutter_localization: ^0.1.14
+  package_info_plus: ^4.2.0
+  screenshot: ^2.1.0
+  pdf: ^3.10.6
+  path_provider: ^2.1.1  
+  open_file: ^3.3.2
+  external_path: ^1.0.3
+  open_street_map_search_and_pick: 
+    path: package/open_street_map_search_and_pick
+
 
 dev_dependencies:
   flutter_test:
@@ -99,9 +110,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   - family: Inter
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: assets/Inter.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

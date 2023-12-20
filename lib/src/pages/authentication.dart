@@ -6,11 +6,14 @@ import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signup/component/pin_setup.dart';
 import 'package:tiger_loyalty/screens/signup/controller/signup_controller.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
+import 'package:tiger_loyalty/widget/show_loader.dart';
 import 'styles.dart';
 
+// ignore: must_be_immutable
 class Authentication extends StatelessWidget {
   bool isReset;
-  Authentication({super.key, required this.isReset});
+  String? email;
+  Authentication({super.key, required this.isReset, this.email});
 
   SignupController signupController = Get.find<SignupController>();
 
@@ -35,14 +38,14 @@ class Authentication extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(bottom: 20.0),
                         child: Text(
-                          'Authentication',
+                          'authentication'.tr,
                           style: label,
                         ),
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 30.0),
                         child: Text(
-                          'Enter OTP sent to your email',
+                          'enter_otp_from_mail'.tr,
                           style: desc,
                         ),
                       ),
@@ -95,16 +98,15 @@ class Authentication extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               if (signupController.otpController.text.isEmpty) {
-                                Fluttertoast.showToast(msg: "Please enter OTP");
+                                Fluttertoast.showToast(msg: "enter_otp".tr);
                               } else if (signupController
                                       .otpController.text.length <
                                   6) {
-                                Fluttertoast.showToast(
-                                    msg: "OTP should be 6 digit");
+                                Fluttertoast.showToast(msg: "otp_digit_msg".tr);
                               } else {
                                 if (isReset) {
-                                  Get.to(() => PinSetup(isReset: isReset),
-                                      binding: InitialBinding());
+                                  signupController.verifyFogetOTP(
+                                      isReset, email!);
                                 } else {
                                   signupController.verifyOTP(isReset);
                                 }
@@ -119,7 +121,7 @@ class Authentication extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
                                     child: Text(
-                                      'Next',
+                                      'next'.tr,
                                       style: btnGoldText,
                                     ),
                                   ),
@@ -132,9 +134,9 @@ class Authentication extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Text(
-                            'Haven’t received?',
-                            style: TextStyle(
+                          Text(
+                            'not_received'.tr,
+                            style: const TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -143,13 +145,12 @@ class Authentication extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => PinSetup(),
-                              //   ),
-                              // );
+                              signupController.otpController.clear();
+                              const LoaderDialog().showLoader();
+                              signupController.resendOTP().then(
+                                  (value) => const LoaderDialog().hideLoader());
                             },
-                            child: const Text('Resend'),
+                            child: Text('resend'.tr),
                           ),
                         ],
                       ),
@@ -165,7 +166,7 @@ class Authentication extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Text("OR", style: orText),
+                              child: Text("or".tr, style: orText),
                             ),
                             const Expanded(
                               child: Divider(
@@ -197,7 +198,7 @@ class Authentication extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
-                                    'Sign in',
+                                    'sign_in'.tr,
                                     style: btnGreyText.copyWith(
                                         color: Colors.black),
                                   ),

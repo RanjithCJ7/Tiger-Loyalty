@@ -7,20 +7,11 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/my_appbar.dart';
 import 'package:tiger_loyalty/screens/home/controller/home_controller.dart';
+import 'package:tiger_loyalty/screens/home/model/approved_points_model.dart';
+import 'package:tiger_loyalty/screens/home/model/pending_points_model.dart';
+import 'package:tiger_loyalty/screens/profile/controller/profile_controller.dart';
 import 'package:tiger_loyalty/widget/loader_widget.dart';
 import '../../../src/pages/styles.dart';
-
-class PointsData {
-  String points;
-  String name;
-  String image, date;
-
-  PointsData(
-      {required this.points,
-      required this.name,
-      required this.image,
-      required this.date});
-}
 
 class Home extends StatefulWidget {
   @override
@@ -28,7 +19,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  HomeController homeController = Get.put(HomeController());
+  HomeController homeController = Get.find<HomeController>();
+  ProfileController profileController = Get.find<ProfileController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,452 +33,360 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: My_AppBar(context,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Hello Jane,', style: label.copyWith(color: Colors.black)),
-                const SizedBox(height: 5.0),
-                Text('Boob Boo Restaurant', style: desc),
-              ],
+          title: Obx(
+            () => Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      '${"hello".tr} ${profileController.profileModel.value.firstName ?? ""}',
+                      style: label.copyWith(color: Colors.black)),
+                  const SizedBox(height: 5.0),
+                  Text(profileController.profileModel.value.businessName ?? "",
+                      style: desc),
+                ],
+              ),
             ),
           )),
       body: SafeArea(
         child: Obx(
-          () => homeController.isLoading.value
+          () => homeController.isLoading.value ||
+                  profileController.isLoading.value
               ? const LoaderWidget()
-              : Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onPanUpdate: (details) {
-                                if (details.delta.dx > 0) {
-                                  homeController.points.value = true;
-                                }
-                                if (details.delta.dx < 0) {
-                                  homeController.points.value = false;
-                                }
-                              },
-                              child: homeController.points.value
-                                  ? Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        /*Image.asset(
-                                          'assets/rectangle_1.png',
-                                          width: Get.width,
-                                        ),
-                                        Positioned(
-                                          // bottom: 0,
-                                          // right: 30,
-                                          child: Image.asset(
-                                            'assets/rectangle_2.png',
-                                            width: Get.width,
-                                            // height: Get.height * 0.1,
-                                          ),
-                                        ), */
-                                        Image.asset(Images.homeBackImg),
-                                        Container(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text('Issuance',
-                                                      style: imgLabel),
-                                                  const Spacer(),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      showDatePickerDialog();
-                                                    },
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 5),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: Colors.white,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(25.0),
-                                                      ),
-                                                      height: 20,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            homeController
-                                                                    .isFilterApplied
-                                                                    .value
-                                                                ? homeController
-                                                                    .appliedFilter
-                                                                    .value
-                                                                : "Today",
-                                                            style: todayText
-                                                                .copyWith(
-                                                                    color: Colors
-                                                                        .white),
-                                                          ),
-                                                          const Icon(
-                                                            Icons
-                                                                .arrow_drop_down_outlined,
-                                                            color: Colors.white,
-                                                            size: 18,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 15.0),
-                                              Row(
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text('10', style: imgNum),
-                                                      const SizedBox(
-                                                          height: 5.0),
-                                                      Text('Customers',
-                                                          style: imgDesc)
-                                                    ],
-                                                  ),
-                                                  const Spacer(),
-                                                  Image.asset(
-                                                      'assets/line.png'),
-                                                  const Spacer(),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text('60,120',
-                                                          style: imgNum),
-                                                      const SizedBox(
-                                                          height: 5.0),
-                                                      Text(
-                                                          'Total issued points',
-                                                          style: imgDesc)
-                                                    ],
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  : Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        // Image.asset('assets/rectangle_3.png'),
-                                        // Positioned(
-                                        //   bottom: 0,
-                                        //   right: 10,
-                                        //   child: Image.asset(
-                                        //       'assets/rectangle_4.png'),
-                                        // ),
-                                        Image.asset(Images.homeBackImg3),
-                                        Container(
-                                          padding: EdgeInsets.all(15.0),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text('Redemption',
-                                                      style: imgLabel),
-                                                  const Spacer(),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      showDatePickerDialog();
-                                                    },
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 5),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: Colors.white,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(25.0),
-                                                      ),
-                                                      height: 20,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            homeController
-                                                                    .isFilterApplied
-                                                                    .value
-                                                                ? homeController
-                                                                    .appliedFilter
-                                                                    .value
-                                                                : "Today",
-                                                            style: todayText
-                                                                .copyWith(
-                                                                    color: Colors
-                                                                        .white),
-                                                          ),
-                                                          const Icon(
-                                                            Icons
-                                                                .arrow_drop_down_outlined,
-                                                            color: Colors.white,
-                                                            size: 18,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 15.0),
-                                              Row(
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text('23', style: imgNum),
-                                                      const SizedBox(
-                                                          height: 5.0),
-                                                      Text('Customers',
-                                                          style: imgDesc)
-                                                    ],
-                                                  ),
-                                                  const Spacer(),
-                                                  Image.asset(
-                                                      'assets/line.png'),
-                                                  const Spacer(),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text('178,300',
-                                                          style: imgNum),
-                                                      const SizedBox(
-                                                          height: 5.0),
-                                                      Text(
-                                                          'Total redeemed points',
-                                                          style: imgDescDark)
-                                                    ],
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                            ),
-                            const SizedBox(height: 10.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: indicators(2,
-                                  homeController.points.value == true ? 0 : 1),
-                            ),
-                            const SizedBox(height: 15.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Issued points', style: labelSm),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFF5F5F5),
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: const Color(0XFFD9D9D9))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset('assets/search.png'),
-                                        const SizedBox(width: 10),
-                                        SizedBox(
-                                          width: size.width * 0.3,
-                                          height: 24,
-                                          child: TextField(
-                                            controller:
-                                                homeController.searchController,
-                                            onChanged: (value) {
-                                              homeController.searchData();
-                                              setState(() {});
-                                            },
-                                            decoration: const InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 11),
-                                              hintText: 'Search customer',
-                                              border: InputBorder.none,
-                                              focusedBorder: InputBorder.none,
-                                            ),
-                                            style: dialogTextSm,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10.0),
-                            Container(
-                              height: 32,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                    color: const Color(0xFF000000), width: 0.5),
-                              ),
-                              child: Row(
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onPanUpdate: (details) {
+                          if (details.delta.dx > 0) {
+                            homeController.points.value = true;
+                          }
+                          if (details.delta.dx < 0) {
+                            homeController.points.value = false;
+                          }
+                        },
+                        child: homeController.points.value
+                            ? Stack(
+                                alignment: Alignment.center,
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: homeController.points.value
-                                            ? const Color(0xFFD9D9D9)
-                                            : null,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          // setState(() {
-                                          homeController.points.value = true;
-                                          // });
-                                        },
-                                        child: Text('Pending', style: smText),
-                                      ),
+                                  Image.asset(Images.homeBackImg),
+                                  Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('issuance'.tr,
+                                                style: imgLabel),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDatePickerDialog();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                ),
+                                                height: 20,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      homeController
+                                                              .isFilterApplied
+                                                              .value
+                                                          ? homeController
+                                                              .appliedFilter
+                                                              .value
+                                                              .tr
+                                                          : "today".tr,
+                                                      style: todayText.copyWith(
+                                                          color: Colors.white),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .arrow_drop_down_outlined,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15.0),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    homeController
+                                                        .customerSummary
+                                                        .value
+                                                        .issuedCustomers!
+                                                        .toString(),
+                                                    style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('customers'.tr,
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Image.asset('assets/line.png'),
+                                            const Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                    homeController
+                                                        .customerSummary
+                                                        .value
+                                                        .issuedRewardPoints!,
+                                                    style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('total_issued_points'.tr,
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: homeController.points.value
-                                            ? null
-                                            : Color(0xFFD9D9D9),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          homeController.points.value = false;
-                                        },
-                                        child: Text('Issued', style: smText),
-                                      ),
+                                  )
+                                ],
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // Image.asset('assets/rectangle_3.png'),
+                                  // Positioned(
+                                  //   bottom: 0,
+                                  //   right: 10,
+                                  //   child: Image.asset(
+                                  //       'assets/rectangle_4.png'),
+                                  // ),
+                                  Image.asset(Images.homeBackImg3),
+                                  Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('redemption'.tr,
+                                                style: imgLabel),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDatePickerDialog();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                ),
+                                                height: 20,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      homeController
+                                                              .isFilterApplied
+                                                              .value
+                                                          ? homeController
+                                                              .appliedFilter
+                                                              .value
+                                                              .tr
+                                                          : "today".tr,
+                                                      style: todayText.copyWith(
+                                                          color: Colors.white),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .arrow_drop_down_outlined,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15.0),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    homeController
+                                                        .customerSummary
+                                                        .value
+                                                        .redeemedCustomers!
+                                                        .toString(),
+                                                    style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('customers'.tr,
+                                                    style: imgDesc)
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Image.asset('assets/line.png'),
+                                            const Spacer(),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                    homeController
+                                                        .customerSummary
+                                                        .value
+                                                        .redeemedRewardPoints!
+                                                        .toString(),
+                                                    style: imgNum),
+                                                const SizedBox(height: 5.0),
+                                                Text('total_redeemed_points'.tr,
+                                                    style: imgDescDark)
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
+                                  )
+                                ],
+                              ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: indicators(
+                            2, homeController.points.value == true ? 0 : 1),
+                      ),
+                      const SizedBox(height: 15.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('issued_points'.tr, style: labelSm),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: const Color(0xFFF5F5F5),
+                                borderRadius: BorderRadius.circular(5),
+                                border:
+                                    Border.all(color: const Color(0XFFD9D9D9))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/search.png'),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    width: size.width * 0.3,
+                                    height: 24,
+                                    child: TextField(
+                                      controller:
+                                          homeController.searchController,
+                                      onChanged: (value) {
+                                        homeController.searchData();
+                                        setState(() {});
+                                      },
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 11),
+                                        hintText: 'search_customer'.tr,
+                                        border: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                      ),
+                                      style: dialogTextSm,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
-                            homeController.points.value
-                                ? pendingPoint(size)
-                                : issuedPoints(size)
-                          ],
-                        ),
-                      ),
-                    ),
-                    /* Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                decoration: BoxDecoration(
-                  color: Color(0xFFD9D9D9),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Image.asset('assets/home.png'),
-                          SizedBox(height: 5),
-                          Text('Home', style: footerText),
+                          ),
                         ],
                       ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => GiveReward(),
+                      const SizedBox(height: 10.0),
+                      Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                              color: const Color(0xFF000000), width: 0.5),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: homeController.points.value
+                                      ? const Color(0xFFD9D9D9)
+                                      : null,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // setState(() {
+                                    homeController.points.value = true;
+                                    // });
+                                  },
+                                  child: Text('pending'.tr, style: smText),
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset('assets/reward.png',
-                                color: Color.fromRGBO(0, 0, 0, 0.3)),
-                            SizedBox(height: 5),
-                            Text('Give reward',
-                                style: footerText.copyWith(
-                                    color: Color.fromRGBO(0, 0, 0, 0.3))),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => Customers(),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: homeController.points.value
+                                      ? null
+                                      : const Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    homeController.points.value = false;
+                                  },
+                                  child: Text('issued'.tr, style: smText),
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset('assets/customer.png',
-                                color: Color.fromRGBO(0, 0, 0, 0.3)),
-                            SizedBox(height: 5),
-                            Text('Customers',
-                                style: footerText.copyWith(
-                                    color: Color.fromRGBO(0, 0, 0, 0.3))),
                           ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Profile(),
-                          //   ),
-                          // );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset('assets/profile.png',
-                                color: Color.fromRGBO(0, 0, 0, 0.3)),
-                            SizedBox(height: 5),
-                            Text('Profile',
-                                style: footerText.copyWith(
-                                    color: Color.fromRGBO(0, 0, 0, 0.3))),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-             */
-                  ],
+                      homeController.points.value
+                          ? pendingPoint(size)
+                          : issuedPoints(size)
+                    ],
+                  ),
                 ),
         ),
       ),
@@ -490,13 +395,14 @@ class _HomeState extends State<Home> {
 
   showDatePickerDialog() {
     homeController.selectedFilterDay.value = homeController.appliedFilter.value;
+
     homeController.focusedDay = DateTime.now();
-    if (homeController.selectedFilterDay.value == "Today") {
+    if (homeController.selectedFilterDay.value == "today") {
       setState(() {
         homeController.rangeMode = DateRangePickerSelectionMode.single;
       });
     }
-    if (homeController.selectedFilterDay.value == "Week") {
+    if (homeController.selectedFilterDay.value == "week") {
       setState(() {
         homeController.rangeMode = DateRangePickerSelectionMode.range;
       });
@@ -525,7 +431,7 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('Filter', style: filterText),
+                          Text('filter'.tr, style: filterText),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -538,20 +444,22 @@ class _HomeState extends State<Home> {
                                       setState(() {
                                         homeController.selectedFilterDay.value =
                                             e;
+                                        print(
+                                            "date ==> ${homeController.selectedFilterDay.value}");
 
                                         homeController.rangeStart = null;
                                         homeController.rangeEnd = null;
                                         homeController.focusedDay =
                                             DateTime.now();
 
-                                        if (e == "Today") {
+                                        if (e == "today") {
                                           setState(() {
                                             homeController.rangeMode =
                                                 DateRangePickerSelectionMode
                                                     .single;
                                           });
                                         }
-                                        if (e == "Week") {
+                                        if (e == "week") {
                                           setState(() {
                                             homeController.rangeMode =
                                                 DateRangePickerSelectionMode
@@ -581,7 +489,7 @@ class _HomeState extends State<Home> {
                                           borderRadius:
                                               BorderRadius.circular(22.0)),
                                       child: Text(
-                                        e,
+                                        e.tr,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,
@@ -594,19 +502,12 @@ class _HomeState extends State<Home> {
                       ),
                       SizedBox(height: Get.height * 0.03),
                       Center(
-                        child: Text(
-                            homeController.selectedFilterDay.value == "Month"
-                                ? 'Select a month'
-                                : homeController.selectedFilterDay.value ==
-                                        "Year"
-                                    ? 'Select a year'
-                                    : 'Select a date',
-                            style: selectDateText),
+                        child: Text('select_date'.tr, style: selectDateText),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      homeController.selectedFilterDay.value == "Month"
+                      homeController.selectedFilterDay.value == "month"
                           ? /* Expanded(
                               child: GridView.builder(
                                 gridDelegate:
@@ -679,7 +580,7 @@ class _HomeState extends State<Home> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'From',
+                                            'from'.tr,
                                             style: label,
                                           ),
                                           Container(
@@ -710,8 +611,6 @@ class _HomeState extends State<Home> {
                                                                         .monthIndex +
                                                                     1;
                                                           }
-                                                          print(
-                                                              "index ==> ${homeController.monthIndex}");
                                                         });
                                                       },
                                                       icon: const Icon(
@@ -735,8 +634,6 @@ class _HomeState extends State<Home> {
                                                                         .monthIndex -
                                                                     1;
                                                           }
-                                                          print(
-                                                              "index ==> ${homeController.monthIndex}");
                                                         });
                                                       },
                                                       icon: const Icon(
@@ -751,7 +648,8 @@ class _HomeState extends State<Home> {
                                                   homeController
                                                       .monthList[homeController
                                                           .monthIndex]
-                                                      .month,
+                                                      .month
+                                                      .tr,
                                                   style: const TextStyle(
                                                       fontSize: 22,
                                                       fontWeight:
@@ -769,7 +667,7 @@ class _HomeState extends State<Home> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'To',
+                                            'to'.tr,
                                             style: label,
                                           ),
                                           Container(
@@ -800,8 +698,6 @@ class _HomeState extends State<Home> {
                                                                         .monthIndex2 +
                                                                     1;
                                                           }
-                                                          print(
-                                                              "index ==> ${homeController.monthIndex2}");
                                                         });
                                                       },
                                                       icon: const Icon(
@@ -825,8 +721,6 @@ class _HomeState extends State<Home> {
                                                                         .monthIndex2 -
                                                                     1;
                                                           }
-                                                          print(
-                                                              "index ==> ${homeController.monthIndex2}");
                                                         });
                                                       },
                                                       icon: const Icon(
@@ -841,7 +735,8 @@ class _HomeState extends State<Home> {
                                                   homeController
                                                       .monthList[homeController
                                                           .monthIndex2]
-                                                      .month,
+                                                      .month
+                                                      .tr,
                                                   style: const TextStyle(
                                                       fontSize: 22,
                                                       fontWeight:
@@ -857,18 +752,19 @@ class _HomeState extends State<Home> {
                                   ),
                                   if (homeController.monthIndex >=
                                       homeController.monthIndex2) ...[
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        "Select valid From and To month",
-                                        style: TextStyle(color: Colors.red),
+                                        "select_valid_month".tr,
+                                        style:
+                                            const TextStyle(color: Colors.red),
                                       ),
                                     )
                                   ]
                                 ],
                               ),
                             )
-                          : homeController.selectedFilterDay.value == "Year"
+                          : homeController.selectedFilterDay.value == "year"
                               ? Expanded(
                                   child: GridView.builder(
                                     gridDelegate:
@@ -939,7 +835,7 @@ class _HomeState extends State<Home> {
                                         (dateRangePickerSelectionChangedArgs) {
                                       if (homeController
                                               .selectedFilterDay.value ==
-                                          "Week") {
+                                          "week") {
                                         homeController.rangeStart =
                                             dateRangePickerSelectionChangedArgs
                                                 .value.startDate;
@@ -1017,11 +913,11 @@ class _HomeState extends State<Home> {
                         child: TextButton(
                           onPressed: () {
                             if (homeController.selectedFilterDay.value ==
-                                "Week") {
+                                "week") {
                               if (homeController.rangeStart == null ||
                                   homeController.rangeEnd == null) {
                                 Fluttertoast.showToast(
-                                    msg: "Please select range");
+                                    msg: "please_select_range".tr);
                               } else {
                                 homeController.isFilterApplied.value = true;
                                 homeController.appliedFilter.value =
@@ -1030,7 +926,7 @@ class _HomeState extends State<Home> {
                                 Get.close(1);
                               }
                             } else if (homeController.selectedFilterDay.value ==
-                                "Month") {
+                                "month") {
                               // if (homeController.selectedMonth.isEmpty) {
                               //   Fluttertoast.showToast(
                               //       msg: "Please select month");
@@ -1038,8 +934,7 @@ class _HomeState extends State<Home> {
                               if (homeController.monthIndex >=
                                   homeController.monthIndex2) {
                                 Fluttertoast.showToast(
-                                    msg:
-                                        "Please select valid From and To month");
+                                    msg: "select_valid_month_msg".tr);
                               } else {
                                 homeController.isFilterApplied.value = true;
                                 homeController.appliedFilter.value =
@@ -1054,22 +949,18 @@ class _HomeState extends State<Home> {
                               homeController.filterListData();
                               Get.close(1);
                             }
-                            print(
-                                "selected date ==> ${homeController.selectedDate} first date ==> ${homeController.rangeStart} end => ${homeController.rangeEnd} ");
                           },
                           style: btnGold2,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                                horizontal:
-                                    20), // Applying horizontal margin of 20
+                                vertical: 8.0, horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    'Submit',
+                                    'submit'.tr,
                                     style: btnGoldText2,
                                   ),
                                 ),
@@ -1117,11 +1008,11 @@ class _HomeState extends State<Home> {
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 10),
         physics: const BouncingScrollPhysics(),
-        itemCount: homeController.filterData.length,
+        itemCount: homeController.pendingPointsList.length,
         separatorBuilder: (context, index) =>
             const Divider(color: Color(0XFFD9D9D9), thickness: 1),
         itemBuilder: (context, index) {
-          // var data = homeController.filterData[index];
+          PendingPointsModel data = homeController.pendingPointsList[index];
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             height: MediaQuery.of(context).size.height * 0.055,
@@ -1130,18 +1021,49 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: size.width * 0.14,
-                    child: Image.asset(homeController.filterData[index].image)),
+                  width: size.width * 0.14,
+                  child: Stack(
+                    children: [
+                      Align(
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color(0xFFCFAF4E), width: 1),
+                          ),
+                          // child: CircleAvatar(
+                          //   backgroundImage: AssetImage(
+                          //     data.image,
+                          //   ),
+                          // ),
+                        ),
+                      ),
+                      Align(
+                        child: Container(
+                          margin: const EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(Images.profile),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   width: size.width * 0.45,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(homeController.filterData[index].points,
-                          style: labelSm),
+                      Text(data.totalPoints.toString(), style: labelSm),
                       const SizedBox(height: 5),
-                      Text(homeController.filterData[index].name, style: desc),
+                      Text(data.fullName!, style: desc),
                     ],
                   ),
                 ),
@@ -1149,7 +1071,9 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        homeController.approvePendingPoints(data.rewardId!);
+                      },
                       style: approveBtn,
                       child: Row(
                         children: [
@@ -1157,7 +1081,7 @@ class _HomeState extends State<Home> {
                             padding: const EdgeInsets.only(right: 5.0),
                             child: Image.asset('assets/approve.png'),
                           ),
-                          Text('Approve', style: approveText),
+                          Text('approve'.tr, style: approveText),
                         ],
                       ),
                     ),
@@ -1166,89 +1090,7 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(15.0),
-                            ),
-                          ),
-                          builder: (BuildContext context) {
-                            return Stack(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      bottom: 50, top: 15),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 10),
-                                        child: SizedBox(
-                                          width: double.infinity,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                width: 260,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  'Do you want to cancel ${homeController.filterData[index].name} rewards point?',
-                                                  style: labelSm,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 15.0),
-                                              SizedBox(
-                                                width: double.infinity,
-                                                height: 53,
-                                                child: TextButton(
-                                                  onPressed: () {},
-                                                  style: btnGrey,
-                                                  child: Text(
-                                                    'No',
-                                                    style: btnGreyText,
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 5.0),
-                                              Container(
-                                                width: double.infinity,
-                                                height: 53,
-                                                child: TextButton(
-                                                  onPressed: () {},
-                                                  style: btnRed,
-                                                  child: Text(
-                                                    'Yes',
-                                                    style: yesText,
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Image.asset('assets/close.png'),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        cancelPointsBottomSheet(context, data.userId!);
                       },
                       child: Container(
                         padding: const EdgeInsets.all(2.0),
@@ -1276,11 +1118,11 @@ class _HomeState extends State<Home> {
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 10),
         physics: const BouncingScrollPhysics(),
-        itemCount: homeController.filterData.length,
+        itemCount: homeController.approvedPointsList.length,
         separatorBuilder: (context, index) =>
             const Divider(color: Color(0XFFD9D9D9), thickness: 1),
         itemBuilder: (context, index) {
-          var data = homeController.filterData[index];
+          ApprovedPointsModel data = homeController.approvedPointsList[index];
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             height: MediaQuery.of(context).size.height * 0.055,
@@ -1289,104 +1131,54 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    width: size.width * 0.14, child: Image.asset(data.image)),
+                    width: size.width * 0.14,
+                    child: Stack(
+                      children: [
+                        Align(
+                          child: Container(
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color(0xFFCFAF4E), width: 1),
+                            ),
+                            // child: CircleAvatar(
+                            //   backgroundImage: AssetImage(
+                            //     data.image,
+                            //   ),
+                            // ),
+                          ),
+                        ),
+                        Align(
+                          child: Container(
+                            margin: const EdgeInsets.all(2),
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: AssetImage(Images.profile),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
                 SizedBox(
                   width: size.width * 0.5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(data.points, style: labelSm),
+                      Text(data.totalPoints.toString(), style: labelSm),
                       const SizedBox(height: 5),
-                      Text(data.name, style: desc),
+                      Text(data.fullName ?? "", style: desc),
                     ],
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(15.0),
-                        ),
-                      ),
-                      builder: (BuildContext context) {
-                        return Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 50, top: 15),
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 10),
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            width: 260,
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              'Do you want to cancel ${data.name} rewards point?',
-                                              style: labelSm,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                          SizedBox(height: 15.0),
-                                          Container(
-                                            width: double.infinity,
-                                            height: 53,
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              style: btnGrey,
-                                              child: Text(
-                                                'No',
-                                                style: btnGreyText,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5.0),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            height: 53,
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              style: btnRed,
-                                              child: Text(
-                                                'Yes',
-                                                style: yesText,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Image.asset('assets/close.png'),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    cancelPointsBottomSheet(context, data.rewardId!);
                   },
                   child: Container(
                     padding:
@@ -1394,9 +1186,9 @@ class _HomeState extends State<Home> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         color: const Color(0xFFCA1818)),
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(
+                    child: Text(
+                      "cancel".tr,
+                      style: const TextStyle(
                           fontFamily: "Inter",
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
@@ -1409,6 +1201,94 @@ class _HomeState extends State<Home> {
           );
         },
       ),
+    );
+  }
+
+  void cancelPointsBottomSheet(BuildContext context, String id) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(15.0),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 50, top: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 260,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${"want_to_cancel".tr} ${"data.name"} ${"reward_points".tr}',
+                              style: labelSm,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 15.0),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 53,
+                            child: TextButton(
+                              onPressed: () {},
+                              style: btnGrey,
+                              child: Text(
+                                'no'.tr,
+                                style: btnGreyText,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5.0),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 53,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.close(1);
+                                homeController.cancelPoints(id);
+                              },
+                              style: btnRed,
+                              child: Text(
+                                'yes'.tr,
+                                style: yesText,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 0,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Image.asset('assets/close.png'),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

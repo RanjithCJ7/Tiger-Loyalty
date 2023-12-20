@@ -19,12 +19,13 @@ class LoaderWidget extends StatelessWidget {
                   border: Border.all(color: Colors.black, width: 2)),
               child: Image.asset(
                 Images.loadingGIF,
+                gaplessPlayback: true,
                 height: Get.width * 0.15,
               ),
             ),
-            const Text(
-              "Please wait...",
-              style: TextStyle(
+            Text(
+              "please_wait".tr,
+              style: const TextStyle(
                   fontFamily: "Inter",
                   fontWeight: FontWeight.w700,
                   fontSize: 20),

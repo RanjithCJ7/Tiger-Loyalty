@@ -43,7 +43,7 @@ class LoaderDialog extends StatelessWidget {
     );
   }
 
-  hideLoader(BuildContext context) {
+  hideLoader() {
     Get.close(1);
   }
 }

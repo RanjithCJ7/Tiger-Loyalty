@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/signin/controller/signin_controller.dart';
 import 'package:tiger_loyalty/screens/signup/component/reg_user.dart';
 import 'package:tiger_loyalty/widget/loader_widget.dart';
+import 'package:tiger_loyalty/widget/translate_language.dart';
 import '../../../src/pages/styles.dart';
 
 class SignIn extends StatefulWidget {
@@ -40,18 +42,54 @@ class _SignInState extends State<SignIn> {
                               Container(
                                 padding: const EdgeInsets.only(bottom: 20.0),
                                 child: Text(
-                                  'Sign in',
+                                  'sign_in'.tr,
                                   style: label,
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.only(bottom: 30.0),
+                                padding: const EdgeInsets.only(bottom: 20.0),
                                 child: Text(
-                                  'Login to use Tiger Loyalty for Merchants',
+                                  'login_desc'.tr,
                                   style: desc,
                                 ),
                               ),
                             ],
+                          ),
+                          Container(
+                            // height: Get.height * 0.06,
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            width: Get.width,
+                            child: signinController.showMsg.value == false
+                                ? const SizedBox()
+                                : IntrinsicHeight(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const VerticalDivider(
+                                          color: Colors.red,
+                                          thickness: 3,
+                                          width: 0,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * 0.75,
+                                          child: Text(
+                                            "signin_error".tr,
+                                            maxLines: 2,
+                                            style: const TextStyle(
+                                              fontFamily: "Inter",
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 15,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                           ),
                           Container(
                             margin: const EdgeInsets.only(bottom: 5.0),
@@ -71,12 +109,13 @@ class _SignInState extends State<SignIn> {
                                     child: TextField(
                                       controller:
                                           signinController.emailController,
-                                      decoration: const InputDecoration(
-                                        hintText: 'E-mail',
-                                        hintStyle:
-                                            TextStyle(color: Color(0xFF808080)),
+                                      decoration: InputDecoration(
+                                        hintText: 'email'.tr,
+                                        hintStyle: const TextStyle(
+                                            color: Color(0xFF808080)),
                                         border: InputBorder.none,
-                                        contentPadding: EdgeInsets.all(10),
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
                                       ),
                                       style: textFieldStyle,
                                     ),
@@ -114,9 +153,9 @@ class _SignInState extends State<SignIn> {
                                             LengthLimitingTextInputFormatter(4),
                                           ],
                                           obscureText: true,
-                                          decoration: const InputDecoration(
-                                            hintText: 'PIN',
-                                            hintStyle: TextStyle(
+                                          decoration: InputDecoration(
+                                            hintText: 'pin'.tr,
+                                            hintStyle: const TextStyle(
                                                 color: Color(0xFF808080)),
                                             border: InputBorder.none,
                                           ),
@@ -141,7 +180,7 @@ class _SignInState extends State<SignIn> {
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
                                         child: Text(
-                                          'Sign in',
+                                          'sign_in'.tr,
                                           style: btnGoldText,
                                         ),
                                       ),
@@ -158,41 +197,54 @@ class _SignInState extends State<SignIn> {
                           Row(
                             children: [
                               Text(
-                                'Forgot PIN?',
+                                'forgot_pin'.tr,
                                 style: forgotLabel,
                               ),
                               TextButton(
                                 onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text('Reset PIN'),
-                                        content: const Text(
-                                            'Are you sure you want to reset your PIN?'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.close(1);
-                                              signinController.resetPin();
-                                            },
-                                            child: const Text(
-                                              'Reset',
-                                              // style: resetBtnText,
+                                  if (signinController
+                                      .emailController.text.isEmpty) {
+                                    Fluttertoast.showToast(
+                                        msg: "enter_email_msg".tr);
+                                  } else if (!signinController
+                                      .emailController.text
+                                      .trim()
+                                      .isEmail) {
+                                    Fluttertoast.showToast(
+                                        msg: "enter_valid_email_msg".tr);
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('reset_pin'.tr),
+                                          content: Text('reset_conf'.tr),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Get.close(1);
+                                                signinController.resetPin();
+                                                // Get.to(() => ResetPIN(),
+                                                //     binding: InitialBinding());
+                                              },
+                                              child: Text(
+                                                'reset'.tr,
+                                                // style: resetBtnText,
+                                              ),
                                             ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.close(1);
-                                            },
-                                            child: const Text('Cancel'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                            TextButton(
+                                              onPressed: () {
+                                                Get.close(1);
+                                              },
+                                              child: Text('cancel'.tr),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
-                                child: const Text('Reset'),
+                                child: Text('reset'.tr),
                               ),
                             ],
                           ),
@@ -208,7 +260,7 @@ class _SignInState extends State<SignIn> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
-                                  child: Text("OR", style: orText),
+                                  child: Text("or".tr, style: orText),
                                 ),
                                 const Expanded(
                                   child: Divider(
@@ -227,7 +279,7 @@ class _SignInState extends State<SignIn> {
                                 Get.to(() => RegisterUser(),
                                     binding: InitialBinding());
                               },
-                              child: Text('Register', style: btnGreyText),
+                              child: Text('register'.tr, style: btnGreyText),
                             ),
                           ),
                           SizedBox(
@@ -238,15 +290,16 @@ class _SignInState extends State<SignIn> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'Badili lugha?',
+                                  'change_lang'.tr,
                                   style: smText,
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Add your registration logic here
+                                const SizedBox(width: 5),
+                                GestureDetector(
+                                  onTap: () {
+                                    ChangeLanguage().changeLanguage();
                                   },
                                   child: Text(
-                                    'KSW',
+                                    'ksw'.tr,
                                     style: boldText,
                                   ),
                                 ),

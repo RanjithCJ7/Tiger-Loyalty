@@ -5,6 +5,8 @@ class Params {
   static String userid = "null";
   static String refreshToken = "null";
   static String email = "null";
+  static String language = "English";
+  static String businessName = "null";
 }
 
 class SetSharedPref {
@@ -25,15 +27,14 @@ class SetSharedPref {
     Params.userid = userid;
   }
 
-  getData() async {
+  Future getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     Params.userToken = pref.getString("token") ?? "null";
     Params.refreshToken = pref.getString("refreshToken") ?? "null";
     Params.email = pref.getString("email") ?? "null";
     Params.userid = pref.getString("userid") ?? "null";
-
-    print("data ==> ${pref.getString("token")}");
+    Params.language = pref.getString("language") ?? "English";
   }
 
   clearData() async {

@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import '../component/home.dart';
+import 'package:tiger_loyalty/const/Url.dart';
+import 'package:tiger_loyalty/const/constant.dart';
+import 'package:tiger_loyalty/screens/customer/model/customer_summary_model.dart';
+import 'package:tiger_loyalty/screens/home/model/approved_points_model.dart';
+import 'package:tiger_loyalty/screens/home/model/pending_points_model.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class MonthModel {
   String month;
@@ -14,9 +21,9 @@ class HomeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool points = true.obs;
   RxBool isFilterApplied = true.obs;
-  RxString appliedFilter = "Today".obs;
-  RxList<String> filterDays = ["Today", "Week", "Month", "Year"].obs;
-  RxString selectedFilterDay = "Today".obs;
+  RxString appliedFilter = "today".obs;
+  RxList<String> filterDays = ["today", "week", "month", "year"].obs;
+  RxString selectedFilterDay = "today".obs;
   TextEditingController searchController = TextEditingController();
   // CalendarFormat calendarFormat = CalendarFormat.month;
   // RangeSelectionMode rangeSelectionMode = RangeSelectionMode.toggledOn;
@@ -27,149 +34,329 @@ class HomeController extends GetxController {
       DateFormat("yyyy-MM-dd").parse(DateTime.now().toString());
   DateTime? rangeStart;
   DateTime? rangeEnd;
-
-  RxList<PointsData> filterData = <PointsData>[].obs;
-  RxList<PointsData> pointsData = [
-    PointsData(
-        points: '4,000',
-        name: 'Juma hamza',
-        image: 'assets/pending_1.png',
-        date: "2023-11-08"),
-    PointsData(
-        points: '250',
-        name: 'Hamisa Kichwa',
-        image: 'assets/pending_2.png',
-        date: "2023-11-08"),
-    PointsData(
-        points: '1,230',
-        name: 'Jane Jackson',
-        image: 'assets/pending_3.png',
-        date: "2023-11-08"),
-    PointsData(
-        points: '700',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2023-11-05"),
-    PointsData(
-        points: '600',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2023-11-06"),
-    PointsData(
-        points: '500',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2023-11-07"),
-    PointsData(
-        points: '400',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2023-11-09"),
-    PointsData(
-        points: '300',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2023-11-10"),
-    PointsData(
-        points: '200',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2024-01-10"),
-    PointsData(
-        points: '50',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2024-02-10"),
-    PointsData(
-        points: '20',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2024-03-10"),
-    PointsData(
-        points: '10',
-        name: 'Jaribu Athumani',
-        image: 'assets/pending_4.png',
-        date: "2024-03-10"),
-  ].obs;
-
   List<MonthModel> monthList = [
-    MonthModel(index: 1, month: 'Jan'),
-    MonthModel(index: 2, month: 'Feb'),
-    MonthModel(index: 3, month: 'Mar'),
-    MonthModel(index: 4, month: 'Apr'),
-    MonthModel(index: 5, month: 'May'),
-    MonthModel(index: 6, month: 'Jun'),
-    MonthModel(index: 7, month: 'Jul'),
-    MonthModel(index: 8, month: 'Aug'),
-    MonthModel(index: 9, month: 'Sep'),
-    MonthModel(index: 10, month: 'Oct'),
-    MonthModel(index: 11, month: 'Nov'),
-    MonthModel(index: 12, month: 'Dec'),
+    MonthModel(index: 1, month: 'jan'),
+    MonthModel(index: 2, month: 'feb'),
+    MonthModel(index: 3, month: 'mar'),
+    MonthModel(index: 4, month: 'apr'),
+    MonthModel(index: 5, month: 'may'),
+    MonthModel(index: 6, month: 'jun'),
+    MonthModel(index: 7, month: 'jul'),
+    MonthModel(index: 8, month: 'aug'),
+    MonthModel(index: 9, month: 'sep'),
+    MonthModel(index: 10, month: 'oct'),
+    MonthModel(index: 11, month: 'nov'),
+    MonthModel(index: 12, month: 'dec'),
   ];
 
   int monthIndex = 0;
   int monthIndex2 = 1;
-
   List<MonthModel> selectedMonth = [];
-
   RxList<String> yearList =
       List.generate(21, (index) => (index + 2023).toString()).obs;
-
   RxString selectedyear = "2023".obs;
+
+  RxList<PendingPointsModel> pendingPointsList = <PendingPointsModel>[].obs;
+  RxList<PendingPointsModel> allPendingPointsList = <PendingPointsModel>[].obs;
+  RxList<ApprovedPointsModel> approvedPointsList = <ApprovedPointsModel>[].obs;
+  RxList<ApprovedPointsModel> allApprovedPointsList =
+      <ApprovedPointsModel>[].obs;
+  Rx<CustomerSummaryModel> customerSummary = CustomerSummaryModel().obs;
+  RxString totalApprovedPoints = "0".obs;
+  RxString totalIssuedPoints = "0".obs;
+  String url = "?";
 
   @override
   void onInit() {
     super.onInit();
-    filterData.value = pointsData;
-    // filterData.value = pointsData
-    //     .where((p0) => DateTime.parse(p0.date).isAtSameMomentAs(selectedDate!))
-    //     .toList();
+    isLoading(true);
+    fetchSummary(
+            "?startDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}&endDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}")
+        .then((value) => fetchIssuedPoints(
+                    "?startDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}&endDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}")
+                .then((value) => fetchApprovedPoints(
+                    "?startDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}&endDate=${DateFormat('dd/MM/yyyy').format(selectedDate!)}"))
+                .whenComplete(() {
+              isLoading(false);
+            }));
   }
 
   filterListData() {
-    if (selectedFilterDay.value == "Today") {
-      filterData.value = pointsData
-          .where(
-              (p0) => DateTime.parse(p0.date).isAtSameMomentAs(selectedDate!))
-          .toList();
-    } else if (selectedFilterDay.value == "Week") {
-      filterData.value = pointsData.where((item) {
-        DateTime itemDate = DateTime.parse(item.date);
-        return itemDate.isAtSameMomentAs(rangeStart!) ||
-            itemDate.isAfter(rangeStart!) && itemDate.isBefore(rangeEnd!) ||
-            itemDate.isAtSameMomentAs(rangeEnd!);
-      }).toList();
-    } else if (selectedFilterDay.value == "Month") {
-      // filterData.value = pointsData.where((item) {
-      //   DateTime itemDate = DateTime.parse(item.date);
-      //   return selectedMonth.any((element) => element.index == itemDate.month);
-      // }).toList();
-      filterData.value = pointsData.where((data) {
-        int itemDate = DateTime.parse(data.date).month;
-        return itemDate >= monthIndex + 1 && itemDate <= monthIndex2 + 1;
-      }).toList();
-    } else if (selectedFilterDay.value == "Year") {
-      filterData.value = pointsData.where((item) {
-        DateTime itemDate = DateTime.parse(item.date);
-        return int.parse(selectedyear.value) == itemDate.year;
-      }).toList();
+    url = "?";
+    if (selectedFilterDay.value == "today") {
+      url +=
+          "startDate=${DateFormat('MM/dd/yyyy').format(selectedDate!)}&endDate=${DateFormat('MM/dd/yyyy').format(selectedDate!)}";
+    } else if (selectedFilterDay.value == "week") {
+      url +=
+          "startDate=${DateFormat('MM/dd/yyyy').format(rangeStart!)}&endDate=${DateFormat('MM/dd/yyyy').format(rangeEnd!)}";
+    } else if (selectedFilterDay.value == "month") {
+      url +=
+          "startDate=${"${monthIndex + 1}/01/${DateTime.now().year}"}&endDate=${"${monthIndex2 + 1}/${DateTime(DateTime.now().year, monthIndex2 + 2, 1).subtract(Duration(days: 1)).day}/${DateTime.now().year}"}";
+    } else if (selectedFilterDay.value == "year") {
+      String formattedFirstDate = DateFormat('MM/dd/yyyy')
+          .format(DateTime(int.parse(selectedyear.value), 1, 1));
+      String formattedLastDate = DateFormat('MM/dd/yyyy')
+          .format(DateTime(int.parse(selectedyear.value), 12, 31));
+      url += "startDate=$formattedFirstDate&endDate=$formattedLastDate";
     }
+    print("url ==> $url filter ==> ${selectedFilterDay.value}");
+    fetchIssuedPoints(url);
+    fetchApprovedPoints(url);
+    fetchSummary(url);
   }
 
   searchData() {
-    filterData = <PointsData>[].obs;
+    pendingPointsList = <PendingPointsModel>[].obs;
+    approvedPointsList = <ApprovedPointsModel>[].obs;
     if (searchController.text.isEmpty) {
-      filterData.value = pointsData;
-      filterListData();
+      pendingPointsList.value = allPendingPointsList;
+      approvedPointsList.value = allApprovedPointsList;
+      // filterListData();
     } else {
-      for (var element in pointsData) {
-        if (element.name
+      for (var element in allPendingPointsList) {
+        if (element.fullName!
             .toLowerCase()
             .contains(searchController.text.toLowerCase())) {
-          filterData.add(element);
+          pendingPointsList.add(element);
         }
       }
-      print("data ==> ${filterData.map((element) => element.name)}");
+      for (var element in allApprovedPointsList) {
+        if (element.fullName!
+            .toLowerCase()
+            .contains(searchController.text.toLowerCase())) {
+          approvedPointsList.add(element);
+        }
+      }
+    }
+  }
+
+  /* Future fetchPendingPoints() async {
+    try {
+      isLoading(true);
+
+      var request = http.Request('GET', Uri.parse(Urls.pendingPointList));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+
+      if (response.statusCode == 200) {
+        pendingPointsList.value = (result as List)
+            .map((data) => PendingPointsModel.fromJson(data))
+            .toList();
+        allPendingPointsList.value = (result as List)
+            .map((data) => PendingPointsModel.fromJson(data))
+            .toList();
+
+        double totalPoints =
+            pendingPointsList.fold(0, (sum, point) => sum + point.points!);
+        totalIssuedPoints.value = totalPoints.toString();
+
+        isLoading(false);
+      } else {
+        isLoading(false);
+      }
+    } catch (e) {
+      isLoading(false);
+      rethrow;
+    }
+  }
+
+  Future fetchApprovedPoints() async {
+    try {
+      // isLoading(true);
+
+      var request = http.Request('GET', Uri.parse(Urls.approvedPointList));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+
+      if (response.statusCode == 200) {
+        approvedPointsList.value = (result as List)
+            .map((data) => ApprovedPointsModel.fromJson(data))
+            .toList();
+        allApprovedPointsList.value = (result as List)
+            .map((data) => ApprovedPointsModel.fromJson(data))
+            .toList();
+
+        double totalPoints =
+            approvedPointsList.fold(0, (sum, point) => sum + point.points!);
+        totalApprovedPoints.value = totalPoints.toString();
+
+        // isLoading(false);
+      } else {
+        // isLoading(false);
+      }
+    } catch (e) {
+      // isLoading(false);
+      rethrow;
+    }
+  } */
+
+  Future approvePendingPoints(String id) async {
+    try {
+      // isLoading(true);
+
+      var request =
+          http.Request('PUT', Uri.parse("${Urls.approvePendingPoints}/$id"));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+      print("approvePendingPoints response ==> $result");
+
+      if (response.statusCode == 200) {
+        fetchApprovedPoints(url);
+        fetchIssuedPoints(url);
+        fetchSummary(url);
+        // isLoading(false);
+      } else {
+        // isLoading(false);
+      }
+    } catch (e) {
+      // isLoading(false);
+      rethrow;
+    }
+  }
+
+  Future cancelPoints(String id) async {
+    try {
+      // isLoading(true);
+
+      var request =
+          http.Request('DELETE', Uri.parse("${Urls.cancelPoint}/$id"));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+      print("cancelPoint response ==> $result");
+
+      if (response.statusCode == 200) {
+        fetchApprovedPoints(url);
+        fetchIssuedPoints(url);
+        fetchSummary(url);
+        // isLoading(false);
+      } else {
+        // isLoading(false);
+      }
+    } catch (e) {
+      // isLoading(false);
+      rethrow;
+    }
+  }
+
+  Future fetchIssuedPoints(String url) async {
+    try {
+      isLoading(true);
+
+      var request = http.Request('GET', Uri.parse(Urls.issuedPoints + url));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+
+      if (response.statusCode == 200) {
+        pendingPointsList.value = (result as List)
+            .map((data) => PendingPointsModel.fromJson(data))
+            .toList();
+        allPendingPointsList.value = (result as List)
+            .map((data) => PendingPointsModel.fromJson(data))
+            .toList();
+
+        isLoading(false);
+      } else {
+        isLoading(false);
+      }
+    } catch (e) {
+      isLoading(false);
+      rethrow;
+    }
+  }
+
+  Future fetchApprovedPoints(String url) async {
+    try {
+      isLoading(true);
+
+      var request = http.Request('GET', Uri.parse(Urls.approvedPoints + url));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+
+      if (response.statusCode == 200) {
+        approvedPointsList.value = (result as List)
+            .map((data) => ApprovedPointsModel.fromJson(data))
+            .toList();
+        allApprovedPointsList.value = (result as List)
+            .map((data) => ApprovedPointsModel.fromJson(data))
+            .toList();
+
+        isLoading(false);
+      } else {
+        isLoading(false);
+      }
+    } catch (e) {
+      isLoading(false);
+      rethrow;
+    }
+  }
+
+  Future fetchSummary(String url) async {
+    try {
+      isLoading(true);
+
+      var request = http.Request('GET', Uri.parse(Urls.customerSummary + url));
+
+      request.headers.addAll({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Params.userToken}'
+      });
+
+      http.StreamedResponse response = await request.send();
+      var decodeData = await http.Response.fromStream(response);
+      final result = jsonDecode(decodeData.body);
+
+      if (response.statusCode == 200) {
+        customerSummary.value = CustomerSummaryModel.fromJson(result);
+
+        isLoading(false);
+      } else {
+        isLoading(false);
+      }
+    } catch (e) {
+      isLoading(false);
+      rethrow;
     }
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import 'package:tiger_loyalty/const/Image.dart';
+import 'package:tiger_loyalty/screens/manageBrand/controller/manage_brand_controller.dart';
+import 'package:tiger_loyalty/widget/loader_widget.dart';
 import 'styles.dart';
 
 class Review extends StatefulWidget {
@@ -10,12 +12,22 @@ class Review extends StatefulWidget {
 }
 
 class _ReviewState extends State<Review> {
+  ManagebrandController managebrandController =
+      Get.find<ManagebrandController>();
+  RxBool isLoading = false.obs;
   List<String> data = [
     "Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. ",
     "Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. ",
     "Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit ",
     "Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. "
   ];
+
+  @override
+  void initState() {
+    isLoading(true);
+    managebrandController.fetchReview().then((value) => isLoading(false));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,123 +46,48 @@ class _ReviewState extends State<Review> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Column(
-            children: [
-              Text('Reviews', style: label),
-              SizedBox(height: Get.height * 0.015),
-              SmoothStarRating(
-                allowHalfRating: false,
-                onRatingChanged: (value) {
-                  setState(() {});
-                },
-                starCount: 5,
-                rating: 4,
-                size: 35.0,
-                color: Colors.black,
-                borderColor: Colors.black,
-                spacing: 0.0,
-              ),
-              SizedBox(height: Get.height * 0.02),
-              ListView.separated(
-                itemCount: data.length,
-                shrinkWrap: true,
-                separatorBuilder: (context, index) => Divider(
-                  height: Get.height * 0.02,
-                  color: Colors.transparent,
-                ),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Image.asset(Images.profile),
-                    title: Text(
-                      data[index],
-                      style: transDesc,
-                      textAlign: TextAlign.justify,
-                    ),
-                  );
-                },
-              ),
-              /* Column(
+      body: Obx(
+        () => isLoading.value
+            ? const LoaderWidget()
+            : Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Image.asset('assets/review.png'),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa.',
-                            style: transDesc,
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
-                    ),
+                  Text('reviews'.tr, style: label),
+                  SizedBox(height: Get.height * 0.015),
+                  SmoothStarRating(
+                    allowHalfRating: true,
+                    onRatingChanged: (value) {
+                      setState(() {});
+                    },
+                    starCount: 5,
+                    rating: managebrandController
+                            .reviewStatesModel.value.averageRating ??
+                        0,
+                    size: 35.0,
+                    color: Colors.black,
+                    borderColor: Colors.black,
+                    spacing: 0.0,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Image.asset('assets/review.png'),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa.',
-                            style: transDesc,
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
+                  SizedBox(height: Get.height * 0.02),
+                  ListView.separated(
+                    itemCount: managebrandController.reviewList.length,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => Divider(
+                      height: Get.height * 0.02,
+                      color: Colors.transparent,
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Image.asset('assets/review.png'),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Image.asset(Images.profile),
+                        title: Text(
+                          managebrandController.reviewList[index].comment ?? "",
+                          style: transDesc,
+                          textAlign: TextAlign.justify,
                         ),
-                        Expanded(
-                          child: Text(
-                            'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa. Mauris rhoncus quam porttitor massa Lorem ipsum dolor sit',
-                            style: transDesc,
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Image.asset(Images.profile),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Lorem ipsum dolor sit amet consectetur. Urna pharetra congue et nibh nulla libero massa.',
-                            style: transDesc,
-                            textAlign: TextAlign.justify,
-                          ),
-                        )
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
-              )
-             */
-            ],
-          ),
-        ],
+              ),
       ),
     );
   }

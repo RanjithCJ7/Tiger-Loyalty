@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
-
-import 'package:tiger_loyalty/src/pages/choose_subscription.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
+import 'package:get/get.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
+import 'package:tiger_loyalty/screens/profile/model/profile_model.dart';
+import 'package:tiger_loyalty/screens/createLipaNamba/component/download_code.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
 
+// ignore: must_be_immutable
 class SaveLipaNamba extends StatefulWidget {
+  ProfileModel profileModel;
+  SaveLipaNamba({super.key, required this.profileModel});
+
   @override
   _SaveLipaNambaState createState() => _SaveLipaNambaState();
 }
 
 class _SaveLipaNambaState extends State<SaveLipaNamba> {
-  // final TextEditingController textController = TextEditingController();
-  // bool showCloseButton = false;
-  // bool showSaveButton = false;
-
   @override
   void initState() {
     super.initState();
-
-    // textController.addListener(() {
-    //   if (textController.text.isEmpty) {
-    //     setState(() {
-    //       // showSaveButton = false;
-    //       // showCloseButton = false;
-    //     });
-    //   } else {
-    //     setState(() {
-    //       // showSaveButton = true;
-    //       // showCloseButton = true;
-    //     });
-    //   }
-    // });
   }
 
   @override
@@ -54,17 +41,17 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Lipa + Tiger',
+                            'lipa_tiger'.tr,
                             style: label,
                           ),
                           SizedBox(height: size.height * 0.05),
                           Text(
-                            'Boo Boo Restaurant',
+                            widget.profileModel.businessName ?? "",
                             style: labelSm,
                           ),
                           SizedBox(height: size.height * 0.02),
                           Text(
-                            'Your Merchant reward number is',
+                            'lipa_tiger_desc'.tr,
                             style: desc,
                           ),
                           SizedBox(height: size.height * 0.03),
@@ -82,9 +69,9 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                               ),
                               child: Center(
                                 child: Text(
-                                  '1 2 3 4 5 6',
+                                  widget.profileModel.rewardNumber!,
                                   style: numBig.copyWith(
-                                    letterSpacing: 5,
+                                    letterSpacing: 15,
                                   ),
                                 ),
                               ),
@@ -94,11 +81,10 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                             width: size.width * 0.5,
                             child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => DownloadCode(),
-                                  ),
-                                );
+                                Get.to(
+                                    () => DownloadCode(
+                                        profileModel: widget.profileModel),
+                                    binding: InitialBinding());
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +95,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                                     child: Image.asset('assets/download.png'),
                                   ),
                                   Text(
-                                    'Download QR Code',
+                                    'download_code'.tr,
                                     style: resetBtnText,
                                   ),
                                 ],
@@ -123,7 +109,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * 0.04),
                       child: Text(
-                        'By masking Tiger reward number with Lipa namba, your customers will be able to pay you via Lipa namba and receive rewards instantly',
+                        'download_code_desc'.tr,
                         style: textDark,
                         textAlign: TextAlign.center,
                       ),
@@ -142,18 +128,14 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                'Lipa Hapa | 987654',
+                                '${"lipa_hapa".tr} | ${widget.profileModel.lipaNumber}',
                                 style: textFieldStyle,
                               ),
                             ),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ChooseSubscription(),
-                                ),
-                              );
+                              Get.back();
                             },
                             child: Image.asset('assets/remove.png'),
                           ),
@@ -170,7 +152,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text("Do it Later on Setting", style: orText),
+                          child: Text("do_it_later".tr, style: orText),
                         ),
                         const Expanded(
                           child: Divider(
@@ -202,7 +184,7 @@ class _SaveLipaNambaState extends State<SaveLipaNamba> {
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    'Proceed',
+                                    'proceed'.tr,
                                     style: btnGreyText,
                                   ),
                                 ),

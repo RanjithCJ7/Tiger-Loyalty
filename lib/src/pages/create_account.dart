@@ -1,14 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:tiger_loyalty/const/Image.dart';
-import 'package:tiger_loyalty/src/pages/download_code.dart';
 import 'package:tiger_loyalty/screens/signin/component/signin.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'styles.dart';
 
 class CreateAccount extends StatefulWidget {
+  const CreateAccount({super.key});
+
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
@@ -18,10 +20,10 @@ class _CreateAccountState extends State<CreateAccount> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => Welcome(),
+          builder: (context) => const Welcome(),
         ),
       );
     });
@@ -39,7 +41,7 @@ class _CreateAccountState extends State<CreateAccount> {
               height: 92,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Color(0xFF000000),
+                  color: const Color(0xFF000000),
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.circular(46),
@@ -47,7 +49,7 @@ class _CreateAccountState extends State<CreateAccount> {
               child: Image.asset(Images.loadingGIF),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 20.0),
+              margin: const EdgeInsets.only(bottom: 20.0),
               child: Text(
                 'Please wait...',
                 style: label,
@@ -65,6 +67,8 @@ class _CreateAccountState extends State<CreateAccount> {
 }
 
 class Welcome extends StatelessWidget {
+  const Welcome({super.key});
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -84,7 +88,10 @@ class Welcome extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/tigersuit.png'),
+                          Image.asset(
+                            'assets/tigersuit.png',
+                            height: Get.height * 0.09,
+                          ),
                           const SizedBox(height: 20),
                           Text(
                             'Welcome to Tiger',
@@ -129,13 +136,7 @@ class Welcome extends StatelessWidget {
                           SizedBox(
                             width: size.width * 0.5,
                             child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => DownloadCode(),
-                                  ),
-                                );
-                              },
+                              onPressed: () {},
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

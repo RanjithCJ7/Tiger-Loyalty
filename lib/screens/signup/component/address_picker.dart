@@ -53,12 +53,12 @@ class _AddressPickerState extends State<AddressPicker> {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: const Text(
-          "Select Location",
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          "select_location_title".tr,
+          style: const TextStyle(color: Colors.black),
         ),
       ),
-      body: Stack(
+      body: /* Stack(
         children: [
           SizedBox(
             height: Get.height,
@@ -67,34 +67,19 @@ class _AddressPickerState extends State<AddressPicker> {
               mapType: MapType.normal,
               onMapCreated: _onMapCreated,
               markers: markers,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(currentLocation?.latitude ?? 37.7749,
-                    currentLocation?.longitude ?? -122.4194),
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(-6.814720, 39.289868),
                 zoom: 12.0,
               ),
               onTap: _onMapTapped,
             ),
           ),
-          // Container(
-          //   height: Get.height * 0.06,
-          //   padding: const EdgeInsets.all(5),
-          //   margin: const EdgeInsets.all(5),
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(5),
-          //       border: Border.all(color: Colors.black, width: 2)),
-          //   child: TextField(
-          //     controller: searchController,
-          //     decoration: const InputDecoration(
-          //         labelText: "Search Location", border: InputBorder.none),
-          //     onChanged: onSearchTextChanged,
-          //   ),
-          // ),
           Align(
               alignment: Alignment.bottomCenter,
               child: GestureDetector(
                 onTap: () {
                   if (signupController.locationName.value == "") {
-                    Fluttertoast.showToast(msg: "Please select location");
+                    Fluttertoast.showToast(msg: "select_location".tr);
                   } else {
                     signupController.isLocationSelected.value = true;
                     Get.back();
@@ -109,10 +94,10 @@ class _AddressPickerState extends State<AddressPicker> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: Colors.black, width: 2)),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      "Choose Location",
-                      style: TextStyle(
+                      "choose_location".tr,
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w700),
@@ -121,7 +106,16 @@ class _AddressPickerState extends State<AddressPicker> {
                 ),
               ))
         ],
-      ),
+      ), */
+      OpenStreetMapSearchAndPick(
+                center: LatLong(-6.814720, 39.289868),
+                buttonColor: Colors.blue,
+                buttonText: 'Set Current Location',
+                onPicked: (pickedData) {
+                   signupController.locationName.value = pickedData.addressName;
+                  signupController.isLocationSelected.value = true;
+                    Get.back();
+                })
     );
   }
 

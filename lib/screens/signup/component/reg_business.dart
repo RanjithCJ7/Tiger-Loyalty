@@ -45,7 +45,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                           Container(
                             padding: const EdgeInsets.only(bottom: 20.0),
                             child: Text(
-                              'Register - Business',
+                              'reg_business'.tr,
                               style: label,
                             ),
                           ),
@@ -61,11 +61,12 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                             child: TextField(
                               controller:
                                   signupController.businessNameController,
-                              decoration: const InputDecoration(
-                                hintText: 'Registered business name',
-                                hintStyle: TextStyle(color: Color(0xFF808080)),
+                              decoration: InputDecoration(
+                                hintText: 'reg_business_name'.tr,
+                                hintStyle:
+                                    const TextStyle(color: Color(0xFF808080)),
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(20),
+                                contentPadding: const EdgeInsets.all(20),
                               ),
                               style: textFieldStyle,
                             ),
@@ -87,11 +88,12 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                 LengthLimitingTextInputFormatter(9),
                                 _tinFormatter,
                               ],
-                              decoration: const InputDecoration(
-                                hintText: 'TIN number',
-                                hintStyle: TextStyle(color: Color(0xFF808080)),
+                              decoration: InputDecoration(
+                                hintText: 'tin_number'.tr,
+                                hintStyle:
+                                    const TextStyle(color: Color(0xFF808080)),
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(20),
+                                contentPadding: const EdgeInsets.all(20),
                               ),
                               style: textFieldStyle,
                             ),
@@ -132,7 +134,8 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                                     color: signupController
                                                                 .selectedCategory
                                                                 .value ==
-                                                            "Business category"
+                                                            "business_category"
+                                                                .tr
                                                         ? const Color(
                                                             0XFF808080)
                                                         : Colors.black),
@@ -149,13 +152,13 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                             onTap: () async {
                               PermissionStatus status =
                                   await Permission.location.status;
-                              if (status.isGranted) {
-                                Get.to(() => const AddressPicker(),
-                                    binding: InitialBinding());
+                              if (status.isPermanentlyDenied) {
+                                openAppSettings();
                               } else if (status.isDenied) {
                                 Permission.location.request();
-                              } else if (status.isPermanentlyDenied) {
-                                Permission.location.request();
+                              } else {
+                                Get.to(() => const AddressPicker(),
+                                    binding: InitialBinding());
                               }
                             },
                             child: Container(
@@ -173,7 +176,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                 child: Text(
                                     signupController.isLocationSelected.value ==
                                             false
-                                        ? 'Location'
+                                        ? 'location'.tr
                                         : signupController.locationName.value,
                                     textAlign: TextAlign.start,
                                     style: textFieldStyle.copyWith(
@@ -215,7 +218,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
                                     child: Text(
-                                      'Submit',
+                                      'submit'.tr,
                                       style: btnGoldText2.copyWith(
                                           color: Colors.black),
                                     ),
@@ -241,7 +244,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
-                                  child: Text("OR", style: orText),
+                                  child: Text("or".tr, style: orText),
                                 ),
                                 const Expanded(
                                   child: Divider(
@@ -276,7 +279,7 @@ class _RegisterBusinessState extends State<RegisterBusiness> {
                                       padding:
                                           const EdgeInsets.only(left: 10.0),
                                       child: Text(
-                                        'Sign in',
+                                        'sign_in'.tr,
                                         style: btnGreyText.copyWith(
                                             color: Colors.black),
                                       ),

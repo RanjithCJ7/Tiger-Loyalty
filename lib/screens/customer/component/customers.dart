@@ -5,8 +5,10 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'package:tiger_loyalty/const/Image.dart';
 import 'package:tiger_loyalty/const/my_appbar.dart';
+import 'package:tiger_loyalty/initial_binding.dart';
 import 'package:tiger_loyalty/screens/customer/controller/customer_controller.dart';
-import 'package:tiger_loyalty/src/pages/transactions.dart';
+import 'package:tiger_loyalty/screens/customer/model/customer_issuedpoints_model.dart';
+import 'package:tiger_loyalty/screens/customer/component/transactions.dart';
 import 'package:tiger_loyalty/widget/loader_widget.dart';
 import '../../../src/pages/styles.dart';
 
@@ -31,6 +33,11 @@ class _CustomersState extends State<Customers> {
   CustomerController customerController = Get.put(CustomerController());
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
@@ -39,8 +46,8 @@ class _CustomersState extends State<Customers> {
       appBar: My_AppBar(context,
           title: Padding(
             padding: const EdgeInsets.only(left: 20.0),
-            child:
-                Text('Customers', style: label.copyWith(color: Colors.black)),
+            child: Text('customers'.tr,
+                style: label.copyWith(color: Colors.black)),
           )),
       body: SafeArea(
         child: Obx(
@@ -71,12 +78,6 @@ class _CustomersState extends State<Customers> {
                                   ? Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        // Image.asset('assets/rectangle_3.png'),
-                                        // Positioned(
-                                        //   bottom: 0,
-                                        //   right: 10,
-                                        //   child: Image.asset('assets/rectangle_4.png'),
-                                        // ),
                                         Image.asset(Images.homeBackImg3),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
@@ -90,9 +91,9 @@ class _CustomersState extends State<Customers> {
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Text('Summary',
+                                                        Text('summary'.tr,
                                                             style: imgLabel),
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         GestureDetector(
                                                           onTap: () {
                                                             showDatePickerDialog();
@@ -129,7 +130,9 @@ class _CustomersState extends State<Customers> {
                                                                       ? customerController
                                                                           .appliedFilter
                                                                           .value
-                                                                      : "Today",
+                                                                          .tr
+                                                                      : "today"
+                                                                          .tr,
                                                                   style: todayText
                                                                       .copyWith(
                                                                           color:
@@ -157,11 +160,16 @@ class _CustomersState extends State<Customers> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text('219',
+                                                            Text(
+                                                                customerController
+                                                                    .customerSummary
+                                                                    .value
+                                                                    .issuedCustomers
+                                                                    .toString(),
                                                                 style: imgNum),
                                                             const SizedBox(
                                                                 height: 5.0),
-                                                            Text('Customers',
+                                                            Text('customers'.tr,
                                                                 style: imgDesc)
                                                           ],
                                                         ),
@@ -174,12 +182,21 @@ class _CustomersState extends State<Customers> {
                                                               CrossAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Text('3,478,300',
+                                                            Text(
+                                                                customerController
+                                                                    .customerSummary
+                                                                    .value
+                                                                    .issuedRewardPoints
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .right,
                                                                 style: imgNum),
                                                             const SizedBox(
                                                                 height: 5.0),
                                                             Text(
-                                                                'Total issued points',
+                                                                'total_issued_points'
+                                                                    .tr,
                                                                 style:
                                                                     imgDescDark)
                                                           ],
@@ -197,17 +214,9 @@ class _CustomersState extends State<Customers> {
                                   : Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        // Image.asset('assets/rectangle_5.png'),
-                                        // Positioned(
-                                        //   bottom: 0,
-                                        //   right: 10,
-                                        //   child:
-                                        //       Image.asset('assets/rectangle_4.png'),
-                                        // ),
                                         Image.asset(Images.homeBackImg2),
-
                                         Container(
-                                          padding: const EdgeInsets.all(15.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10.0),
@@ -215,7 +224,7 @@ class _CustomersState extends State<Customers> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text('Summary',
+                                                    Text('summary'.tr,
                                                         style: imgLabel),
                                                     const Spacer(),
                                                     GestureDetector(
@@ -251,7 +260,8 @@ class _CustomersState extends State<Customers> {
                                                                   ? customerController
                                                                       .appliedFilter
                                                                       .value
-                                                                  : "Today",
+                                                                      .tr
+                                                                  : "today".tr,
                                                               style: todayText
                                                                   .copyWith(
                                                                       color: Colors
@@ -278,11 +288,16 @@ class _CustomersState extends State<Customers> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text('59',
+                                                        Text(
+                                                            customerController
+                                                                .customerSummary
+                                                                .value
+                                                                .redeemedCustomers
+                                                                .toString(),
                                                             style: imgNum),
                                                         const SizedBox(
                                                             height: 5.0),
-                                                        Text('Customers',
+                                                        Text('customers'.tr,
                                                             style: imgDesc)
                                                       ],
                                                     ),
@@ -293,14 +308,22 @@ class _CustomersState extends State<Customers> {
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .start,
+                                                              .end,
                                                       children: [
-                                                        Text('1,503,700',
+                                                        Text(
+                                                            customerController
+                                                                .customerSummary
+                                                                .value
+                                                                .redeemedRewardPoints
+                                                                .toString(),
+                                                            textAlign:
+                                                                TextAlign.right,
                                                             style: imgNum),
                                                         const SizedBox(
                                                             height: 5.0),
                                                         Text(
-                                                            'Total redeemed points',
+                                                            'total_redeemed_points'
+                                                                .tr,
                                                             style: redeemText)
                                                       ],
                                                     ),
@@ -348,10 +371,11 @@ class _CustomersState extends State<Customers> {
                                         customerController.searchData();
                                         setState(() {});
                                       },
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         contentPadding:
-                                            EdgeInsets.symmetric(vertical: 11),
-                                        hintText: 'Search customer',
+                                            const EdgeInsets.symmetric(
+                                                vertical: 11),
+                                        hintText: 'search_customer'.tr,
                                         border: InputBorder.none,
                                         focusedBorder: InputBorder.none,
                                       ),
@@ -388,9 +412,12 @@ class _CustomersState extends State<Customers> {
                               separatorBuilder: (context, index) =>
                                   const Divider(
                                       color: Color(0XFFD9D9D9), thickness: 1),
-                              itemCount: customerController.filterData.length,
+                              itemCount: customerController
+                                  .customerIssuedPoints.length,
                               itemBuilder: (context, index) {
-                                var data = customerController.filterData[index];
+                                CustomerIssuePointsModel data =
+                                    customerController
+                                        .customerIssuedPoints[index];
                                 return GestureDetector(
                                   onTap: () => showTransaction(data),
                                   child: Container(
@@ -407,7 +434,7 @@ class _CustomersState extends State<Customers> {
                                       children: [
                                         SizedBox(
                                             width: size.width * 0.10,
-                                            child: Image.asset(data.image)),
+                                            child: Image.asset(Images.profile)),
                                         SizedBox(
                                           width: size.width * 0.5,
                                           child: Column(
@@ -416,9 +443,11 @@ class _CustomersState extends State<Customers> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(data.name, style: custName),
+                                              Text(data.fullName ?? "",
+                                                  style: custName),
                                               const SizedBox(height: 5),
-                                              Text('Points: ${data.points}',
+                                              Text(
+                                                  '${"points".tr}: ${data.totalPoints}',
                                                   style: desc2),
                                             ],
                                           ),
@@ -477,7 +506,18 @@ class _CustomersState extends State<Customers> {
   showDatePickerDialog() {
     customerController.selectedFilterDay.value =
         customerController.appliedFilter.value;
+
     customerController.focusedDay = DateTime.now();
+    if (customerController.selectedFilterDay.value == "today") {
+      setState(() {
+        customerController.rangeMode = DateRangePickerSelectionMode.single;
+      });
+    }
+    if (customerController.selectedFilterDay.value == "week") {
+      setState(() {
+        customerController.rangeMode = DateRangePickerSelectionMode.range;
+      });
+    }
 
     showModalBottomSheet(
       context: context,
@@ -502,7 +542,7 @@ class _CustomersState extends State<Customers> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('Filter', style: filterText),
+                          Text('filter'.tr, style: filterText),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -511,24 +551,26 @@ class _CustomersState extends State<Customers> {
                             .map((e) => Padding(
                                   padding: const EdgeInsets.all(1.0),
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       setState(() {
                                         customerController
                                             .selectedFilterDay.value = e;
+                                        print(
+                                            "date ==> ${customerController.selectedFilterDay.value}");
 
                                         customerController.rangeStart = null;
                                         customerController.rangeEnd = null;
                                         customerController.focusedDay =
                                             DateTime.now();
 
-                                        if (e == "Today") {
+                                        if (e == "today") {
                                           setState(() {
                                             customerController.rangeMode =
                                                 DateRangePickerSelectionMode
                                                     .single;
                                           });
                                         }
-                                        if (e == "Week") {
+                                        if (e == "week") {
                                           setState(() {
                                             customerController.rangeMode =
                                                 DateRangePickerSelectionMode
@@ -558,7 +600,7 @@ class _CustomersState extends State<Customers> {
                                           borderRadius:
                                               BorderRadius.circular(22.0)),
                                       child: Text(
-                                        e,
+                                        e.tr,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 14,
@@ -571,81 +613,211 @@ class _CustomersState extends State<Customers> {
                       ),
                       SizedBox(height: Get.height * 0.03),
                       Center(
-                        child: Text(
-                            customerController.selectedFilterDay.value ==
-                                    "Month"
-                                ? 'Select a month'
-                                : customerController.selectedFilterDay.value ==
-                                        "Year"
-                                    ? 'Select a year'
-                                    : 'Select a date',
-                            style: selectDateText),
+                        child: Text('select_date'.tr, style: selectDateText),
                       ),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      customerController.selectedFilterDay.value == "Month"
+                      customerController.selectedFilterDay.value == "month"
                           ? Expanded(
-                              child: GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        childAspectRatio: 3,
-                                        mainAxisSpacing: 5,
-                                        crossAxisSpacing: 10),
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: customerController.monthList.length,
-                                itemBuilder: (context, index) {
-                                  var data =
-                                      customerController.monthList[index];
-
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        if (customerController
-                                                .selectedMonth.length <
-                                            3) {
-                                          if (customerController.selectedMonth
-                                              .contains(data)) {
-                                            customerController.selectedMonth
-                                                .remove(data);
-                                          } else {
-                                            customerController.selectedMonth
-                                                .add(data);
-                                          }
-                                        } else {
-                                          customerController.selectedMonth
-                                              .remove(data);
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              width: 2,
-                                              color: customerController
-                                                      .selectedMonth
-                                                      .contains(data)
-                                                  ? Colors.black
-                                                  : Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      child: Center(
-                                        child: Text(
-                                          data.month,
-                                          style: const TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'from'.tr,
+                                            style: label,
+                                          ),
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 10),
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: Colors.grey.shade400),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (customerController
+                                                                  .monthIndex ==
+                                                              11) {
+                                                            customerController
+                                                                .monthIndex = 0;
+                                                          } else {
+                                                            customerController
+                                                                    .monthIndex =
+                                                                customerController
+                                                                        .monthIndex +
+                                                                    1;
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_up_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (customerController
+                                                                  .monthIndex ==
+                                                              0) {
+                                                            customerController
+                                                                .monthIndex = 11;
+                                                          } else {
+                                                            customerController
+                                                                    .monthIndex =
+                                                                customerController
+                                                                        .monthIndex -
+                                                                    1;
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  customerController
+                                                      .monthList[
+                                                          customerController
+                                                              .monthIndex]
+                                                      .month
+                                                      .tr,
+                                                  style: const TextStyle(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  );
-                                },
+                                      SizedBox(width: Get.width * 0.02),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'to'.tr,
+                                            style: label,
+                                          ),
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 10),
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: Colors.grey.shade400),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (customerController
+                                                                  .monthIndex2 ==
+                                                              11) {
+                                                            customerController
+                                                                .monthIndex2 = 0;
+                                                          } else {
+                                                            customerController
+                                                                    .monthIndex2 =
+                                                                customerController
+                                                                        .monthIndex2 +
+                                                                    1;
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_up_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (customerController
+                                                                  .monthIndex2 ==
+                                                              0) {
+                                                            customerController
+                                                                .monthIndex2 = 11;
+                                                          } else {
+                                                            customerController
+                                                                    .monthIndex2 =
+                                                                customerController
+                                                                        .monthIndex2 -
+                                                                    1;
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color: Colors.black,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Text(
+                                                  customerController
+                                                      .monthList[
+                                                          customerController
+                                                              .monthIndex2]
+                                                      .month
+                                                      .tr,
+                                                  style: const TextStyle(
+                                                      fontSize: 22,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  if (customerController.monthIndex >=
+                                      customerController.monthIndex2) ...[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "select_valid_month".tr,
+                                        style:
+                                            const TextStyle(color: Colors.red),
+                                      ),
+                                    )
+                                  ]
+                                ],
                               ),
                             )
-                          : customerController.selectedFilterDay.value == "Year"
+                          : customerController.selectedFilterDay.value == "year"
                               ? Expanded(
                                   child: GridView.builder(
                                     gridDelegate:
@@ -710,6 +882,7 @@ class _CustomersState extends State<Customers> {
                                     ],
                                   ),
                                   child: SfDateRangePicker(
+                                    maxDate: DateTime.now(),
                                     initialSelectedDate:
                                         customerController.selectedDate,
                                     initialSelectedRange: PickerDateRange(
@@ -719,7 +892,7 @@ class _CustomersState extends State<Customers> {
                                         (dateRangePickerSelectionChangedArgs) {
                                       if (customerController
                                               .selectedFilterDay.value ==
-                                          "Week") {
+                                          "week") {
                                         customerController.rangeStart =
                                             dateRangePickerSelectionChangedArgs
                                                 .value.startDate;
@@ -797,11 +970,11 @@ class _CustomersState extends State<Customers> {
                         child: TextButton(
                           onPressed: () {
                             if (customerController.selectedFilterDay.value ==
-                                "Week") {
+                                "week") {
                               if (customerController.rangeStart == null ||
                                   customerController.rangeEnd == null) {
                                 Fluttertoast.showToast(
-                                    msg: "Please select range");
+                                    msg: "please_select_range".tr);
                               } else {
                                 customerController.isFilterApplied.value = true;
                                 customerController.appliedFilter.value =
@@ -811,10 +984,15 @@ class _CustomersState extends State<Customers> {
                               }
                             } else if (customerController
                                     .selectedFilterDay.value ==
-                                "Month") {
-                              if (customerController.selectedMonth.isEmpty) {
+                                "month") {
+                              // if (homeController.selectedMonth.isEmpty) {
+                              //   Fluttertoast.showToast(
+                              //       msg: "Please select month");
+                              // } else {
+                              if (customerController.monthIndex >=
+                                  customerController.monthIndex2) {
                                 Fluttertoast.showToast(
-                                    msg: "Please select month");
+                                    msg: "select_valid_month_msg".tr);
                               } else {
                                 customerController.isFilterApplied.value = true;
                                 customerController.appliedFilter.value =
@@ -829,22 +1007,18 @@ class _CustomersState extends State<Customers> {
                               customerController.filterListData();
                               Get.close(1);
                             }
-                            print(
-                                "selected date ==> ${customerController.selectedDate} first date ==> ${customerController.rangeStart} end => ${customerController.rangeEnd} ");
                           },
                           style: btnGold2,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                                horizontal:
-                                    20), // Applying horizontal margin of 20
+                                vertical: 8.0, horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    'Submit',
+                                    'submit'.tr,
                                     style: btnGoldText2,
                                   ),
                                 ),
@@ -887,7 +1061,7 @@ class _CustomersState extends State<Customers> {
     });
   }
 
-  showTransaction(PointsData data) {
+  showTransaction(CustomerIssuePointsModel data) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -927,11 +1101,11 @@ class _CustomersState extends State<Customers> {
                             width: 1,
                           ),
                         ),
-                        child: Image.asset(data.image)),
+                        child: Image.asset(Images.profile)),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(data.name,
+                    Text(data.fullName ?? "",
                         style: const TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 12,
@@ -941,27 +1115,32 @@ class _CustomersState extends State<Customers> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(data.points, style: label),
+                    Text(data.totalPoints!, style: label),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text('Total points', style: totalText),
+                    Text('total_points'.tr, style: totalText),
                     SizedBox(height: Get.height * 0.05),
                     Text('0723 732 770', style: numText),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'Phone number',
+                      'phone_number'.tr,
                       style: numDesc,
                     ),
                     SizedBox(height: Get.height * 0.03),
                     TextButton(
                       onPressed: () {
                         Get.close(1);
-                        Get.to(() => Transactions(data.image, data.name));
+                        Get.to(
+                            () => Transactions(
+                                image: Images.profile,
+                                name: data.fullName ?? "",
+                                id: data.userId ?? ""),
+                            binding: InitialBinding());
                       },
-                      child: Text('Transactions', style: transText),
+                      child: Text('transactions'.tr, style: transText),
                     ),
                   ],
                 ),
